@@ -26,7 +26,7 @@ namespace Layout
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void MessageCenterButton_Click(object sender, RoutedEventArgs e)
         {
             var flyout = this.Flyouts.Items[0] as Flyout;
             if (flyout == null)
@@ -55,6 +55,20 @@ namespace Layout
             var f = sender as Flyout;
             if(f != null && f.IsOpen==false)
                 CommandBar.Width = 55;
+        }
+
+        private void PropertiesButton_Click(object sender, RoutedEventArgs e)
+        {
+            var flyout = this.Flyouts.Items[1] as Flyout;
+            if (flyout == null)
+            {
+                return;
+            }
+
+            flyout.IsOpen = !flyout.IsOpen;
+
+            Detail.HorizontalAlignment = HorizontalAlignment.Stretch;
+            CommandBar.Width = 400;
         }
     }
 }
