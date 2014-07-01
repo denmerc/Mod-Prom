@@ -3,10 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Layout.MainWindow"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Promoter - Main" d:DesignHeight="640" Width="1326" BorderThickness="1" BorderBrush="Black" MinHeight="530" MinWidth="1045" >
+        Title="Promoter" d:DesignHeight="640" Width="1326" BorderThickness="1" BorderBrush="Black" MinHeight="530" MinWidth="1045" >
 
 
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
 
+            <Button 
+                    ToolTip="Promoter.com web site"
+                    Content="Promoter.com" />
+            <Button 
+                    ToolTip="Abou Promoter"
+                    Content="About" />
+            <!--<Button Click="LaunchRibbonDemo" Content="Ribbon Demo (.NET 4.5)" />-->
+            <Button 
+                    ToolTip="Help documentation for Promoter"
+                    Content="Help" />
+
+            <!--<ToggleButton Content="ToggleButton"
+                          ToolTip="Shows the toggle button magic"
+                          x:Name="MagicToggleButton"
+                          IsChecked="{Binding MagicToggleButtonIsChecked}" />-->
+            <ToggleButton Content="Logout"
+                          ToolTip="Logout of Promoter"
+                          IsChecked="{Binding QuitConfirmationEnabled}" />
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
             <controls:Flyout x:Name="MessageCenter" Header="Message Center"
