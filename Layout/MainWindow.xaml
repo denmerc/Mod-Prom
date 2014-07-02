@@ -61,7 +61,7 @@
 		<controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colors.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colors.xaml" />
                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />-->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />-->
@@ -515,15 +515,15 @@
 					</ScrollViewer.Effect>
 					<DockPanel  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
   
-						<StackPanel x:Name="StepStack" DockPanel.Dock="left" Width="150" Background="DarkGray" Margin="5 5 0 5">
-   
-							<ListView Margin="10,10,10,23" MinHeight="250" BorderThickness="0" Width="Auto" Background="DarkGray" FontSize="16" Foreground="White" FontWeight="Bold" Padding="0,0,0,6">
-								<ListViewItem Content="My Analytics" Foreground="#FF080000"/>
+						<StackPanel x:Name="StepStack" DockPanel.Dock="left" Width="150" Background="{StaticResource HighlightBrush}"  Margin="5 5 0 5">
+
+                        <ListView Margin="10,10,10,23" MinHeight="250" BorderThickness="0" Width="Auto" Background="{StaticResource HighlightBrush}" FontSize="16" Foreground="White" FontWeight="Bold" Padding="0,0,0,6">
+                            <ListViewItem Content="My Analytics" Foreground="{StaticResource MenuItemDisabledBrush}"/>
 								<ListViewItem Content="Identity" Foreground="White" FontSize="16" BorderThickness="0"/>
-								<ListViewItem Content="Filters" Foreground="Black"/>
-								<ListViewItem Content="Price Lists" Foreground="Black"/>
-								<ListViewItem Content="Value Drivers" Foreground="Black"/>
-								<ListViewItem Content="Results" Foreground="Black"/>
+                            <ListViewItem Content="Filters" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                            <ListViewItem Content="Price Lists" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+								<ListViewItem Content="Value Drivers" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                            <ListViewItem Content="Results" Foreground="{StaticResource MenuItemDisabledBrush}"/>
     
 							</ListView>
   
