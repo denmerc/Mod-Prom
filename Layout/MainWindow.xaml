@@ -36,11 +36,21 @@
                              Theme="Accent" Unloaded="Flyout_Unloaded" ContextMenuClosing="MessageCenter_ContextMenuClosing" >
                 <Grid Margin="10"
                       Width="400">
-                    <StackPanel>
-                        <TextBlock Text=""
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top" Text=""
                                Foreground="{DynamicResource IdealForegroundColorBrush}" />
-                        <GroupBox Margin="10" Height="250" Header="Analytics" />
-                    </StackPanel>
+                        <GroupBox Margin="10" Header="Analytics" >
+                            <ListView Margin="10,10,10,23" MinHeight="250" BorderThickness="0" Width="Auto" Background="{StaticResource HighlightBrush}" FontSize="16" Foreground="White" FontWeight="Bold" Padding="0,0,0,6">
+                                <ListViewItem Content="1) My Analytics" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                                <ListViewItem Content="2) Identity" Foreground="White" FontSize="16" BorderThickness="0"/>
+                                <ListViewItem Content="3) Filters" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                                <ListViewItem Content="4) Price Lists" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                                <ListViewItem Content="5) Value Drivers" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                                <ListViewItem Content="6) Results" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+
+                            </ListView>
+                        </GroupBox>
+                    </DockPanel>
                 </Grid>
             </controls:Flyout>
             <controls:Flyout x:Name="Properties" Header="Properties"
@@ -48,11 +58,22 @@
                              Theme="Accent" Unloaded="Flyout_Unloaded" ContextMenuClosing="MessageCenter_ContextMenuClosing" >
                 <Grid Margin="10"
                       Width="400">
-                    <StackPanel>
-                        <TextBlock Text=""
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top" Text=""
                                Foreground="{DynamicResource IdealForegroundColorBrush}" />
-                        <GroupBox Margin="10" Height="250" Header="Analytics" />
-                    </StackPanel>
+                        <GroupBox  Margin="10" VerticalAlignment="Stretch" Header="Analytics">
+                            <ListView Margin="10,10,10,23" MinHeight="250" BorderThickness="0" Width="Auto" Background="{StaticResource HighlightBrush}" FontSize="16" Foreground="White" FontWeight="Bold" Padding="0,0,0,6">
+                                <ListViewItem Content="1) My Analytics" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                                <ListViewItem Content="2) Identity" Foreground="White" FontSize="16" BorderThickness="0"/>
+                                <ListViewItem Content="3) Filters" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                                <ListViewItem Content="4) Price Lists" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                                <ListViewItem Content="5) Value Drivers" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                                <ListViewItem Content="6) Results" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+
+                            </ListView>
+
+                        </GroupBox>
+                    </DockPanel>
                 </Grid>
             </controls:Flyout>
 
@@ -518,12 +539,12 @@
 						<StackPanel x:Name="StepStack" DockPanel.Dock="left" Width="150" Background="{StaticResource HighlightBrush}"  Margin="5 5 0 5">
 
                         <ListView Margin="10,10,10,23" MinHeight="250" BorderThickness="0" Width="Auto" Background="{StaticResource HighlightBrush}" FontSize="16" Foreground="White" FontWeight="Bold" Padding="0,0,0,6">
-                            <ListViewItem Content="My Analytics" Foreground="{StaticResource MenuItemDisabledBrush}"/>
-								<ListViewItem Content="Identity" Foreground="White" FontSize="16" BorderThickness="0"/>
-                            <ListViewItem Content="Filters" Foreground="{StaticResource MenuItemDisabledBrush}"/>
-                            <ListViewItem Content="Price Lists" Foreground="{StaticResource MenuItemDisabledBrush}"/>
-								<ListViewItem Content="Value Drivers" Foreground="{StaticResource MenuItemDisabledBrush}"/>
-                            <ListViewItem Content="Results" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                            <ListViewItem Content="1) My Analytics" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+								<ListViewItem Content="2) Identity" Foreground="White" FontSize="16" BorderThickness="0"/>
+                            <ListViewItem Content="3) Filters" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                            <ListViewItem Content="4) Price Lists" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+								<ListViewItem Content="5) Value Drivers" Foreground="{StaticResource MenuItemDisabledBrush}"/>
+                            <ListViewItem Content="6) Results" Foreground="{StaticResource MenuItemDisabledBrush}"/>
     
 							</ListView>
   
