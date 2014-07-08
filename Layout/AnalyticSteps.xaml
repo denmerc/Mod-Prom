@@ -316,11 +316,11 @@
     </controls:MetroWindow.Resources>
 
     <!--Root-->
-    <Grid Margin="0" Background="lightgray" MinHeight="530" MinWidth="1080">
+    <Grid x:Name="Root" Margin="0" Background="lightgray" MinHeight="530" MinWidth="1080">
 
 
         <!--TopMenu-->
-        <DockPanel VerticalAlignment="Top" Margin="30 0 0 5" Height="80">
+        <DockPanel x:Name="ModuleMenuDockPanel" VerticalAlignment="Top" Margin="30 0 0 5" Height="80">
 
 
             <StackPanel x:Name="TopMenu" DockPanel.Dock="Top" Margin="0 0 0 5" Background="LightGray"  Orientation="Horizontal" MinHeight="65" Height="65">
@@ -389,7 +389,7 @@
         </DockPanel>
 
         <!-- Tab Planning -->
-        <DockPanel Margin="10 80 30 0">
+        <DockPanel x:Name="ModuleContentDockPanel" Margin="10 80 30 0">
 
             <!--Explorer-->
             <StackPanel x:Name="Explorer" Width="200"  HorizontalAlignment="Stretch" Visibility="Collapsed">
@@ -509,7 +509,7 @@
 					</StackPanel>
 				</ScrollViewer>-->
 
-            <StackPanel x:Name="CommandBar" DockPanel.Dock="Right" Width="55" HorizontalAlignment="Stretch" Margin="5">
+            <StackPanel x:Name="CommandBarStackPanel" DockPanel.Dock="Right" Width="55" HorizontalAlignment="Stretch" Margin="5">
 
 
                 <Button x:Name="MessageCenterButton" Height="55" Width="55" Click="MessageCenterButton_Click">
@@ -532,7 +532,7 @@
                 </Button>
             </StackPanel>
             <!--Detail-->
-            <ScrollViewer x:Name="Detail" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Height="Auto" Width="Auto" Background="DarkSlateGray" Margin="5" d:IsEffectDisabled="True">
+            <ScrollViewer x:Name="DetailContentScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Height="Auto" Width="Auto" Background="DarkSlateGray" Margin="5" d:IsEffectDisabled="True">
                 <ScrollViewer.Effect>
                     <DropShadowEffect BlurRadius="10" Opacity="0"/>
                 </ScrollViewer.Effect>
@@ -589,9 +589,9 @@
 
 
                 <!--Home Screen -->
-                <DockPanel>
+                <DockPanel x:Name="DetailContentDockPanel">
 
-                    <Grid>
+                    <Grid x:Name="DetailGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="225" />
@@ -846,7 +846,7 @@
                             </TabItem>-->
                             <TabItem Header="Analytics">
                                 <StackPanel Orientation="Vertical">
-                                    <ListBox Margin="50 50 0 10" Height="Auto" Width="Auto"
+                                    <ListBox x:Name="HeaderListBox" Margin="50 50 0 10" Height="Auto" Width="Auto"
                               VerticalAlignment="Top">
                                         <ListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
@@ -875,8 +875,8 @@
                                         </ListBoxItem>
 
                                     </ListBox>
-                                    <StackPanel Orientation="Horizontal">
-                                        <ListBox  Margin="50 0 0 0" Height="Auto" Width="Auto">
+                                    <StackPanel x:Name="BodyStackPanel" Orientation="Horizontal">
+                                        <ListBox x:Name="StepListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
                                             <ListBoxItem>
                                                 <StackPanel>
                                                     <TextBlock FontSize="20"
@@ -944,7 +944,7 @@
                                                 </Style>
                                             </ListBox.ItemContainerStyle>
                                         </ListBox>
-                                        <ListBox  Margin="50 0 0 0" Height="Auto" Width="Auto">
+                                        <ListBox x:Name="StepContentListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
                                             <StackPanel Orientation="Horizontal">
                                                 <Label  FontSize="20" Foreground="{StaticResource Foreground}" Width="150" Content="Analytic Name:" HorizontalContentAlignment="Right"></Label>
                                             
@@ -1004,7 +1004,7 @@
                                 </StackPanel>
                             </TabItem>
                         </TabControl>
-                        <StackPanel Grid.Column="1"
+                        <StackPanel x:Name="ActionRightMarginStackPanel" Grid.Column="1"
                         Margin="10,25,10,0">
                             <TextBlock Margin="0,10,0,10"
                            FontSize="18"

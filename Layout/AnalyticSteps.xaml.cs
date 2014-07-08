@@ -36,8 +36,8 @@ namespace Layout
 
             flyout.IsOpen = !flyout.IsOpen;
 
-            Detail.HorizontalAlignment=HorizontalAlignment.Stretch;
-            CommandBar.Width = 400;
+            DetailContentScrollViewer.HorizontalAlignment=HorizontalAlignment.Stretch;
+            CommandBarStackPanel.Width = 400;
         }
 
         private void Flyout_Unloaded(object sender, RoutedEventArgs e)
@@ -54,7 +54,7 @@ namespace Layout
         {
             var f = sender as Flyout;
             if(f != null && f.IsOpen==false)
-                CommandBar.Width = 55;
+                CommandBarStackPanel.Width = 55;
         }
 
         private void PropertiesButton_Click(object sender, RoutedEventArgs e)
@@ -67,8 +67,8 @@ namespace Layout
 
             flyout.IsOpen = !flyout.IsOpen;
 
-            Detail.HorizontalAlignment = HorizontalAlignment.Stretch;
-            CommandBar.Width = 400;
+            DetailContentScrollViewer.HorizontalAlignment = HorizontalAlignment.Stretch;
+            CommandBarStackPanel.Width = 400;
         }
     }
 }
