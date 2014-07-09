@@ -911,31 +911,19 @@
                                             <ListBoxItem>
                                                 <StackPanel>
                                                     <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="4) Rounding"/></TextBlock>
+                                           Foreground="{StaticResource Foreground}"><Run Text="4) Value Drivers"/></TextBlock>
 
                                                 </StackPanel>
                                             </ListBoxItem>
                                             <ListBoxItem>
                                                 <StackPanel>
                                                     <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="5) Strategy"/></TextBlock>
+                                           Foreground="{StaticResource Foreground}"><Run Text="5) Results"/></TextBlock>
 
                                                 </StackPanel>
                                             </ListBoxItem>
-                                            <ListBoxItem>
-                                                <StackPanel>
-                                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="6) Results"/></TextBlock>
 
-                                                </StackPanel>
-                                            </ListBoxItem>
-                                            <ListBoxItem>
-                                                <StackPanel>
-                                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="7) Approval"/></TextBlock>
 
-                                                </StackPanel>
-                                            </ListBoxItem>
                                         </ListBox>
                                         <ListBox>
                                             <ListBox.ItemContainerStyle>
