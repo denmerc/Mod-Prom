@@ -67,6 +67,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\HomeVertical.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\HomeControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -81,6 +85,9 @@
     </Compile>
     <Compile Include="AnalyticSteps.xaml.cs">
       <DependentUpon>AnalyticSteps.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeVertical.xaml.cs">
+      <DependentUpon>HomeVertical.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeControl.xaml.cs">
       <DependentUpon>HomeControl.xaml</DependentUpon>

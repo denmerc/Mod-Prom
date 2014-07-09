@@ -846,7 +846,8 @@
                                 </ListBox>
                             </TabItem>-->
                             <TabItem Header="Home">
-                                <local:HomeControl></local:HomeControl>
+                                <!--<local:HomeControl></local:HomeControl>-->
+                                <local:HomeVerticalControl></local:HomeVerticalControl>
                                 <!--<StackPanel x:Name="TabContentStackPanel" Orientation="Vertical">
                                     <ListBox Margin="50 50 0 10" Height="Auto" Width="Auto"
                               VerticalAlignment="Top">
