@@ -36,7 +36,7 @@ namespace Layout
 
             flyout.IsOpen = !flyout.IsOpen;
 
-            Detail.HorizontalAlignment=HorizontalAlignment.Stretch;
+            DetailContentScrollViewer.HorizontalAlignment=HorizontalAlignment.Stretch;
             CommandBar.Width = 400;
         }
 
@@ -67,7 +67,7 @@ namespace Layout
 
             flyout.IsOpen = !flyout.IsOpen;
 
-            Detail.HorizontalAlignment = HorizontalAlignment.Stretch;
+            DetailContentScrollViewer.HorizontalAlignment = HorizontalAlignment.Stretch;
             CommandBar.Width = 400;
         }
     }

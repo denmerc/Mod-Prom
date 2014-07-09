@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Layout.MainWindow"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:Layout"
         Title="Promoter" d:DesignHeight="1354" Width="1326" BorderThickness="1" BorderBrush="Black" MinHeight="530" MinWidth="1080" >
 
 
@@ -316,11 +317,11 @@
     </controls:MetroWindow.Resources>
 
     <!--Root-->
-    <Grid Margin="0" Background="lightgray" MinHeight="530" MinWidth="1080">
+    <Grid x:Name="Root" Margin="0" Background="lightgray" MinHeight="530" MinWidth="1080">
 
 
         <!--TopMenu-->
-        <DockPanel VerticalAlignment="Top" Margin="30 0 0 5" Height="80">
+        <DockPanel x:Name="ModuleMenuDockPanel" VerticalAlignment="Top" Margin="30 0 0 5" Height="80">
 
 
             <StackPanel x:Name="TopMenu" DockPanel.Dock="Top" Margin="0 0 0 5" Background="LightGray"  Orientation="Horizontal" MinHeight="65" Height="65">
@@ -389,7 +390,7 @@
         </DockPanel>
 
         <!-- Tab Planning -->
-        <DockPanel Margin="10 80 30 0">
+        <DockPanel x:Name="ModuleContentDockPanel" Margin="10 80 30 0">
 
             <!--Explorer-->
             <StackPanel x:Name="Explorer" Width="200"  HorizontalAlignment="Stretch" Visibility="Collapsed">
@@ -532,7 +533,7 @@
                 </Button>
             </StackPanel>
             <!--Detail-->
-            <ScrollViewer x:Name="Detail" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Height="Auto" Width="Auto" Background="DarkSlateGray" Margin="5" d:IsEffectDisabled="True">
+            <ScrollViewer x:Name="DetailContentScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Height="Auto" Width="Auto" Background="DarkSlateGray" Margin="5" d:IsEffectDisabled="True">
                 <ScrollViewer.Effect>
                     <DropShadowEffect BlurRadius="10" Opacity="0"/>
                 </ScrollViewer.Effect>
@@ -589,9 +590,9 @@
 
 
                 <!--Home Screen -->
-                <DockPanel>
+                <DockPanel x:Name="DetailContentDockPanel">
 
-                    <Grid>
+                    <Grid x:Name="DetailGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="225" />
@@ -845,7 +846,8 @@
                                 </ListBox>
                             </TabItem>-->
                             <TabItem Header="Home">
-                                <StackPanel Orientation="Vertical">
+                                <local:HomeControl></local:HomeControl>
+                                <!--<StackPanel x:Name="TabContentStackPanel" Orientation="Vertical">
                                     <ListBox Margin="50 50 0 10" Height="Auto" Width="Auto"
                               VerticalAlignment="Top">
                                         <ListBox.ItemsPanel>
@@ -861,16 +863,16 @@
                                                     <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Grid.Column="0" Grid.Row="0" x:Name="home_module_analytic" Width="75" Height="75"  Margin="5" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
                                                     <Path Width="75" Height="75" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" Fill="White" Data="F1 M 22,52L 22,35L 30,35L 30,52L 22,52 Z M 32,52L 32,22L 39,22L 39,52L 32,52 Z M 41,52L 41,41L 49,41L 49,52L 41,52 Z M 51,52L 51,29L 59,29L 59,52L 51,52 Z M 17,19L 20,19L 20,54L 59,54L 59,57L 17,57L 17,19 Z "/>
                                                     </Canvas>
-                                                             <!--<Run Text="Analytics" BaselineAlignment="Center"/>-->                                       
+                                                             --><!--<Run Text="Analytics" BaselineAlignment="Center"/>--><!--                                       
                                                 </TextBlock>
                                                 <TextBlock FontSize="25" MinWidth="150" TextAlignment="Center"
                                     				Foreground="{StaticResource Foreground}" Text="Analytics"/>
-                                                <!--<TextBlock FontSize="20"
+                                                --><!--<TextBlock FontSize="20"
                                     				Foreground="{StaticResource Foreground}"><Run Text="Rank: Captain"/></TextBlock>
                                                 <TextBlock FontSize="18"
                                     				Foreground="{StaticResource Foreground}"><Run Text="Position: Commanding Officer"/></TextBlock>
                                                 <TextBlock FontSize="18"
-                                    				Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
+                                    				Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>--><!--
                                             </StackPanel>
                                         </ListBoxItem>
                                         <ListBoxItem>
@@ -918,24 +920,24 @@
                                                 <StackPanel>
                                                     <TextBlock FontSize="20"
                                            Foreground="{StaticResource Foreground}"><Run Text="Restoration"/></TextBlock>
-                                                    <!--<TextBlock FontSize="18"
+                                                    --><!--<TextBlock FontSize="18"
                                            Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
                                                     <TextBlock FontSize="18"
                                            Foreground="{StaticResource Foreground}"><Run Text="Position: Helm Officer"/></TextBlock>
                                                     <TextBlock FontSize="18"
-                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
+                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>--><!--
                                                 </StackPanel>
                                             </ListBoxItem>
                                             <ListBoxItem>
                                                 <StackPanel>
                                                     <TextBlock FontSize="20"
                                            Foreground="{StaticResource Foreground}"><Run Text="Hi Performance"/></TextBlock>
-                                                    <!--<TextBlock FontSize="18"
+                                                    --><!--<TextBlock FontSize="18"
                                            Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
                                                     <TextBlock FontSize="18"
                                            Foreground="{StaticResource Foreground}"><Run Text="Position: Communications Officer"/></TextBlock>
                                                     <TextBlock FontSize="18"
-                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
+                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>--><!--
                                                 </StackPanel>
                                             </ListBoxItem>
                                             <ListBoxItem>
@@ -986,12 +988,12 @@
                                                 <StackPanel>
                                                     <TextBlock FontSize="16"
                                            Foreground="{StaticResource Foreground}"><Run Text="Air &amp; Fuel Delivery"/></TextBlock>
-                                                    <!--<TextBlock FontSize="18"
+                                                    --><!--<TextBlock FontSize="18"
                                            Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
                                                     <TextBlock FontSize="18"
                                            Foreground="{StaticResource Foreground}"><Run Text="Position: Helm Officer"/></TextBlock>
                                                     <TextBlock FontSize="18"
-                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
+                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>--><!--
                                                 </StackPanel>
                                             </ListBoxItem>
                                             <ListBoxItem>
@@ -1042,10 +1044,10 @@
                                         </ListBox>
 
                                     </StackPanel>
-                                </StackPanel>
+                                </StackPanel>-->
                             </TabItem>
                         </TabControl>
-                        <StackPanel Grid.Column="1"
+                        <StackPanel x:Name="MarginStackPanel" Grid.Column="1"
                         Margin="10,25,10,0">
                             <TextBlock Margin="0,10,0,10"
                            FontSize="18"
