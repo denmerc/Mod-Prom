@@ -1,0 +1,451 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+	mc:Ignorable="d"
+	x:Class="Layout.PricingStepsControl"
+	x:Name="UserControl"
+	d:DesignWidth="951" d:DesignHeight="1126">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />-->
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Application Brushes -->
+            <SolidColorBrush x:Key="ApplicationBackground" Color="LightGray"/>
+            <SolidColorBrush x:Key="ApplicationForeground" Color="DarkGray"/>
+            <SolidColorBrush x:Key="ApplicationTextForeground" Color="DarkSlateGray"/>
+            <SolidColorBrush x:Key="ApplicationHighlight" Color="White"/>
+
+            <Style
+				x:Key="ButtonFocusVisual">
+                <Setter
+					Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="MetroButton" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+                <Setter Property="Background" Value="#EEEEEEEE"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="10 5"/>
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Border
+									x:Name="Border"
+									Background="{TemplateBinding Background}"
+									BorderBrush="{TemplateBinding BorderBrush}"
+									BorderThickness="{TemplateBinding BorderThickness}" />
+
+                                <ContentPresenter
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									Margin="{TemplateBinding Padding}"
+									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									RecognizesAccessKey="True" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="OpacityMask" Value="#AA888888"/>
+                                    <Setter Property="Margin" Value="2 1" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="DimGray"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Foreground" Value="#ADADAD"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Application Styles -->
+            <Style TargetType="{x:Type TextBlock}" x:Key="ApplicationText">
+                <Setter Property="Foreground" Value="{StaticResource ApplicationTextForeground}"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}" x:Key="ListItemTextStyle">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}" x:Key="ListTextStyle">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+            </Style>
+
+            <ControlTemplate TargetType="{x:Type Button}" x:Key="GoButton">
+                <Grid>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <Storyboard>
+                                    <ColorAnimation Duration="0:0:0"
+										Storyboard.TargetName="ButtonBackgroundBrush"
+										Storyboard.TargetProperty="Color" To="{TemplateBinding Background}"/>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="MouseOver">
+                                <Storyboard>
+                                    <ColorAnimation Duration="0:0:0"
+										Storyboard.TargetName="ButtonBackgroundBrush"
+										Storyboard.TargetProperty="Color" To="LightSlateGray"/>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <Storyboard>
+                                    <ColorAnimation Duration="0:0:0"
+										Storyboard.TargetName="ButtonBackgroundBrush"
+										Storyboard.TargetProperty="Color" To="White"/>
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Border BorderBrush="{TemplateBinding Foreground}"
+						BorderThickness="1"
+						Padding="10">
+                        <Border.Background>
+                            <SolidColorBrush x:Name="ButtonBackgroundBrush" 
+								Color="{TemplateBinding Background}" />
+                        </Border.Background>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+								HorizontalAlignment="Left" />
+
+
+
+
+                        </Grid>
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+
+            <ControlTemplate TargetType="{x:Type Button}" x:Key="GoButtonActive">
+                <Grid>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <Storyboard>
+                                    <ColorAnimation Duration="0:0:0"
+										Storyboard.TargetName="ButtonBackgroundBrush"
+										Storyboard.TargetProperty="Color" To="{TemplateBinding Background}"/>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="MouseOver">
+                                <Storyboard>
+                                    <ColorAnimation Duration="0:0:0"
+										Storyboard.TargetName="ButtonBackgroundBrush"
+										Storyboard.TargetProperty="Color" To="LightSlateGray"/>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <Storyboard>
+                                    <ColorAnimation Duration="0:0:0"
+										Storyboard.TargetName="ButtonBackgroundBrush"
+										Storyboard.TargetProperty="Color" To="White"/>
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Border BorderBrush="{TemplateBinding Foreground}"
+						BorderThickness="2"
+						Padding="10">
+                        <Border.Background>
+                            <SolidColorBrush x:Name="ButtonBackgroundBrush" 
+								Color="{TemplateBinding Background}" />
+                        </Border.Background>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+								HorizontalAlignment="Left" />
+
+
+
+
+                        </Grid>
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+            <Style TargetType="{x:Type Button}" x:Key="GoButtonStyle">
+                <Setter Property="Foreground" Value="{StaticResource ApplicationTextForeground}"/>
+                <Setter Property="Background" Value="{StaticResource ApplicationBackground}"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Padding" Value="7,3"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Template" Value="{StaticResource GoButton}" />
+                <Setter Property="Height" Value="60"/>
+            </Style>
+
+            <Style TargetType="{x:Type Button}" x:Key="GoButtonStyleActive">
+                <Setter Property="Foreground" Value="{StaticResource ApplicationTextForeground}"/>
+                <Setter Property="Background" Value="{StaticResource ApplicationBackground}"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Padding" Value="7,3"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Template" Value="{StaticResource GoButtonActive}" />
+                <Setter Property="Height" Value="60"/>
+
+            </Style>
+
+            <Style x:Key="Flat">
+                <Setter Property="Control.Background" Value="LightGray" />
+                <Setter Property="Control.BorderBrush" Value="DarkGray" />
+                <Setter Property="Control.BorderThickness" Value="0" />
+                <Style.Triggers>
+                    <Trigger Property="UIElement.IsMouseOver" Value="True">
+                        <Setter Property="Control.Background" Value="{x:Null}" />
+                        <Setter Property="Control.BorderBrush" Value="{x:Null}" />
+                    </Trigger>
+                    <Trigger Property="UIElement.IsFocused" Value="True">
+                        <Setter Property="Control.FontWeight" Value="Bold" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
+                <Setter Property="Background" Value="#FF333337"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="CaretBrush" Value="White"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Grid Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                <ScrollViewer x:Name="PART_ContentHost" Margin="1"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <!--<Setter Property="Background" Value="#FF3F3F46"/>-->
+                                </Trigger>
+                                <!--<Trigger Property="IsFocused" Value="True">
+            						<Setter Property="Background" Value="#FF3F3F46"/>
+            					</Trigger>-->
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
+                <!--<Setter Property="FocusVisualStyle" Value="{x:Null}"/>-->
+                <Setter Property="Background" Value="#FF3F3F46"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Grid Margin="4,0,4,4">
+                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"/>
+                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Margin="8,5"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+        
+    </UserControl.Resources>
+	<Grid x:Name="LayoutRoot">
+        <TabControl Margin="25,20,0,20">
+            <TabItem Header="Pricing">
+                <StackPanel x:Name="StepsContentStackPanel" Orientation="Vertical">
+                    <ListBox x:Name="HeaderListBox" Margin="50 50 0 10" Height="Auto" Width="Auto"
+                              VerticalAlignment="Top">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBoxItem x:Name="HeaderLogoListBoxItem" Height="Auto" Width="Auto" IsSelected="True">
+                            <StackPanel Margin="0,0,-346,0" Orientation="Horizontal">
+
+                                <TextBlock TextAlignment="Left" FontSize="35" VerticalAlignment="Center" 
+                                    				Foreground="{StaticResource Foreground}" Height="59" Margin="0,0,15,0">
+                            <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="appbar_currency_rubles" Width="50" Height="50" Margin="5" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+                                <Path Width="50" Height="50" Stretch="Fill" Fill="White" Data="F1 M 41.5625,38C 45.4975,38 48.6875,34.81 48.6875,30.875C 48.6875,26.94 45.4975,23.75 41.5625,23.75L 34.8333,23.75L 34.8333,38L 41.5625,38 Z M 28.5,19L 41.9583,19C 48.5167,19 53.8333,24.3166 53.8333,30.875C 53.8333,37.4334 48.5167,42.75 41.9583,42.75L 34.8333,42.75L 34.8333,47.5L 49.0833,47.5L 49.0833,52.25L 34.8333,52.25L 34.8333,57L 28.5,57L 28.5,52.25L 22.1667,52.25L 22.1667,47.5L 28.5,47.5L 28.5,42.75L 22.1667,42.75L 22.1667,38L 28.5,38L 28.5,19 Z "/>
+                            </Canvas>
+                                </TextBlock>
+
+                                <TextBlock FontSize="25" MinWidth="150" TextAlignment="Left" VerticalAlignment="Center"
+                                    				Foreground="{StaticResource Foreground}" Text="Price Routine - Brakes 123244"/>
+                                <!--<TextBlock FontSize="20"
+                                    				Foreground="{StaticResource Foreground}"><Run Text="Rank: Captain"/></TextBlock>
+                                                <TextBlock FontSize="18"
+                                    				Foreground="{StaticResource Foreground}"><Run Text="Position: Commanding Officer"/></TextBlock>
+                                                <TextBlock FontSize="18"
+                                    				Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
+                            </StackPanel>
+                        </ListBoxItem>
+
+                    </ListBox>
+                    <StackPanel x:Name="BodyStackPanel" Orientation="Horizontal">
+                        <ListBox x:Name="StepListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
+                            <ListBoxItem x:Name="IdentityListBoxItem" IsSelected="True">
+                                <StackPanel>
+                                    <TextBlock FontSize="20"
+                                           Foreground="{StaticResource Foreground}"><Run Text="1) Identity"/></TextBlock>
+                                    <!--<TextBlock FontSize="18"
+                                           Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
+                                                    <TextBlock FontSize="18"
+                                           Foreground="{StaticResource Foreground}"><Run Text="Position: Helm Officer"/></TextBlock>
+                                                    <TextBlock FontSize="18"
+                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <StackPanel>
+                                    <TextBlock FontSize="20"
+                                           Foreground="{StaticResource Foreground}"><Run Text="2) Filters"/></TextBlock>
+                                    <!--<TextBlock FontSize="18"
+                                           Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
+                                                    <TextBlock FontSize="18"
+                                           Foreground="{StaticResource Foreground}"><Run Text="Position: Communications Officer"/></TextBlock>
+                                                    <TextBlock FontSize="18"
+                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <StackPanel>
+                                    <TextBlock FontSize="20"
+                                           Foreground="{StaticResource Foreground}"><Run Text="3) Price Lists"/></TextBlock>
+
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <StackPanel>
+                                    <TextBlock FontSize="20"
+                                           Foreground="{StaticResource Foreground}"><Run Text="4) Rounding"/></TextBlock>
+
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <StackPanel>
+                                    <TextBlock FontSize="20"
+                                           Foreground="{StaticResource Foreground}"><Run Text="5) Strategy"/></TextBlock>
+
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <StackPanel>
+                                    <TextBlock FontSize="20"
+                                           Foreground="{StaticResource Foreground}"><Run Text="6) Results"/></TextBlock>
+
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <StackPanel>
+                                    <TextBlock FontSize="20"
+                                           Foreground="{StaticResource Foreground}"><Run Text="7) Forecast"/></TextBlock>
+
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                <StackPanel>
+                                    <TextBlock FontSize="20"
+                                           Foreground="{StaticResource Foreground}"><Run Text="8) Approval"/></TextBlock>
+
+                                </StackPanel>
+                            </ListBoxItem>
+
+                        </ListBox>
+                        <ListBox x:Name="StepContentListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
+                            <!--<ListBox.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListBoxItem}">
+                                                    <Setter Property="Background" Value="Transparent" />
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>-->
+                            <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178" Content="Price Routine Name:" HorizontalContentAlignment="Right"></Label>
+                                    <TextBox FontSize="16" Foreground="{StaticResource Foreground}" Width="255" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}"></TextBox>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178" HorizontalContentAlignment="Right">Description:</Label>
+                                    <TextBox FontSize="16" Foreground="{StaticResource Foreground}" Width="450" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178" HorizontalContentAlignment="Right">Price Routine Type:</Label>
+                                    <ComboBox FontSize="16"  Background="#FF333337" Foreground="{StaticResource Foreground}" Width="255" VerticalAlignment="Bottom" BorderBrush="Transparent"></ComboBox>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178" HorizontalContentAlignment="Right">Analytic Name:</Label>
+                                    <ComboBox FontSize="16" Background="#FF333337" Foreground="{StaticResource Foreground}" Width="450" BorderBrush="Transparent"></ComboBox>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <!--<StackPanel.Resources>
+														<Style TargetType="{x:Type Button}">
+															<Setter Property="Margin" Value="2"/>
+														</Style>
+													</StackPanel.Resources>-->
+                                    <Button>Save</Button>
+                                    <Button>Cancel</Button>
+                                </StackPanel>
+                            </ListBoxItem>
+                        </ListBox>
+                        <!--<Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+
+                                            <TextBlock Grid.Column="0" FontSize="16" 
+                                           Foreground="{StaticResource Foreground}" >Analytic Name:</TextBlock>
+                                            <TextBox Grid.Column="1" Width="150"/>
+                                        </Grid>-->
+
+
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

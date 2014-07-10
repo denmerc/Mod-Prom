@@ -946,7 +946,7 @@
                                 </ListBox>
                             </TabItem>-->
                             <TabItem Header="Analytics">
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel x:Name="StepsContentStackPanel" Orientation="Vertical">
                                     <ListBox x:Name="HeaderListBox" Margin="50 50 0 10" Height="Auto" Width="Auto"
                               VerticalAlignment="Top">
                                         <ListBox.ItemsPanel>

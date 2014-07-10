@@ -67,6 +67,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\PricingStepsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\StepsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\HomeVertical.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,6 +93,12 @@
     </Compile>
     <Compile Include="AnalyticSteps.xaml.cs">
       <DependentUpon>AnalyticSteps.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PricingStepsControl.xaml.cs">
+      <DependentUpon>PricingStepsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StepsControl.xaml.cs">
+      <DependentUpon>StepsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeVertical.xaml.cs">
       <DependentUpon>HomeVertical.xaml</DependentUpon>

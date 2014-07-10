@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,20 @@ namespace Layout
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        ObservableCollection<UserControl> views;
         public MainWindow()
         {
             InitializeComponent();
+            views = new ObservableCollection<UserControl>();
+            var h = new HomeVerticalControl();
+            
+            views.Add(new HomeVerticalControl());
+            views.Add(new StepsControl());
+
+            DataContext = views;
+
+            ChildControl.Content = views[0];
+            
         }
 
         private void MessageCenterButton_Click(object sender, RoutedEventArgs e)
@@ -69,6 +81,22 @@ namespace Layout
 
             DetailContentScrollViewer.HorizontalAlignment = HorizontalAlignment.Stretch;
             CommandBar.Width = 400;
+        }
+
+        private void AddNewAnalyticButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChildControl.Content = views[1];
+        }
+
+        private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
+        {
+            ChildControl.Content = views[0];
+        }
+
+        private void RelatedPriceRoutineButton_Click(object sender, RoutedEventArgs e)
+        {
+            PricingStepsControl view = new PricingStepsControl();
+            ChildControl.Content = view;
         }
     }
 }
