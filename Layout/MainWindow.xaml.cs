@@ -98,5 +98,11 @@ namespace Layout
             PricingStepsControl view = new PricingStepsControl();
             ChildControl.Content = view;
         }
+
+        private void AdministrationModuleButton_Click(object sender, RoutedEventArgs e)
+        {
+            AdminControl c = new AdminControl();
+            ChildControl.Content = c;
+        }
     }
 }
