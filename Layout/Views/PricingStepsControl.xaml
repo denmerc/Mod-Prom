@@ -316,10 +316,10 @@
                     </ListBox>
                     <StackPanel x:Name="BodyStackPanel" Orientation="Horizontal">
                         <ListBox x:Name="StepListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
-                            <ListBoxItem x:Name="IdentityListBoxItem" IsSelected="True">
-                                <StackPanel>
-                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="1) Identity"/></TextBlock>
+                            <ListBoxItem x:Name="IdentityListBoxItem" IsSelected="True" >
+                                <StackPanel >
+                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 1  " FontSize="25" FontWeight="Bold"/><Run Text="Identity "/></TextBlock>
                                     <!--<TextBlock FontSize="18"
                                            Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
                                                     <TextBlock FontSize="18"
@@ -330,8 +330,8 @@
                             </ListBoxItem>
                             <ListBoxItem>
                                 <StackPanel>
-                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="2) Filters"/></TextBlock>
+                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 2  " FontSize="25" FontWeight="Bold"/><Run Text="Filters "/></TextBlock>
                                     <!--<TextBlock FontSize="18"
                                            Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
                                                     <TextBlock FontSize="18"
@@ -342,43 +342,43 @@
                             </ListBoxItem>
                             <ListBoxItem>
                                 <StackPanel>
-                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="3) Price Lists"/></TextBlock>
+                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 3  " FontSize="25" FontWeight="Bold"/><Run Text="Price Lists  "/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
                             <ListBoxItem>
                                 <StackPanel>
-                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="4) Rounding"/></TextBlock>
+                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 4  " FontSize="25" FontWeight="Bold"/><Run Text="Rounding "/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
                             <ListBoxItem>
                                 <StackPanel>
-                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="5) Strategy"/></TextBlock>
+                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 5  " FontSize="25" FontWeight="Bold"/><Run Text="Strategy"/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
                             <ListBoxItem>
                                 <StackPanel>
-                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="6) Results"/></TextBlock>
+                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 6  " FontSize="25" FontWeight="Bold"/><Run Text="Results "/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
                             <ListBoxItem>
                                 <StackPanel>
-                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="7) Forecast"/></TextBlock>
+                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 7  " FontSize="25" FontWeight="Bold"/><Run Text="Forecast"/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
                             <ListBoxItem>
                                 <StackPanel>
-                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="8) Approval"/></TextBlock>
+                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 8  " FontSize="25" FontWeight="Bold"/><Run Text="Approval" /></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>

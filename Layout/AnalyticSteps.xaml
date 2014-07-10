@@ -980,46 +980,34 @@
                                         <ListBox x:Name="StepListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
                                             <ListBoxItem>
                                                 <StackPanel>
-                                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="1) Identity"/></TextBlock>
-                                                    <!--<TextBlock FontSize="18"
-                                           Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
-                                                    <TextBlock FontSize="18"
-                                           Foreground="{StaticResource Foreground}"><Run Text="Position: Helm Officer"/></TextBlock>
-                                                    <TextBlock FontSize="18"
-                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
+                                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 1  " FontSize="25" FontWeight="Bold"/><Run Text="Identity"/></TextBlock>
                                                 </StackPanel>
                                             </ListBoxItem>
                                             <ListBoxItem>
                                                 <StackPanel>
-                                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="2) Filters"/></TextBlock>
-                                                    <!--<TextBlock FontSize="18"
-                                           Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
-                                                    <TextBlock FontSize="18"
-                                           Foreground="{StaticResource Foreground}"><Run Text="Position: Communications Officer"/></TextBlock>
-                                                    <TextBlock FontSize="18"
-                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
+                                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 2  " FontSize="25" FontWeight="Bold"/><Run Text="Filters"/></TextBlock>
                                                 </StackPanel>
                                             </ListBoxItem>
                                             <ListBoxItem>
                                                 <StackPanel>
-                                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="3) Price Lists"/></TextBlock>
+                                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 3  " FontSize="25" FontWeight="Bold"/><Run Text="Price Lists"/></TextBlock>
 
                                                 </StackPanel>
                                             </ListBoxItem>
                                             <ListBoxItem>
                                                 <StackPanel>
-                                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="4) Value Drivers"/></TextBlock>
+                                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 4  " FontSize="25" FontWeight="Bold"/><Run Text="Value Drivers"/></TextBlock>
 
                                                 </StackPanel>
                                             </ListBoxItem>
                                             <ListBoxItem>
                                                 <StackPanel>
-                                                    <TextBlock FontSize="20"
-                                           Foreground="{StaticResource Foreground}"><Run Text="5) Results"/></TextBlock>
+                                                    <TextBlock FontSize="20" VerticalAlignment="Center"
+                                           Foreground="{StaticResource Foreground}"><Run Text=" 5  " FontSize="25" FontWeight="Bold"/><Run Text="Results"/></TextBlock>
 
                                                 </StackPanel>
                                             </ListBoxItem>
