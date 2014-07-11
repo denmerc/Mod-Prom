@@ -22,6 +22,20 @@ namespace Layout
 		public StepsControl()
 		{
 			this.InitializeComponent();
+
 		}
+        private void AddNewAnalyticButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new StepsControl();
+        }
+
+
+        private void RelatedPriceRoutineButton_Click(object sender, RoutedEventArgs e)
+        {
+            PricingStepsControl view = new PricingStepsControl();
+            view.NameTextBox.Text = "XXXX";
+            view.DescriptionTextBox.Text = "XXXX";
+            this.Content = view;
+        }
 	}
 }

@@ -90,7 +90,7 @@ namespace Layout
 
         private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
         {
-            ChildControl.Content = views[0];
+            ChildControl.Content = new HomeVerticalControl();
         }
 
         private void RelatedPriceRoutineButton_Click(object sender, RoutedEventArgs e)

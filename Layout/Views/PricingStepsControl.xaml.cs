@@ -23,5 +23,25 @@ namespace Layout
 		{
 			this.InitializeComponent();
 		}
+
+        private void AddNewPricingButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new StepsControl();
+        }
+
+        private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new HomeVerticalControl();
+        }
+
+        private void RelatedAnalyticButton_Click(object sender, RoutedEventArgs e)
+        {
+            StepsControl view = new StepsControl();
+            view.NameTextBox.Text = "XXXX";
+            view.DescriptionTextBox.Text = "XXXX";
+            view.StatusTextBox.Text = "XXXX";
+
+            this.Content = view;
+        }
 	}
 }

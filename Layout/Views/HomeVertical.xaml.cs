@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using System.Collections.ObjectModel;
 
 namespace Layout
 {
@@ -19,9 +20,35 @@ namespace Layout
 	/// </summary>
 	public partial class HomeVerticalControl : UserControl
 	{
+        //ObservableCollection<UserControl> views;
 		public HomeVerticalControl()
 		{
 			this.InitializeComponent();
+            //views = new ObservableCollection<UserControl>();
+            //var h = new HomeVerticalControl();
+
+            //views.Add(new HomeVerticalControl());
+            //views.Add(new StepsControl());
+
+            //DataContext = views;
+
+            //this.Content = views[0];
 		}
+
+        private void AddNewAnalyticButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new StepsControl();
+        }
+
+        private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new HomeVerticalControl();
+        }
+
+        private void RelatedPriceRoutineButton_Click(object sender, RoutedEventArgs e)
+        {
+            PricingStepsControl view = new PricingStepsControl();
+            this.Content = view;
+        }
 	}
 }

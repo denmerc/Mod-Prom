@@ -282,7 +282,17 @@
         
     </UserControl.Resources>
 	<Grid x:Name="LayoutRoot">
-        <TabControl Margin="25,20,0,20">
+        <DockPanel x:Name="DetailContentDockPanel">
+
+            <Grid x:Name="DetailGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="225" />
+                </Grid.ColumnDefinitions>
+
+
+
+                <TabControl Margin="25,20,0,20">
             <TabItem Header="Analytics">
                 <StackPanel x:Name="StepsContentStackPanel" Orientation="Vertical">
                     <ListBox x:Name="HeaderListBox" Margin="50 50 0 10" Height="Auto" Width="Auto"
@@ -316,7 +326,7 @@
                     </ListBox>
                     <StackPanel x:Name="BodyStackPanel" Orientation="Horizontal">
                         <ListBox x:Name="StepListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
-                            <ListBoxItem>
+                            <ListBoxItem IsSelected="True">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 1  " FontSize="25" FontWeight="Bold"/><Run Text="Identity"/></TextBlock>
@@ -361,25 +371,25 @@
                             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                                 <StackPanel Orientation="Horizontal">
                                     <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="150" Content="Analytic Name:" HorizontalContentAlignment="Right"></Label>
-                                    <TextBox FontSize="16" Foreground="{StaticResource Foreground}" Width="250" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}"></TextBox>
+                                    <TextBox x:Name="NameTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="250" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}"></TextBox>
                                 </StackPanel>
                             </ListBoxItem>
                             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                                 <StackPanel Orientation="Horizontal">
                                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Description:</Label>
-                                    <TextBox FontSize="16" Foreground="{StaticResource Foreground}" Width="450" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+                                    <TextBox x:Name="DescriptionTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="450" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
                                 </StackPanel>
                             </ListBoxItem>
                             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                                 <StackPanel Orientation="Horizontal">
                                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Status:</Label>
-                                    <TextBox FontSize="16" Foreground="{StaticResource Foreground}" Width="150" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+                                    <TextBox x:Name="StatusTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="150" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
                                 </StackPanel>
                             </ListBoxItem>
                             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                                 <StackPanel Orientation="Horizontal">
                                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Comment:</Label>
-                                    <TextBox FontSize="16" Foreground="{StaticResource Foreground}" Width="450" Height="150" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+                                    <TextBox x:Name="CommentTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="450" Height="150" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
                                 </StackPanel>
                             </ListBoxItem>
                             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
@@ -415,5 +425,57 @@
                 </StackPanel>
             </TabItem>
         </TabControl>
+                <StackPanel x:Name="MarginStackPanel" Grid.Column="1" Margin="10,25,10,0">
+                    <TextBlock Margin="0,10,0,10"
+                                    FontSize="18"
+                                    Foreground="{StaticResource Foreground}"
+                                    Text="Actions" />
+                    <Separator Background="#11FFFFFF" />
+                    <Button x:Name="AddNewAnalyticButton" FontSize="14" Margin="0,10,0,3"
+                                        Content="Add new analytic..."
+                                        Click="AddNewAnalyticButton_Click"
+                                        Style="{StaticResource LinkButton}"  />
+                    <Button FontSize="14"
+                                        Margin="0,3,0,10"
+                                        Content="Copy analytic..."
+                                        Style="{StaticResource LinkButton}" />
+                    <Button FontSize="14"
+                                        Margin="0,3,0,10"
+                                        Content="Rename Anayltic..."
+                                        Style="{StaticResource LinkButton}" />
+                    <Button FontSize="14"
+                                        Margin="0,3,0,10"
+                                        Content="Add/Edit Filters..."
+                                        Style="{StaticResource LinkButton}" />
+                    <Button FontSize="14"
+                                        Margin="0,3,0,10"
+                                        Content="Add/Edit Value Drivers..."
+                                        Style="{StaticResource LinkButton}" />
+                    <Separator Background="#11FFFFFF" />
+                    <TextBlock Margin="0,10,0,10"
+                                    FontSize="18"
+                                    Foreground="{StaticResource Foreground}"
+                                    Text="Related" />
+                    <Separator Background="#11FFFFFF" />
+                    <Button x:Name="RelatedPriceRoutineButton" FontSize="14" Margin="0,10,0,3"
+                                        Content="Price Routine-Brakes-837438..."
+                                        Click="RelatedPriceRoutineButton_Click"
+                                        Style="{StaticResource LinkButton}" />
+                    <TextBlock Margin="0,10,0,10"
+                                        FontSize="18"
+                                        Foreground="{StaticResource Foreground}"
+                                        Text="Recent" />
+                    <Separator Background="#11FFFFFF" />
+                    <Button FontSize="14"
+                                    Margin="0,10,0,3"
+                                    Content="Widget Price Routine 123244"
+                                    Style="{StaticResource LinkButton}" />
+                    <Button FontSize="14"
+                                    Margin="0,3,0,3"
+                                    Content="Air filters - 123123"
+                                    Style="{StaticResource LinkButton}" />
+                </StackPanel>
+            </Grid>
+        </DockPanel>
     </Grid>
 </UserControl>
