@@ -241,6 +241,44 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
+                <Setter Property="Background" Value="#FF333337"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="CaretBrush" Value="White"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type TextBox}">
+                            <Grid Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                <ScrollViewer x:Name="PART_ContentHost" Margin="1"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <!--<Setter Property="Background" Value="#FF3F3F46"/>-->
+                                </Trigger>
+                                <!--<Trigger Property="IsFocused" Value="True">
+            						<Setter Property="Background" Value="#FF3F3F46"/>
+            					</Trigger>-->
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
+                <!--<Setter Property="FocusVisualStyle" Value="{x:Null}"/>-->
+                <Setter Property="Background" Value="#FF3F3F46"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Grid Margin="4,0,4,4">
+                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}" SnapsToDevicePixels="True"/>
+                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Margin="8,5"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid x:Name="LayoutRoot">
@@ -454,8 +492,56 @@
                                 </StackPanel>
                             </ListBoxItem>
                         </ListBox>
+                                <ListBox x:Name="StepContentListBox"  Margin="0 50 0 0" Height="Auto" Width="Auto">
+                                    <!--<ListBox.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListBoxItem}">
+                                                    <Setter Property="Background" Value="Transparent" />
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>-->
+                                    <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="150" Content="First Name:" HorizontalContentAlignment="Right"></Label>
+                                            <TextBox x:Name="FirstNameTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="250" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}"></TextBox>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Last Name:</Label>
+                                            <TextBox x:Name="LastNameTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="450" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Login:</Label>
+                                            <TextBox x:Name="LoginTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="150" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Email:</Label>
+                                            <TextBox x:Name="EmailTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="150" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Password:</Label>
+                                            <TextBox x:Name="PasswordTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="150" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <!--<StackPanel.Resources>
+														<Style TargetType="{x:Type Button}">
+															<Setter Property="Margin" Value="2"/>
+														</Style>
+													</StackPanel.Resources>-->
+                                            <Button>Save</Button>
+                                            <Button>Cancel</Button>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                </ListBox>
 
-                    </StackPanel>
+                            </StackPanel>
                     <WrapPanel Background="Transparent" Visibility="Collapsed">
 
                         <WrapPanel.Resources>
@@ -559,10 +645,6 @@
                     <Button FontSize="14"
                                         Margin="0,3,0,10"
                                         Content="Copy user..."
-                                        Style="{StaticResource LinkButton}" />
-                    <Button FontSize="14"
-                                        Margin="0,3,0,10"
-                                        Content="Rename Anayltic..."
                                         Style="{StaticResource LinkButton}" />
                     <Button FontSize="14"
                                         Margin="0,3,0,10"

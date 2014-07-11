@@ -303,7 +303,7 @@
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                         <ListBoxItem x:Name="HeaderLogoListBoxItem" Height="Auto" Width="Auto" IsSelected="True">
-                            <StackPanel Margin="0,0,-176,0" Orientation="Horizontal">
+                            <StackPanel Margin="0,0,-284,0" Orientation="Horizontal">
 
                                 <TextBlock TextAlignment="Left" FontSize="35" VerticalAlignment="Center" 
                                     				Foreground="{StaticResource Foreground}" Height="59" Margin="0,0,15,0">
@@ -313,7 +313,7 @@
                                 </TextBlock>
 
                                 <TextBlock FontSize="25" MinWidth="150" TextAlignment="Left" VerticalAlignment="Center"
-                                    				Foreground="{StaticResource Foreground}" Text="Brake Systems"/>
+                                    				Foreground="{StaticResource Foreground}" Text="Analytic - Brake Systems"/>
                                 <!--<TextBlock FontSize="20"
                                     				Foreground="{StaticResource Foreground}"><Run Text="Rank: Captain"/></TextBlock>
                                                 <TextBlock FontSize="18"
