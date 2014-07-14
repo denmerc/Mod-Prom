@@ -4,6 +4,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:local="clr-namespace:Layout"
 	mc:Ignorable="d"
 	x:Class="Layout.PricingStepsControl"
 	x:Name="UserControl"
@@ -336,7 +337,7 @@
                                            Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem>
+                            <ListBoxItem x:Name="FilterStepListBoxItem" Selected="FilterStepListBoxItem_Selected" >
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 2  " FontSize="25" FontWeight="Bold"/><Run Text="Filters "/></TextBlock>
@@ -392,12 +393,15 @@
                             </ListBoxItem>
 
                         </ListBox>
-                        <ListBox x:Name="StepContentListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
-                            <!--<ListBox.ItemContainerStyle>
+                                <ContentControl x:Name="StepContentControl">
+                                    <local:PricingIdentityStepControl></local:PricingIdentityStepControl>
+                                </ContentControl>
+                        <!--<ListBox x:Name="StepContentListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
+                            --><!--<ListBox.ItemContainerStyle>
                                                 <Style TargetType="{x:Type ListBoxItem}">
                                                     <Setter Property="Background" Value="Transparent" />
                                                 </Style>
-                                            </ListBox.ItemContainerStyle>-->
+                                            </ListBox.ItemContainerStyle>--><!--
                             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                                 <StackPanel Orientation="Horizontal">
                                     <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178" Content="Price Routine Name:" HorizontalContentAlignment="Right"></Label>
@@ -424,16 +428,16 @@
                             </ListBoxItem>
                             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <!--<StackPanel.Resources>
+                                    --><!--<StackPanel.Resources>
 														<Style TargetType="{x:Type Button}">
 															<Setter Property="Margin" Value="2"/>
 														</Style>
-													</StackPanel.Resources>-->
+													</StackPanel.Resources>--><!--
                                     <Button>Save</Button>
                                     <Button>Cancel</Button>
                                 </StackPanel>
                             </ListBoxItem>
-                        </ListBox>
+                        </ListBox>-->
                         <!--<Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"></ColumnDefinition>

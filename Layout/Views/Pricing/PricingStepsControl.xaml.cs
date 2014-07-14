@@ -26,7 +26,7 @@ namespace Layout
 
         private void AddNewPricingButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = new StepsControl();
+            this.Content = new PricingStepsControl();
         }
 
         private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
@@ -36,12 +36,18 @@ namespace Layout
 
         private void RelatedAnalyticButton_Click(object sender, RoutedEventArgs e)
         {
-            StepsControl view = new StepsControl();
-            view.NameTextBox.Text = "XXXX";
-            view.DescriptionTextBox.Text = "XXXX";
-            view.StatusTextBox.Text = "XXXX";
+            AnalyticStepsControl view = new AnalyticStepsControl();
+            //view.NameTextBox.Text = "XXXX";
+            //view.DescriptionTextBox.Text = "XXXX";
+            //view.StatusTextBox.Text = "XXXX";
 
             this.Content = view;
+        }
+
+        private void FilterStepListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            FilterStepControl view = new FilterStepControl();
+            StepContentControl.Content = view;
         }
 	}
 }

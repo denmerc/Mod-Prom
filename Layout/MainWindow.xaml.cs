@@ -30,7 +30,7 @@ namespace Layout
             var h = new HomeVerticalControl();
             
             views.Add(new HomeVerticalControl());
-            views.Add(new StepsControl());
+            views.Add(new AnalyticStepsControl());
 
             DataContext = views;
 

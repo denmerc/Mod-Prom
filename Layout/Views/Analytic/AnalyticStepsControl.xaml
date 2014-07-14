@@ -4,8 +4,9 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:local="clr-namespace:Layout"
 	mc:Ignorable="d"
-	x:Class="Layout.StepsControl"
+	x:Class="Layout.AnalyticStepsControl"
 	x:Name="UserControl"
 	d:DesignWidth="951" d:DesignHeight="1126">
     <UserControl.Resources>
@@ -324,50 +325,55 @@
                         </ListBoxItem>
 
                     </ListBox>
-                    <StackPanel x:Name="BodyStackPanel" Orientation="Horizontal">
-                        <ListBox x:Name="StepListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
-                            <ListBoxItem IsSelected="True">
-                                <StackPanel>
-                                    <TextBlock FontSize="20" VerticalAlignment="Center"
-                                           Foreground="{StaticResource Foreground}"><Run Text=" 1  " FontSize="25" FontWeight="Bold"/><Run Text="Identity"/></TextBlock>
-                                </StackPanel>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <StackPanel>
-                                    <TextBlock FontSize="20" VerticalAlignment="Center"
-                                           Foreground="{StaticResource Foreground}"><Run Text=" 2  " FontSize="25" FontWeight="Bold"/><Run Text="Filters"/></TextBlock>
-                                </StackPanel>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <StackPanel>
-                                    <TextBlock FontSize="20" VerticalAlignment="Center"
-                                           Foreground="{StaticResource Foreground}"><Run Text=" 3  " FontSize="25" FontWeight="Bold"/><Run Text="Price Lists"/></TextBlock>
+                            <StackPanel x:Name="BodyStackPanel" Orientation="Horizontal">
+                                <ListBox x:Name="StepListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
+                                    <ListBoxItem IsSelected="True" x:Name="AnalyticIdentityStepListBoxItem" Selected="AnalyticIdentityStepListBoxItem_Selected">
+                                        <StackPanel>
+                                            <TextBlock FontSize="20" VerticalAlignment="Center"
+                    					Foreground="{StaticResource Foreground}"><Run Text=" 1  " FontSize="25" FontWeight="Bold"/><Run Text="Identity"/></TextBlock>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem x:Name="FilterListBoxItem" Selected="FilterListBoxItem_Selected">
+                                        <StackPanel>
+                                            <TextBlock FontSize="20" VerticalAlignment="Center"
+                    					Foreground="{StaticResource Foreground}"><Run Text=" 2  " FontSize="25" FontWeight="Bold"/><Run Text="Filters"/></TextBlock>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem>
+                                        <StackPanel>
+                                            <TextBlock FontSize="20" VerticalAlignment="Center"
+                    					Foreground="{StaticResource Foreground}"><Run Text=" 3  " FontSize="25" FontWeight="Bold"/><Run Text="Price Lists"/></TextBlock>
 
-                                </StackPanel>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <StackPanel>
-                                    <TextBlock FontSize="20" VerticalAlignment="Center"
-                                           Foreground="{StaticResource Foreground}"><Run Text=" 4  " FontSize="25" FontWeight="Bold"/><Run Text="Value Drivers  "/></TextBlock>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem>
+                                        <StackPanel>
+                                            <TextBlock FontSize="20" VerticalAlignment="Center"
+                    					Foreground="{StaticResource Foreground}"><Run Text=" 4  " FontSize="25" FontWeight="Bold"/><Run Text="Value Drivers  "/></TextBlock>
 
-                                </StackPanel>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <StackPanel>
-                                    <TextBlock FontSize="20" VerticalAlignment="Center"
-                                           Foreground="{StaticResource Foreground}"><Run Text=" 5  " FontSize="25" FontWeight="Bold"/><Run Text="Results"/></TextBlock>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem>
+                                        <StackPanel>
+                                            <TextBlock FontSize="20" VerticalAlignment="Center"
+                    					Foreground="{StaticResource Foreground}"><Run Text=" 5  " FontSize="25" FontWeight="Bold"/><Run Text="Results"/></TextBlock>
 
-                                </StackPanel>
-                            </ListBoxItem>
+                                        </StackPanel>
+                                    </ListBoxItem>
 
 
-                        </ListBox>
-                        <ListBox x:Name="StepContentListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
-                            <!--<ListBox.ItemContainerStyle>
+                                </ListBox>
+                                <ContentControl x:Name="AnalyticStepContentControl">
+                                    <local:AnalyticIdentityStepControl/>
+                                </ContentControl>
+                                <!--<ListBox x:Name="StepContentListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
+                            -->
+                                <!--<ListBox.ItemContainerStyle>
                                                 <Style TargetType="{x:Type ListBoxItem}">
                                                     <Setter Property="Background" Value="Transparent" />
                                                 </Style>
                                             </ListBox.ItemContainerStyle>-->
+                                <!--
                             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                                 <StackPanel Orientation="Horizontal">
                                     <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="150" Content="Analytic Name:" HorizontalContentAlignment="Right"></Label>
@@ -394,17 +400,19 @@
                             </ListBoxItem>
                             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <!--<StackPanel.Resources>
+                                    -->
+                                <!--<StackPanel.Resources>
 														<Style TargetType="{x:Type Button}">
 															<Setter Property="Margin" Value="2"/>
 														</Style>
 													</StackPanel.Resources>-->
+                                <!--
                                     <Button>Save</Button>
                                     <Button>Cancel</Button>
                                 </StackPanel>
                             </ListBoxItem>
-                        </ListBox>
-                        <!--<Grid>
+                        </ListBox>-->
+                                <!--<Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -421,8 +429,8 @@
                                         </Grid>-->
 
 
-                    </StackPanel>
-                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
             </TabItem>
         </TabControl>
                 <StackPanel x:Name="MarginStackPanel" Grid.Column="1" Margin="10,25,10,0">

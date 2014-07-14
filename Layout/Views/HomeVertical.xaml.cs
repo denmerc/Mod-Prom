@@ -37,7 +37,7 @@ namespace Layout
 
         private void AddNewAnalyticButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = new StepsControl();
+            this.Content = new AnalyticStepsControl();
         }
 
         private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
