@@ -50,5 +50,38 @@ namespace Layout
             PricingStepsControl view = new PricingStepsControl();
             this.Content = view;
         }
+
+        private void AnalyticsListItem_Selected(object sender, RoutedEventArgs e)
+        {
+            FilterListBox.Visibility = Visibility.Visible;
+
+        }
+
+        private void BrakesItem_Selected(object sender, RoutedEventArgs e)
+        {
+            if(AnalyticTabDetail != null)
+            { 
+                AnalyticTabDetail.Visibility = Visibility.Visible;
+            }
+            if(MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
+        }
+
+        private void FilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            AnalyticStepsControl c = new AnalyticStepsControl();
+            c.AnalyticStepContentControl.Content = new FilterStepControl();
+            c.StepListBox.SelectedItem = c.StepListBox.Items[1];
+            this.Content = c;
+            
+        }
+
+        private void ValueDriversButtons_Click(object sender, RoutedEventArgs e)
+        {
+            AnalyticStepsControl c = new AnalyticStepsControl();
+            c.AnalyticStepContentControl.Content = new AnalyticValueDriversStepControl();
+            c.StepListBox.SelectedItem = c.StepListBox.Items[3];
+            this.Content = c;            
+
+        }
 	}
 }

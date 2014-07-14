@@ -45,12 +45,29 @@ namespace Layout
 
         private void AnalyticIdentityStepListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
-            
             if(AnalyticStepContentControl != null)
             { 
                 AnalyticIdentityStepControl c = new AnalyticIdentityStepControl();
                 this.AnalyticStepContentControl.Content = c;
             }
+        }
+
+        private void PriceListItem_Selected(object sender, RoutedEventArgs e)
+        {
+            if (AnalyticStepContentControl != null)
+            {
+                PriceListStepControl c = new PriceListStepControl();
+                this.AnalyticStepContentControl.Content = c;
+            }
+        }
+
+        private void ValueDriverItem_Selected(object sender, RoutedEventArgs e)
+        {
+            if (AnalyticStepContentControl != null)
+            {
+                AnalyticValueDriversStepControl c = new AnalyticValueDriversStepControl();
+                this.AnalyticStepContentControl.Content = c;
+            }          
         }
 	}
 }

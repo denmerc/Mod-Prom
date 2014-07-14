@@ -339,14 +339,14 @@
                     					Foreground="{StaticResource Foreground}"><Run Text=" 2  " FontSize="25" FontWeight="Bold"/><Run Text="Filters"/></TextBlock>
                                         </StackPanel>
                                     </ListBoxItem>
-                                    <ListBoxItem>
+                                    <ListBoxItem x:Name="PriceListItem" Selected="PriceListItem_Selected" >
                                         <StackPanel>
                                             <TextBlock FontSize="20" VerticalAlignment="Center"
                     					Foreground="{StaticResource Foreground}"><Run Text=" 3  " FontSize="25" FontWeight="Bold"/><Run Text="Price Lists"/></TextBlock>
 
                                         </StackPanel>
                                     </ListBoxItem>
-                                    <ListBoxItem>
+                                    <ListBoxItem x:Name="ValueDriverItem" Selected="ValueDriverItem_Selected">
                                         <StackPanel>
                                             <TextBlock FontSize="20" VerticalAlignment="Center"
                     					Foreground="{StaticResource Foreground}"><Run Text=" 4  " FontSize="25" FontWeight="Bold"/><Run Text="Value Drivers  "/></TextBlock>

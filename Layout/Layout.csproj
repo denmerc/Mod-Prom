@@ -67,6 +67,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Analytic\AnalyticValueDriversStepControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PriceListStepControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Pricing\PricingIdentityStepControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,6 +117,12 @@
     </Compile>
     <Compile Include="AnalyticSteps.xaml.cs">
       <DependentUpon>AnalyticSteps.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Analytic\AnalyticValueDriversStepControl.xaml.cs">
+      <DependentUpon>AnalyticValueDriversStepControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PriceListStepControl.xaml.cs">
+      <DependentUpon>PriceListStepControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pricing\PricingIdentityStepControl.xaml.cs">
       <DependentUpon>PricingIdentityStepControl.xaml</DependentUpon>

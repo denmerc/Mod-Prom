@@ -23,5 +23,17 @@ namespace Layout
 		{
 			this.InitializeComponent();
 		}
+
+        private void UserListItem_Selected(object sender, RoutedEventArgs e)
+        {
+            UserList.Visibility = Visibility.Visible;
+        }
+
+        private void UserListItem_Selected(object sender, SelectionChangedEventArgs e)
+        {
+            RoleListBox.Visibility = Visibility.Visible;
+            MarginStackPanel.Visibility = Visibility.Visible;
+            StepContentListBox.Visibility = Visibility.Visible;
+        }
 	}
 }

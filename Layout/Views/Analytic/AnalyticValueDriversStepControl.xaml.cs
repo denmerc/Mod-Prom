@@ -18,28 +18,20 @@ namespace Layout
     /// <summary>
     /// Interaction logic for FilterStepControl.xaml
     /// </summary>
-    public partial class FilterStepControl : UserControl
+    public partial class AnalyticValueDriversStepControl : UserControl
     {
-        public FilterStepControl()
+        public AnalyticValueDriversStepControl()
         {
             InitializeComponent();
         }
 
-        private void VendorSelectedListBoxItem_Selected(object sender, RoutedEventArgs e)
+        private void StepContentListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            //FilterGrid.DataContext = new List<Filter>()
-            //{
-            //    new Filter{IsSelected=true, Code="Code1", Value="Vendor1"}
-            //};
             FilterGrid.Visibility = Visibility.Visible;
-        }   
+        }
+
+
     }
 
-    class Filter
-    {
-        public Boolean IsSelected { get; set; }
-        public string Code { get; set; }
-        public string Value { get; set; }
-    }
+
 }

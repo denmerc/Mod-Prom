@@ -264,7 +264,7 @@
                             <WrapPanel Orientation="Vertical"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
-                    <ListBoxItem x:Name="AnalyticsListItem" IsSelected="True">
+                    <ListBoxItem x:Name="AnalyticsListItem" Selected="AnalyticsListItem_Selected">
                         <StackPanel>
 
                             <TextBlock TextAlignment="Center" FontSize="40" VerticalAlignment="Center"
@@ -323,76 +323,8 @@
 
                 </ListBox>
                 <StackPanel Orientation="Horizontal">
-                    <ListBox  Margin="0 50 0 0" Height="Auto" Width="Auto">
-                        <ListBoxItem>
-                            <StackPanel>
-                                <TextBlock FontSize="20"
-								Foreground="{StaticResource Foreground}"><Run Text="Restoration"/></TextBlock>
-                                <!--<TextBlock FontSize="18"
-                                           Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
-                                                    <TextBlock FontSize="18"
-                                           Foreground="{StaticResource Foreground}"><Run Text="Position: Helm Officer"/></TextBlock>
-                                                    <TextBlock FontSize="18"
-                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
-                            </StackPanel>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <StackPanel>
-                                <TextBlock FontSize="20"
-								Foreground="{StaticResource Foreground}"><Run Text="Hi Performance"/></TextBlock>
-                                <!--<TextBlock FontSize="18"
-                                           Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
-                                                    <TextBlock FontSize="18"
-                                           Foreground="{StaticResource Foreground}"><Run Text="Position: Communications Officer"/></TextBlock>
-                                                    <TextBlock FontSize="18"
-                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
-                            </StackPanel>
-                        </ListBoxItem>
-                        <ListBoxItem x:Name="AftermarketListItem" IsSelected="True">
-                            <StackPanel>
-                                <TextBlock FontSize="20"
-								Foreground="{StaticResource Foreground}"><Run Text="Aftermarket"/></TextBlock>
-
-                            </StackPanel>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <StackPanel>
-                                <TextBlock FontSize="20"
-								Foreground="{StaticResource Foreground}"><Run Text="Apparel"/></TextBlock>
-
-                            </StackPanel>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <StackPanel>
-                                <TextBlock FontSize="20"
-								Foreground="{StaticResource Foreground}"><Run Text="Gift Certificates"/></TextBlock>
-
-                            </StackPanel>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <StackPanel>
-                                <TextBlock FontSize="20"
-								Foreground="{StaticResource Foreground}"><Run Text="Manuals and Literature"/></TextBlock>
-
-                            </StackPanel>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <StackPanel>
-                                <TextBlock FontSize="20"
-								Foreground="{StaticResource Foreground}"><Run Text="Video and Software"/></TextBlock>
-
-                            </StackPanel>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <StackPanel>
-                                <TextBlock FontSize="20"
-								Foreground="{StaticResource Foreground}"><Run Text="Loyalty Points"/></TextBlock>
-
-                            </StackPanel>
-                        </ListBoxItem>
-                    </ListBox>
-                    <ListBox  Margin="0 50 0 0" Height="Auto" Width="Auto">
-                        <ListBoxItem>
+                                <ListBox x:Name="FilterListBox" Margin="0 50 0 0" Height="Auto" Width="Auto" Visibility="Collapsed">
+                        <ListBoxItem x:Name="AirItem" Selected="BrakesItem_Selected">
                             <StackPanel>
                                 <TextBlock FontSize="16"
 								Foreground="{StaticResource Foreground}"><Run Text="Air &amp; Fuel Delivery"/></TextBlock>
@@ -417,7 +349,7 @@
 								Foreground="{StaticResource Foreground}"><Run Text="Books"/></TextBlock>
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem x:Name="BrakesListItem" IsSelected="True">
+                        <ListBoxItem x:Name="BrakesListItem" Selected="BrakesItem_Selected">
                             <StackPanel>
                                 <TextBlock FontSize="16"
 								Foreground="{StaticResource Foreground}"><Run Text="Brake Systems"/></TextBlock>
@@ -452,7 +384,7 @@
                     </ListBox>
 
                 </StackPanel>
-                <WrapPanel Background="Transparent">
+                <WrapPanel x:Name="AnalyticTabDetail" Background="Transparent" Visibility="Collapsed" >
 
                     <WrapPanel.Resources>
                         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />-->
@@ -543,7 +475,7 @@
             </WrapPanel>
         </TabItem>
         </TabControl>
-                <StackPanel x:Name="MarginStackPanel" Grid.Column="1" Margin="10,25,10,0">
+                <StackPanel x:Name="MarginStackPanel" Grid.Column="1" Margin="10,25,10,0" Visibility="Collapsed">
                     <TextBlock Margin="0,10,0,10"
                                     FontSize="18"
                                     Foreground="{StaticResource Foreground}"
@@ -560,12 +492,14 @@
                                         Margin="0,3,0,10"
                                         Content="Rename Anayltic..."
                                         Style="{StaticResource LinkButton}" />
-                    <Button FontSize="14"
+                    <Button x:Name="FilterButton" FontSize="14"
                                         Margin="0,3,0,10"
                                         Content="Add/Edit Filters..."
+                                        Click="FilterButton_Click"
                                         Style="{StaticResource LinkButton}" />
-                    <Button FontSize="14"
+                    <Button x:Name="ValueDriversButtons" FontSize="14"
                                         Margin="0,3,0,10"
+                                        Click="ValueDriversButtons_Click"
                                         Content="Add/Edit Value Drivers..."
                                         Style="{StaticResource LinkButton}" />
                     <Separator Background="#11FFFFFF" />
