@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Layout
 {
@@ -82,6 +83,23 @@ namespace Layout
             c.StepListBox.SelectedItem = c.StepListBox.Items[3];
             this.Content = c;            
 
+        }
+
+        private void Filters_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var name = (e.AddedItems[0] as ListBoxItem).Name;
+            if(name != null)
+            {
+                
+                if(AnalyticTabDetail != null)
+                { 
+
+                    AnalyticTabDetail.Visibility = Visibility.Visible;
+                    AnalyticTitle.Text = name;
+
+                }
+                if(MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
+            }
         }
 	}
 }

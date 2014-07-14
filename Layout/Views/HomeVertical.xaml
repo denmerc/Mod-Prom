@@ -323,8 +323,8 @@
 
                 </ListBox>
                 <StackPanel Orientation="Horizontal">
-                                <ListBox x:Name="FilterListBox" Margin="0 50 0 0" Height="Auto" Width="Auto" Visibility="Collapsed">
-                        <ListBoxItem x:Name="AirItem" Selected="BrakesItem_Selected">
+                                <ListBox x:Name="FilterListBox" Margin="0 50 0 0" Height="Auto" Width="Auto" Visibility="Collapsed" SelectionChanged="Filters_SelectionChanged">
+                        <ListBoxItem x:Name="AirFilters">
                             <StackPanel>
                                 <TextBlock FontSize="16"
 								Foreground="{StaticResource Foreground}"><Run Text="Air &amp; Fuel Delivery"/></TextBlock>
@@ -336,46 +336,46 @@
                                            Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem>
+                        <ListBoxItem x:Name="BedMats">
                             <StackPanel>
                                 <TextBlock FontSize="16"
 								Foreground="{StaticResource Foreground}"><Run Text="Bed Mats &amp; Tonneau Covers"/></TextBlock>
 
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem>
+                        <ListBoxItem x:Name="Books">
                             <StackPanel>
                                 <TextBlock FontSize="16"
 								Foreground="{StaticResource Foreground}"><Run Text="Books"/></TextBlock>
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem x:Name="BrakesListItem" Selected="BrakesItem_Selected">
+                        <ListBoxItem x:Name="Brakes" Selected="BrakesItem_Selected">
                             <StackPanel>
                                 <TextBlock FontSize="16"
 								Foreground="{StaticResource Foreground}"><Run Text="Brake Systems"/></TextBlock>
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem>
+                        <ListBoxItem x:Name="Bumpers">
                             <StackPanel>
                                 <TextBlock FontSize="16"
 								Foreground="{StaticResource Foreground}"><Run Text="Bumpers &amp; Hardware"/></TextBlock>
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem>
+                        <ListBoxItem x:Name="CarCare">
                             <StackPanel>
                                 <TextBlock FontSize="16"
 								Foreground="{StaticResource Foreground}"><Run Text="Car Care &amp; Paint"/></TextBlock>
 
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem>
+                        <ListBoxItem x:Name="VideoSoftware">
                             <StackPanel>
                                 <TextBlock FontSize="16"
 								Foreground="{StaticResource Foreground}"><Run Text="Video and Software"/></TextBlock>
 
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem>
+                        <ListBoxItem x:Name="LoyaltyPoints">
                             <StackPanel>
                                 <TextBlock FontSize="16"
 								Foreground="{StaticResource Foreground}"><Run Text="Loyalty Points"/></TextBlock>
@@ -394,8 +394,8 @@
                                     Height="500" Width="800">
                         <TabItem Header="Identity" >
                             <StackPanel Margin="10">
-                                <TextBlock FontSize="30" Foreground="White" Text="Brake Systems" />
-                                <TextBlock FontSize="18" Foreground="White" Text="All OPGI Brake Systems" />
+                                <TextBlock x:Name="AnalyticTitle" FontSize="30" Foreground="White" Text="" />
+                                <TextBlock FontSize="18" Foreground="White" Text="All OPGI Parts" />
                                 <TextBlock FontSize="18" Foreground="White" Text="Status: Active"  />
                                 <TextBlock FontSize="18" Foreground="White" Text="Comments:"  />
                                 <TextBlock TextWrapping="WrapWithOverflow" FontSize="14" Foreground="White" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget lectus mollis, faucibus nibh eget, rutrum sem. Ut sed sollicitudin tortor, nec tincidunt nunc. Duis venenatis sagittis elit, quis porta mi lacinia vel. Vivamus interdum, lectus sodales consequat volutpat, massa tortor faucibus nisl, eu bibendum risus urna in nisl. Donec consequat sed ante placerat pharetra. In sit amet felis posuere, lacinia risus ac, cursus felis. Maecenas consequat elit a enim aliquet fermentum. Vestibulum bibendum ipsum ut mauris condimentum sollicitudin. Nullam pharetra id eros nec accumsan. Ut laoreet a purus id placerat. Suspendisse mauris sapien, rhoncus quis auctor a, elementum in velit. Quisque id arcu pellentesque, pulvinar lorem id, ornare elit. Vivamus rutrum eu purus id placerat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egesta" />
