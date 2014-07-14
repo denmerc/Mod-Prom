@@ -47,7 +47,17 @@ namespace Layout
         private void FilterStepListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
             FilterStepControl view = new FilterStepControl();
+            view.FilterGrid.Visibility = Visibility.Collapsed;
             StepContentControl.Content = view;
+        }
+
+        private void IdentityListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            if (StepContentControl != null)
+            {
+                PricingIdentityStepControl c = new PricingIdentityStepControl();
+                this.StepContentControl.Content = c;
+            }
         }
 	}
 }

@@ -84,7 +84,7 @@
                 </StackPanel>
             </ListBoxItem>
         </ListBox>
-        <DataGrid x:Name="FilterGrid" ItemsSource="{Binding}" Visibility="Collapsed"
+        <DataGrid x:Name="FilterGrid" ItemsSource="{Binding}" Height="Auto"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"

@@ -39,11 +39,13 @@ namespace Layout
         private void FilterListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
             FilterStepControl control = new FilterStepControl();
+            control.FilterGrid.Visibility = Visibility.Collapsed;
             this.AnalyticStepContentControl.Content = control;
         }
 
         private void AnalyticIdentityStepListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
+            
             if(AnalyticStepContentControl != null)
             { 
                 AnalyticIdentityStepControl c = new AnalyticIdentityStepControl();

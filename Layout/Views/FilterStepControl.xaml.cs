@@ -27,6 +27,7 @@ namespace Layout
 
         private void VendorSelectedListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
+            
             FilterGrid.DataContext = new List<Filter>()
             {
                 new Filter{IsSelected=true, Code="Code1", Value="Vendor1"}
