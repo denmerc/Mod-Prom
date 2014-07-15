@@ -69,5 +69,10 @@ namespace Layout
                 this.AnalyticStepContentControl.Content = c;
             }          
         }
+
+        private void ResultItem_Selected(object sender, RoutedEventArgs e)
+        {
+            this.AnalyticStepContentControl.Content = null;
+        }
 	}
 }

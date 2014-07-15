@@ -353,7 +353,7 @@
 
                                         </StackPanel>
                                     </ListBoxItem>
-                                    <ListBoxItem>
+                                    <ListBoxItem Selected="ResultItem_Selected">
                                         <StackPanel>
                                             <TextBlock FontSize="20" VerticalAlignment="Center"
                     					Foreground="{StaticResource Foreground}"><Run Text=" 5  " FontSize="25" FontWeight="Bold"/><Run Text="Results"/></TextBlock>
