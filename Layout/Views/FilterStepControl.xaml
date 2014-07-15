@@ -37,13 +37,13 @@
     <Grid x:Name="LayoutRoot">
         <StackPanel Orientation="Horizontal">
 
-            <ListBox x:Name="StepContentListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto" SelectionChanged="VendorSelectedListBoxItem_Selected">
+            <ListBox x:Name="StepContentListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto" SelectionChanged="ListBoxItem_OnSelected">
             <!--<ListBox.ItemContainerStyle>
                                                 <Style TargetType="{x:Type ListBoxItem}">
                                                     <Setter Property="Background" Value="Transparent" />
                                                 </Style>
                                             </ListBox.ItemContainerStyle>-->
-            <ListBoxItem x:Name="VendorSelectedListBoxItem" Selected="VendorSelectedListBoxItem_Selected">
+            <ListBoxItem x:Name="VendorSelectedListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Vendor Code</Label>
                 </StackPanel>

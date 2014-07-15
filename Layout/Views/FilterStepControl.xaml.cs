@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -25,13 +26,22 @@ namespace Layout
             InitializeComponent();
         }
 
-        private void VendorSelectedListBoxItem_Selected(object sender, RoutedEventArgs e)
+        private void ListBoxItem_OnSelected(object sender, RoutedEventArgs e)
         {
-            
-            //FilterGrid.DataContext = new List<Filter>()
-            //{
-            //    new Filter{IsSelected=true, Code="Code1", Value="Vendor1"}
-            //};
+            FilterGrid.Visibility = Visibility.Collapsed;
+            var a = new DoubleAnimation
+            {
+                From = 0.0,
+                To = 1.0,
+                FillBehavior = FillBehavior.Stop,
+                Duration = new Duration(TimeSpan.FromSeconds(1))
+            };
+            var storyboard = new Storyboard();
+
+            storyboard.Children.Add(a);
+            Storyboard.SetTarget(a, FilterGrid);
+            Storyboard.SetTargetProperty(a, new PropertyPath(OpacityProperty));
+            storyboard.Begin();  
             FilterGrid.Visibility = Visibility.Visible;
         }   
     }
