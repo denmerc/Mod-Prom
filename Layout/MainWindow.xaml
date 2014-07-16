@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Layout.MainWindow"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Layout"
-        Title="Promoter" d:DesignHeight="1354" Width="1326" BorderThickness="1" BorderBrush="Black" MinHeight="530" MinWidth="1080" >
+        Title="Promoter" d:DesignHeight="1354" BorderThickness="1" BorderBrush="Black" MinHeight="530" MinWidth="1080" Height="900" Width="1650" >
 
 
     <controls:MetroWindow.RightWindowCommands>
