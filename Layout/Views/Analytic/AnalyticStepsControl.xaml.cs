@@ -11,6 +11,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using System.Timers;
+using System.Threading;
 
 namespace Layout
 {
@@ -26,7 +28,9 @@ namespace Layout
 		}
         private void AddNewAnalyticButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = new AnalyticStepsControl();
+            AnalyticStepsControl c = new AnalyticStepsControl();
+            c.TitleTextBox.Text = "Analytic - New";
+            this.Content = c;
         }
 
 
@@ -80,7 +84,18 @@ namespace Layout
             (StepListBox.Items[4] as ListBoxItem).Visibility = Visibility.Visible;
             StepListBox.SelectedItem = StepListBox.Items[4];
             this.AnalyticStepContentControl.Content = new AnalyticResultsControl();
+        }
 
+        private void StepListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AnalyticStepContentControl != null)
+            {
+                if (StepListBox.SelectedItem != StepListBox.Items[4])
+                {
+
+                    (StepListBox.Items[4] as ListBoxItem).Visibility = Visibility.Collapsed;
+                }
+            }
         }
 	}
 }

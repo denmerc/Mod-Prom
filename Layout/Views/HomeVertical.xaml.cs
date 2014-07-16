@@ -38,7 +38,9 @@ namespace Layout
 
         private void AddNewAnalyticButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Content = new AnalyticStepsControl();
+            AnalyticStepsControl c = new AnalyticStepsControl();
+            c.TitleTextBox.Text = "Analytic - New";
+            this.Content = c;
         }
 
         private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
@@ -70,15 +72,24 @@ namespace Layout
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
             AnalyticStepsControl c = new AnalyticStepsControl();
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
             c.AnalyticStepContentControl.Content = new FilterStepControl();
             c.StepListBox.SelectedItem = c.StepListBox.Items[1];
             this.Content = c;
             
         }
-
+        private void PriceListButton_Click(object sender, RoutedEventArgs e)
+        {
+            AnalyticStepsControl c = new AnalyticStepsControl();
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
+            c.AnalyticStepContentControl.Content = new FilterStepControl();
+            c.StepListBox.SelectedItem = c.StepListBox.Items[2];
+            this.Content = c;    
+        }
         private void ValueDriversButtons_Click(object sender, RoutedEventArgs e)
         {
             AnalyticStepsControl c = new AnalyticStepsControl();
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
             c.AnalyticStepContentControl.Content = new AnalyticValueDriversStepControl();
             c.StepListBox.SelectedItem = c.StepListBox.Items[3];
             this.Content = c;            
@@ -100,6 +111,34 @@ namespace Layout
                 }
                 if(MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
             }
+        }
+
+
+        private void RenameButton_Click(object sender, RoutedEventArgs e)
+        {
+            AnalyticStepsControl c = new AnalyticStepsControl();
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
+            AnalyticIdentityStepControl i = new AnalyticIdentityStepControl();
+            i.NameTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
+            c.AnalyticStepContentControl.Content = i;
+            this.Content = c;
+        }
+
+        private void CopyAnalyticButton_Click(object sender, RoutedEventArgs e)
+        {
+            AnalyticStepsControl c = new AnalyticStepsControl();
+            c.TitleTextBox.Text = "Analytic - Copy";
+            this.Content = c;
+        }
+
+        private void ModuleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Contains(ModuleListBox.Items[0])) 
+            {
+                FilterStackPanel.Visibility = Visibility.Visible;
+            }
+            else { FilterStackPanel.Visibility = Visibility.Collapsed; }
+            
         }
 	}
 }
