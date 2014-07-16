@@ -488,7 +488,11 @@
                                         Margin="0,3,0,10"
                                         Content="Modify Strategy..."
                                         Style="{StaticResource LinkButton}" />
-
+                    <Button FontSize="14"
+                                        Margin="0,3,0,10"
+                                        Content="Run and review results..."
+                                        Style="{StaticResource LinkButton}" />
+                    
                     <Button FontSize="14"
                                         Margin="0,3,0,10"
                                         Content="Approve..."

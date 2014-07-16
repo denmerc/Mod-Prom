@@ -353,7 +353,7 @@
 
                                         </StackPanel>
                                     </ListBoxItem>
-                                    <ListBoxItem Selected="ResultItem_Selected">
+                                    <ListBoxItem Selected="ResultItem_Selected" Visibility="Collapsed">
                                         <StackPanel>
                                             <TextBlock FontSize="20" VerticalAlignment="Center"
                     					Foreground="{StaticResource Foreground}"><Run Text=" 5  " FontSize="25" FontWeight="Bold"/><Run Text="Results"/></TextBlock>
@@ -450,6 +450,11 @@
                     <Button FontSize="14"
                                         Margin="0,3,0,10"
                                         Content="Rename Anayltic..."
+                                        Style="{StaticResource LinkButton}" />
+                    <Button x:Name="RunAnalytic"  FontSize="14"
+                                        Margin="0,3,0,10"
+                                        Content="Run and review results..."
+                                        Click="RunAnalytic_Click"
                                         Style="{StaticResource LinkButton}" />
                     <Button FontSize="14"
                                         Margin="0,3,0,10"

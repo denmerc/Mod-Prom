@@ -63,7 +63,7 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="AnalyticSteps.xaml">
+    <Page Include="Views\Analytic\AnalyticResultsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -115,8 +115,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AnalyticSteps.xaml.cs">
-      <DependentUpon>AnalyticSteps.xaml</DependentUpon>
+    <Compile Include="Views\Analytic\AnalyticResultsControl.xaml.cs">
+      <DependentUpon>AnalyticResultsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Analytic\AnalyticValueDriversStepControl.xaml.cs">
       <DependentUpon>AnalyticValueDriversStepControl.xaml</DependentUpon>

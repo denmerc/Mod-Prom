@@ -74,5 +74,13 @@ namespace Layout
         {
             this.AnalyticStepContentControl.Content = null;
         }
+
+        private void RunAnalytic_Click(object sender, RoutedEventArgs e)
+        {
+            (StepListBox.Items[4] as ListBoxItem).Visibility = Visibility.Visible;
+            StepListBox.SelectedItem = StepListBox.Items[4];
+            this.AnalyticStepContentControl.Content = new AnalyticResultsControl();
+
+        }
 	}
 }
