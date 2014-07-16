@@ -59,5 +59,17 @@ namespace Layout
                 this.StepContentControl.Content = c;
             }
         }
+
+        private void PriceListItem_Selected(object sender, RoutedEventArgs e)
+        {
+            PriceListStepControl content = new PriceListStepControl();
+            this.StepContentControl.Content = content;
+        }
+
+        private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            this.StepContentControl.Content = null;
+        }
+
 	}
 }

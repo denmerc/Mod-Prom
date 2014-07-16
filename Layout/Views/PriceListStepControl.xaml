@@ -85,13 +85,13 @@
             </ListBoxItem>
         </ListBox>
         <DataGrid x:Name="FilterGrid" ItemsSource="{Binding}" Height="Auto"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False" Width="625">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                        Header="Name"
+                                        Header="Name" Width="100"
                                         Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}" />
-                <DataGridTextColumn Header="Description"
+                <DataGridTextColumn Header="Description" Width="200"
                                     Binding="{Binding Value}" />
                 <DataGridTextColumn Header="Code"
                                     Binding="{Binding Code}" />

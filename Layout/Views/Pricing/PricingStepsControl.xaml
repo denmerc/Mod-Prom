@@ -349,42 +349,42 @@
                                            Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem>
+                            <ListBoxItem x:Name="PriceListItem" Selected="PriceListItem_Selected">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 3  " FontSize="25" FontWeight="Bold"/><Run Text="Price Lists  "/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem>
+                            <ListBoxItem Selected="ListBoxItem_Selected">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 4  " FontSize="25" FontWeight="Bold"/><Run Text="Rounding "/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem>
+                            <ListBoxItem Selected="ListBoxItem_Selected">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 5  " FontSize="25" FontWeight="Bold"/><Run Text="Strategy"/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem>
+                            <ListBoxItem Selected="ListBoxItem_Selected">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 6  " FontSize="25" FontWeight="Bold"/><Run Text="Results "/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem>
+                                    <ListBoxItem Selected="ListBoxItem_Selected">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 7  " FontSize="25" FontWeight="Bold"/><Run Text="Forecast"/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem>
+                                    <ListBoxItem Selected="ListBoxItem_Selected">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 8  " FontSize="25" FontWeight="Bold"/><Run Text="Approval" /></TextBlock>
