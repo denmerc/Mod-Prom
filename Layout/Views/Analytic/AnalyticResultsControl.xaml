@@ -87,9 +87,9 @@
                                        Maximum="100"
                                        Width="800"
                                        Foreground="{StaticResource Foreground}"
-                                       Margin="0, 0, 0, 0" />
+                                       Margin="0, -5, 0, 0" />
             <DataGrid x:Name="FilterGrid" ItemsSource="{Binding}" Height="500"
-                  AutoGenerateColumns="False" Visibility="Collapsed" Width="800">
+                  AutoGenerateColumns="False" Visibility="Hidden" Width="800">
             <DataGrid.Columns>
                 <DataGridTextColumn                                        
                                         Width="200"
