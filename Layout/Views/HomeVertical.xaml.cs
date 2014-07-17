@@ -140,5 +140,17 @@ namespace Layout
             else { FilterStackPanel.Visibility = Visibility.Collapsed; }
             
         }
+
+        private void CreatePriceRoutineButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            PricingStepsControl view = new PricingStepsControl();
+            PricingIdentityStepControl subView = new PricingIdentityStepControl();
+            subView.NameTextBox.Text = "Price Routine for " + (FilterListBox.SelectedItem as ListBoxItem).Name;
+            subView.AnalyticTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
+            view.StepContentControl.Content = subView;
+            this.Content = view;
+
+        }
 	}
 }
