@@ -97,5 +97,15 @@ namespace Layout
                 }
             }
         }
+
+        private void CreatePriceRoutineButton_Click(object sender, RoutedEventArgs e)
+        {
+            PricingStepsControl view = new PricingStepsControl();
+            PricingIdentityStepControl subView = new PricingIdentityStepControl();
+            subView.NameTextBox.Text = "Price Routine for " + this.TitleTextBox.Text;
+            subView.AnalyticTextBox.Text = this.TitleTextBox.Text;
+            view.StepContentControl.Content = subView;
+            this.Content = view;
+        }
 	}
 }

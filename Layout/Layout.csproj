@@ -115,6 +115,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Analytic\AnalyticResultsControl.xaml.cs">
       <DependentUpon>AnalyticResultsControl.xaml</DependentUpon>
     </Compile>
@@ -183,6 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Promoter-ico.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

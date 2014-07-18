@@ -4,8 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Layout.MainWindow"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Layout"
+        xmlns:vm="clr-namespace:Layout.ViewModels"
         Title="Promoter" d:DesignHeight="1354" BorderThickness="1" BorderBrush="Black" MinHeight="530" MinWidth="1080" Height="900" Width="1650" WindowStartupLocation="CenterScreen" WindowState="Maximized">
-
+    <controls:MetroWindow.DataContext>
+        <vm:MainViewModel/>
+    </controls:MetroWindow.DataContext>
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
@@ -14,7 +17,7 @@
                     ToolTip="Promoter.com web site"
                     Content="Promoter.com" />
             <Button 
-                    ToolTip="Abou Promoter"
+                    ToolTip="About Promoter"
                     Content="About" />
             <!--<Button Click="LaunchRibbonDemo" Content="Ribbon Demo (.NET 4.5)" />-->
             <Button 
@@ -25,15 +28,24 @@
                           ToolTip="Shows the toggle button magic"
                           x:Name="MagicToggleButton"
                           IsChecked="{Binding MagicToggleButtonIsChecked}" />-->
-            <ToggleButton Content="Logout"
+            <ToggleButton
                           ToolTip="Logout of Promoter"
-                          IsChecked="{Binding QuitConfirmationEnabled}" />
+                          IsChecked="{Binding QuitConfirmationEnabled}" >
+                <ToggleButton.Content>
+                    <TextBlock>
+                        
+                    <Run Text="Logout - " />
+                    <TextBlock Text="{Binding Session.User.Login}"/>
+                    </TextBlock>
+
+                </ToggleButton.Content>
+            </ToggleButton>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
             <controls:Flyout x:Name="MessageCenter" Header="Message Center"
-                             Position="Right" IsOpenChanged="MessageCenter_IsOpenChanged" CloseCommand=""
+                             Position="Right" IsOpenChanged="MessageCenter_IsOpenChanged" 
                              Theme="Accent" Unloaded="Flyout_Unloaded" ContextMenuClosing="MessageCenter_ContextMenuClosing" >
                 <Grid Margin="10"
                       Width="400">
@@ -55,7 +67,7 @@
                 </Grid>
             </controls:Flyout>
             <controls:Flyout x:Name="Properties" Header="Properties"
-                             Position="Right" IsOpenChanged="MessageCenter_IsOpenChanged" CloseCommand=""
+                             Position="Right" IsOpenChanged="MessageCenter_IsOpenChanged" 
                              Theme="Accent" Unloaded="Flyout_Unloaded" ContextMenuClosing="MessageCenter_ContextMenuClosing" >
                 <Grid Margin="10"
                       Width="400">

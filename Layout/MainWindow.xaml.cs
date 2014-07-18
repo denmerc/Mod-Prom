@@ -32,7 +32,7 @@ namespace Layout
             views.Add(new HomeVerticalControl());
             views.Add(new AnalyticStepsControl());
 
-            DataContext = views;
+            //DataContext = views;
 
             ChildControl.Content = views[0];
             
@@ -90,7 +90,11 @@ namespace Layout
 
         private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
         {
-            ChildControl.Content = new HomeVerticalControl();
+            HomeVerticalControl h = new HomeVerticalControl();
+            h.ModuleListBox.SelectedItem = h.ModuleListBox.Items[0];
+            h.FilterListBox.Visibility = Visibility.Visible;
+            ChildControl.Content = h;
+
         }
 
         private void RelatedPriceRoutineButton_Click(object sender, RoutedEventArgs e)
@@ -104,5 +108,7 @@ namespace Layout
             AdminControl c = new AdminControl();
             ChildControl.Content = c;
         }
+
+
     }
 }

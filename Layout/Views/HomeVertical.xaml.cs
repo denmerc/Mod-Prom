@@ -22,6 +22,8 @@ namespace Layout
 	public partial class HomeVerticalControl : UserControl
 	{
         //ObservableCollection<UserControl> views;
+        Domain.Analytic _SelectedAnalytic;
+
 		public HomeVerticalControl()
 		{
 			this.InitializeComponent();
@@ -43,10 +45,15 @@ namespace Layout
             this.Content = c;
         }
 
-        private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Content = new HomeVerticalControl();
-        }
+        //private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
+        //{
+
+            
+        //    this.Content = this;
+        //    FilterListBox.Visibility = Visibility.Visible;
+            
+
+        //}
 
         private void RelatedPriceRoutineButton_Click(object sender, RoutedEventArgs e)
         {
@@ -72,7 +79,7 @@ namespace Layout
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
             AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
             c.AnalyticStepContentControl.Content = new FilterStepControl();
             c.StepListBox.SelectedItem = c.StepListBox.Items[1];
             this.Content = c;
@@ -81,7 +88,7 @@ namespace Layout
         private void PriceListButton_Click(object sender, RoutedEventArgs e)
         {
             AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
             c.AnalyticStepContentControl.Content = new FilterStepControl();
             c.StepListBox.SelectedItem = c.StepListBox.Items[2];
             this.Content = c;    
@@ -89,7 +96,7 @@ namespace Layout
         private void ValueDriversButtons_Click(object sender, RoutedEventArgs e)
         {
             AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
             c.AnalyticStepContentControl.Content = new AnalyticValueDriversStepControl();
             c.StepListBox.SelectedItem = c.StepListBox.Items[3];
             this.Content = c;            
@@ -98,28 +105,42 @@ namespace Layout
 
         private void Filters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var name = (e.AddedItems[0] as ListBoxItem).Name;
-            if(name != null)
+            if(e.AddedItems.Count > 0)
             {
-                
-                if(AnalyticTabDetail != null)
-                { 
-
-                    AnalyticTabDetail.Visibility = Visibility.Visible;
-                    AnalyticTitle.Text = name;
-
+                var analytic = e.AddedItems[0] as Layout.Domain.Analytic;
+                if (analytic != null) 
+                {
+                    _SelectedAnalytic = analytic;
+                    AnalyticTabDetail.DataContext = analytic; 
                 }
-                if(MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
+                AnalyticTabDetail.Visibility = Visibility.Visible;
+                if (MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
             }
+            
+
+
+            //var name = (e.AddedItems[0] as ListBoxItem).Name;
+            //if(name != null)
+            //{
+                
+            //    if(AnalyticTabDetail != null)
+            //    { 
+
+            //        AnalyticTabDetail.Visibility = Visibility.Visible;
+            //        AnalyticTitle.Text = name;
+
+            //    }
+            //    if(MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
+            //}
         }
 
 
         private void RenameButton_Click(object sender, RoutedEventArgs e)
         {
             AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
             AnalyticIdentityStepControl i = new AnalyticIdentityStepControl();
-            i.NameTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
+            i.NameTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
             c.AnalyticStepContentControl.Content = i;
             this.Content = c;
         }
@@ -137,7 +158,7 @@ namespace Layout
             {
                 FilterStackPanel.Visibility = Visibility.Visible;
             }
-            else { FilterStackPanel.Visibility = Visibility.Collapsed; }
+            else { FilterStackPanel.Visibility = Visibility.Collapsed; AnalyticTabDetail.Visibility = Visibility.Collapsed; }
             
         }
 
@@ -146,8 +167,8 @@ namespace Layout
 
             PricingStepsControl view = new PricingStepsControl();
             PricingIdentityStepControl subView = new PricingIdentityStepControl();
-            subView.NameTextBox.Text = "Price Routine for " + (FilterListBox.SelectedItem as ListBoxItem).Name;
-            subView.AnalyticTextBox.Text = (FilterListBox.SelectedItem as ListBoxItem).Name;
+            subView.NameTextBox.Text = "Price Routine for " + (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
+            subView.AnalyticTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
             view.StepContentControl.Content = subView;
             this.Content = view;
 

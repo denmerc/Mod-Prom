@@ -321,7 +321,7 @@
 
                         </ListBoxItem>
                                 <TextBlock x:Name="TitleTextBox" FontSize="25" TextAlignment="Left" VerticalAlignment="Center"
-                                    				Foreground="{StaticResource Foreground}" Text="Analytic - Brake Systems"/>
+                                    				Foreground="{StaticResource Foreground}" Text="Analytic - XXX"/>
 
                     </ListBox>
                             <StackPanel x:Name="BodyStackPanel" Orientation="Horizontal">
@@ -454,6 +454,11 @@
                                         Margin="0,3,0,10"
                                         Content="Run and review results..."
                                         Click="RunAnalytic_Click"
+                                        Style="{StaticResource LinkButton}" />
+                    <Button x:Name="CreatePriceRoutineButton" FontSize="14"
+                                        Margin="0,3,0,10"
+                                        Click="CreatePriceRoutineButton_Click"
+                                        Content="Attach Price Routine..."
                                         Style="{StaticResource LinkButton}" />
                     <Button FontSize="14"
                                         Margin="0,3,0,10"

@@ -13,7 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Layout.Domain;
 namespace Layout
 {
     /// <summary>
@@ -46,10 +46,5 @@ namespace Layout
         }   
     }
 
-    class Filter
-    {
-        public Boolean IsSelected { get; set; }
-        public string Code { get; set; }
-        public string Value { get; set; }
-    }
+
 }

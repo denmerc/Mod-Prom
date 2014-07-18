@@ -44,7 +44,7 @@
             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                 <StackPanel Orientation="Horizontal">
                     <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178" Content="Price Routine Name:" HorizontalContentAlignment="Right"></Label>
-                    <TextBox x:Name="NameTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="255" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}"></TextBox>
+                    <TextBox x:Name="NameTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="289" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}"></TextBox>
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
