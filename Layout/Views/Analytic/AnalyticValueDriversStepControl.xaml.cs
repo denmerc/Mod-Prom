@@ -28,7 +28,7 @@ namespace Layout
 
         private void StepContentListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FilterGrid.Visibility = Visibility.Collapsed;
+            ModeList.Visibility = Visibility.Collapsed;
             var a = new DoubleAnimation
             {
                 From = 0.0,
@@ -39,15 +39,60 @@ namespace Layout
             var storyboard = new Storyboard();
 
             storyboard.Children.Add(a);
-            Storyboard.SetTarget(a, FilterGrid);
+            Storyboard.SetTarget(a, ModeList);
             Storyboard.SetTargetProperty(a, new PropertyPath(OpacityProperty));
             storyboard.Begin();
-            
-            FilterGrid.Visibility = Visibility.Visible;
+
+
+            ResetGroups(); ModeList.SelectedItem = null;
+            //FilterGrid.Visibility = Visibility.Visible;
+            ModeList.Visibility = Visibility.Visible;
+            DetailStack.Visibility = Visibility.Hidden;
         }
 
+        int i = 0;
+        private void RowNo_IncrementValue(object sender, MahApps.Metro.Controls.NumericUpDownChangedRoutedEventArgs args)
+        {
+            
+            FilterGrid.Items.Add(new Domain.ValueDriver() { Group = ++i});
+            
+        }
 
+        private void RowNo_DecrementValue(object sender, MahApps.Metro.Controls.NumericUpDownChangedRoutedEventArgs args)
+        {
+            FilterGrid.Items.Remove(FilterGrid.Items[--i]);
+        }
+
+        void ResetGroups()
+        {
+            i = 0;
+            RowNo.Value = RowNo.Minimum;
+            FilterGrid.Items.Clear();
+            
+        }
+
+        private void ModeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DetailStack.Visibility = Visibility.Collapsed;
+            ResetGroups();
+            var a = new DoubleAnimation
+            {
+                From = 0.0,
+                To = 1.0,
+                FillBehavior = FillBehavior.Stop,
+                Duration = new Duration(TimeSpan.FromSeconds(1))
+            };
+            var storyboard = new Storyboard();
+
+            storyboard.Children.Add(a);
+            Storyboard.SetTarget(a, DetailStack);
+            Storyboard.SetTargetProperty(a, new PropertyPath(OpacityProperty));
+            storyboard.Begin();
+
+
+            DetailStack.Visibility = Visibility.Visible;
+            
+
+        }
     }
-
-
 }

@@ -46,53 +46,90 @@
             <ListBoxItem x:Name="VendorSelectedListBoxItem" >
                 <StackPanel Orientation="Horizontal">
                         <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Movement</Label>
+                        <CheckBox></CheckBox>
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem>
                 <StackPanel Orientation="Horizontal">
                     <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Markup</Label>
-                </StackPanel>
+                        <CheckBox></CheckBox>
+                    </StackPanel>
             </ListBoxItem>
             <ListBoxItem>
                 <StackPanel Orientation="Horizontal">
                     <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Days On Hand</Label>
-                </StackPanel>
+                        <CheckBox></CheckBox>
+                    </StackPanel>
             </ListBoxItem>
             <ListBoxItem>
                 <StackPanel Orientation="Horizontal">
                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Days Lead Time</Label>
-                </StackPanel>
+                        <CheckBox></CheckBox>
+                    </StackPanel>
             </ListBoxItem>
             <ListBoxItem>
                 <StackPanel Orientation="Horizontal">
                         <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178">In Stock Ratio</Label>
-                </StackPanel>
+                        <CheckBox></CheckBox>
+                    </StackPanel>
             </ListBoxItem>
             <ListBoxItem>
                 <StackPanel Orientation="Horizontal">
                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Sales Trend Ratio</Label>
-                </StackPanel>
+                        <CheckBox></CheckBox>
+                    </StackPanel>
             </ListBoxItem>
             <ListBoxItem>
                 <StackPanel Orientation="Horizontal">
                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Competition</Label>
-                </StackPanel>
+                        <CheckBox></CheckBox>
+                    </StackPanel>
             </ListBoxItem>
         </ListBox>
-        <DataGrid x:Name="FilterGrid" ItemsSource="{Binding}" Height="Auto"
-                  AutoGenerateColumns="False" Visibility="Collapsed" Width="406">
-            <DataGrid.Columns>
-                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                                        Width="100"
-                                        Header="Name"
-                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}" />
-                <DataGridTextColumn Header="Description" Width="200"
-                                    Binding="{Binding Value}" />
-                <DataGridTextColumn Header="Code"
-                                    Binding="{Binding Code}" />
-            </DataGrid.Columns>
-        </DataGrid>
+                
+            <ListBox x:Name="ModeList" Visibility="Hidden" SelectionChanged="ModeList_SelectionChanged">
+                <ListBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Auto</Label>
+                        <CheckBox></CheckBox>
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Manual</Label>
+                        <CheckBox></CheckBox>
+                    </StackPanel>
+                </ListBoxItem>
+
+            </ListBox>
+            
+            <StackPanel x:Name="DetailStack" Visibility="Hidden">
+                <StackPanel Orientation="Horizontal">
+
+                    <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="Auto">No of Distribution Groups:</Label>
+                    <controls:NumericUpDown x:Name="RowNo" Minimum="0" Maximum="15" Margin="5" Foreground="{StaticResource Foreground}" IsReadOnly="True" IncrementValue="RowNo_IncrementValue" DecrementValue="RowNo_DecrementValue" Background="Transparent"></controls:NumericUpDown>
+                </StackPanel>
+            <DataGrid x:Name="FilterGrid" ItemsSource="{Binding}" Height="500"
+                  AutoGenerateColumns="False" Width="800" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn                                        
+                                        Width="200"
+                                        Header="Distribution Groups"
+                                        Binding="{Binding Group}"
+                                        />
+                    <DataGridTextColumn Header="SKU Count" Width="100"
+                                    />
+                    <DataGridTextColumn Header="Min"
+                                    Width="50"/>
+                    <DataGridTextColumn Header="Max"
+                                Width="50"/>
+
+
+                    <DataGridTextColumn Header="Sales Value"
+                                 Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

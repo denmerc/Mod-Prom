@@ -302,10 +302,24 @@ namespace Layout.ViewModels
                 }
                 
             };
+
+            Filters = new List<Domain.Filter>()
+            {
+                new Domain.Filter(){IsSelected = true, Value = "Filter1"},
+                new Domain.Filter(){IsSelected = true, Value = "Filter2"},
+                new Domain.Filter(){IsSelected = true, Value = "Filter3"},
+                new Domain.Filter(){IsSelected = true, Value = "Filter4"},
+                new Domain.Filter(){IsSelected = true, Value = "Filter5"},
+                new Domain.Filter(){IsSelected = true, Value = "Filter6"},
+                new Domain.Filter(){IsSelected = true, Value = "Filter7"},
+                new Domain.Filter(){IsSelected = true, Value = "Filter8"},
+            };
+
        }
 
         public Domain.Session Session { get; set; }
         public ViewModelBase SelectedPlanningViewModel { get; set; }
+        public List<Domain.Filter> Filters { get; set; }
     }
 }
 
@@ -317,7 +331,7 @@ namespace Layout.Domain
         public User User { get; set; }        
         public List<Analytic> Analytics { get; set; }
         public List<PriceRoutine> PriceRoutines { get; set; }
-
+        
 
 
 
@@ -374,7 +388,7 @@ namespace Layout.Domain
 
     public class ValueDriver
     {
-        
+        public int Group { get; set; }
     }
 
     public class Filter
