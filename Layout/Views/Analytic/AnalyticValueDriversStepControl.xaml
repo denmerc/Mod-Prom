@@ -90,13 +90,13 @@
             <ListBox x:Name="ModeList" Visibility="Hidden" SelectionChanged="ModeList_SelectionChanged">
                 <ListBoxItem>
                     <StackPanel Orientation="Horizontal">
-                        <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Auto</Label>
+                        <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="78">Auto</Label>
                         <CheckBox></CheckBox>
                     </StackPanel>
                 </ListBoxItem>
                 <ListBoxItem>
                     <StackPanel Orientation="Horizontal">
-                        <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Manual</Label>
+                        <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="78">Manual</Label>
                         <CheckBox></CheckBox>
                     </StackPanel>
                 </ListBoxItem>
