@@ -71,5 +71,19 @@ namespace Layout
             this.StepContentControl.Content = null;
         }
 
+        private void ApproveButton_Click(object sender, RoutedEventArgs e)
+        {
+            //var flyout = this.Flyouts.Items[1] as Flyout;
+            //if (flyout == null)
+            //{
+            //    return;
+            //}
+
+            //flyout.IsOpen = !flyout.IsOpen;
+
+            //DetailContentScrollViewer.HorizontalAlignment = HorizontalAlignment.Stretch;
+            //CommandBar.Width = 400;
+        }
+
 	}
 }

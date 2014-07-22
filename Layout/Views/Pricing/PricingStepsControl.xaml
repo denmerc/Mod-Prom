@@ -488,9 +488,11 @@
                                         Content="Run and review results..."
                                         Style="{StaticResource LinkButton}" />
                     
-                    <Button FontSize="14"
+                    <Button x:Name="ApproveButton" FontSize="14"
+                                
                                         Margin="0,3,0,10"
                                         Content="Approve..."
+                                        Click="ApproveButton_Click"
                                         Style="{StaticResource LinkButton}" />
 
                     <Separator Background="#11FFFFFF" />
