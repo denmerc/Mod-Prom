@@ -75,11 +75,11 @@
                         <TextBlock DockPanel.Dock="Top" Text=""
                                Foreground="{DynamicResource IdealForegroundColorBrush}" />
                         <GroupBox  Margin="10" VerticalAlignment="Stretch" Header="Pricing">
-                            <StackPanel Margin="5">
-                                
-                            <TextBlock x:Name="AnalyticTitle" FontSize="30" Foreground="White" Text="Price Routine-XXX" />
-                            <TextBlock FontSize="18" Foreground="White" Text="All OPGI Parts" />
-                            <TextBlock FontSize="18" Foreground="White" Text="Status: Active"  />
+                            <StackPanel >
+
+                                <TextBlock Margin="10 0 0 0" x:Name="AnalyticTitle" FontSize="30" Foreground="White" Text="Price Routine-XXX" />
+                                <TextBlock Margin="10 0 0 0" FontSize="18" Foreground="White" Text="All OPGI Parts" />
+                                <TextBlock  Margin="10 0 0 0" FontSize="18" Foreground="White" Text="Status: Active"  />
                             
                             
                             <ListView Margin="10,10,10,23" MinHeight="250" BorderThickness="0" Width="Auto" Background="{StaticResource HighlightBrush}" FontSize="16" Foreground="White" FontWeight="Bold" Padding="0,0,0,6">
