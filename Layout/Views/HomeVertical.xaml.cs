@@ -183,5 +183,11 @@ namespace Layout
         {
             
         }
+
+        private void IsOwnedToggle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FilterStackPanel.Visibility = Visibility.Hidden;
+            AnalyticTabDetail.Visibility = Visibility.Hidden;
+        }
 	}
 }

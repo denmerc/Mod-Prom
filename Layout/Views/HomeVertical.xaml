@@ -369,7 +369,7 @@
                                         <TreeViewItem IsExpanded="True" Header="Group 3.3" />
                                     </TreeViewItem>
                                 </TreeView>
-                                <controls:ToggleSwitch x:Name="IsOwnedToggle" IsChecked="False" 
+                                <controls:ToggleSwitch x:Name="IsOwnedToggle" IsChecked="False" Unchecked="IsOwnedToggle_Unchecked"
                                     Margin="20 20 20 20" OnLabel="Owned By Me" OffLabel="Not Owned By Me" Checked="IsOwnedToggle_Checked"/>
                                 <!--<controls:ToggleSwitch Style="{DynamicResource CustomMetroToggleSwitch}"
                                    IsChecked="True"
