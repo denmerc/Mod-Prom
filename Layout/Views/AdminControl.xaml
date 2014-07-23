@@ -409,11 +409,15 @@
                             </StackPanel>
                         </ListBoxItem>
                     </ListBox>
-                    <StackPanel Orientation="Horizontal">
-                        <ListBox x:Name="UserList"  Margin="0 50 0 0" Height="Auto" Width="Auto" Visibility="Collapsed" SelectionChanged="UserListItem_Selected">
+                            <StackPanel Orientation="Horizontal" >
+                                <StackPanel x:Name="UserListStack"  Margin="5 50 5 5" Visibility="Collapsed" Width="Auto">
+
+                                    <TextBlock Text="Users" FontSize="30" Margin="5 0 0 0" ></TextBlock>
+                                            <Separator ></Separator>
+                        <ListBox x:Name="UserList"  Margin="0 5 0 0" Height="Auto" Width="Auto"  SelectionChanged="UserListItem_Selected">
                             <ListBoxItem>
                                 <StackPanel>
-                                    <TextBlock FontSize="20"
+                                            <TextBlock FontSize="20"
 								Foreground="{StaticResource Foreground}"><Run Text="Dave Jinkerson"/></TextBlock>
                                     <!--<TextBlock FontSize="18"
                                            Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
@@ -465,7 +469,12 @@
                             </ListBoxItem>
                            
                         </ListBox>
-                                <ListBox x:Name="StepContentListBox"  Margin="0 50 0 0" Height="Auto" Width="Auto" Visibility="Collapsed">
+                                </StackPanel>
+                                <StackPanel x:Name="ProfileStack" Margin="5 50 5 5" Visibility="Hidden" Width="Auto">
+
+                                    <TextBlock Text="Profile" FontSize="30" Margin="5 0 0 0" ></TextBlock>
+                                    <Separator ></Separator>
+                                <ListBox x:Name="StepContentListBox"  Margin="0 5 0 0" Height="Auto" Width="Auto">
                                     <!--<ListBox.ItemContainerStyle>
                                                 <Style TargetType="{x:Type ListBoxItem}">
                                                     <Setter Property="Background" Value="Transparent" />
@@ -513,34 +522,38 @@
                                         </StackPanel>
                                     </ListBoxItem>
                                 </ListBox>
-                                <ListBox x:Name="RoleListBox" Margin="0 50 0 0" Height="Auto" Width="Auto" Visibility="Collapsed">
-                            <ListBoxItem>
-                                <StackPanel>
-                                    <TextBlock FontSize="16"
-								Foreground="{StaticResource Foreground}"><Run Text="Administrator"/></TextBlock>
-                                    <!--<TextBlock FontSize="18"
-                                           Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
-                                                    <TextBlock FontSize="18"
-                                           Foreground="{StaticResource Foreground}"><Run Text="Position: Helm Officer"/></TextBlock>
-                                                    <TextBlock FontSize="18"
-                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
                                 </StackPanel>
-                            </ListBoxItem>
-                            <ListBoxItem>
-                                <StackPanel>
-                                    <TextBlock FontSize="16"
-								Foreground="{StaticResource Foreground}"><Run Text="Pricing Analyst"/></TextBlock>
+                                <StackPanel x:Name="RoleStack" Margin="5 50 5 5" Visibility="Hidden" Width="Auto">
 
+                                    <TextBlock Text="Role" FontSize="30" Margin="5 0 0 0" ></TextBlock>
+                                    <Separator ></Separator>
+                                    <ListBox x:Name="RoleListBox" Margin="0 5 0 0" Height="Auto" Width="Auto" Visibility="Visible">
+                                    <ListBoxItem>
+                                        <StackPanel>
+                                            <TextBlock FontSize="16"
+								                Foreground="{StaticResource Foreground}"><Run Text="Administrator"/></TextBlock>
+                                                    <!--<TextBlock FontSize="18"
+                                                           Foreground="{StaticResource Foreground}"><Run Text="Rank: Lieutenant"/></TextBlock>
+                                                                    <TextBlock FontSize="18"
+                                                           Foreground="{StaticResource Foreground}"><Run Text="Position: Helm Officer"/></TextBlock>
+                                                                    <TextBlock FontSize="18"
+                                                           Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
+                                                </StackPanel>
+                                            </ListBoxItem>
+                                            <ListBoxItem>
+                                                <StackPanel>
+                                                    <TextBlock FontSize="16"
+								                Foreground="{StaticResource Foreground}"><Run Text="Pricing Analyst"/></TextBlock>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                    <ListBoxItem IsSelected="True">
+                                        <StackPanel>
+                                            <TextBlock FontSize="16"
+								        Foreground="{StaticResource Foreground}"><Run Text="Reviewer"/></TextBlock>
+                                        </StackPanel>
+                                    </ListBoxItem>
+                                </ListBox>
                                 </StackPanel>
-                            </ListBoxItem>
-                            <ListBoxItem IsSelected="True">
-                                <StackPanel>
-                                    <TextBlock FontSize="16"
-								Foreground="{StaticResource Foreground}"><Run Text="Reviewer"/></TextBlock>
-                                </StackPanel>
-                            </ListBoxItem>
-                        </ListBox>
-
                             </StackPanel>
                     <WrapPanel Background="Transparent" Visibility="Collapsed">
 

@@ -26,14 +26,14 @@ namespace Layout
 
         private void UserListItem_Selected(object sender, RoutedEventArgs e)
         {
-            UserList.Visibility = Visibility.Visible;
+            UserListStack.Visibility = Visibility.Visible;
         }
 
         private void UserListItem_Selected(object sender, SelectionChangedEventArgs e)
         {
-            RoleListBox.Visibility = Visibility.Visible;
+            RoleStack.Visibility = Visibility.Visible;
             MarginStackPanel.Visibility = Visibility.Visible;
-            StepContentListBox.Visibility = Visibility.Visible;
+            ProfileStack.Visibility = Visibility.Visible;
         }
 	}
 }

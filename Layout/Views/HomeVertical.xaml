@@ -486,7 +486,7 @@
                             </WrapPanel.Resources>
                                 <StackPanel Margin="10 50 0 0" Width="600">
                                     <TextBlock x:Name="AnalyticTitle" FontSize="30" Foreground="White" Text="{Binding Name}" />
-                                    <Separator></Separator>
+                                    <Separator Margin="0 2 0 15"></Separator>
                                     <TextBlock FontSize="18" Foreground="White" Text="All OPGI Parts" />
                                     <TextBlock FontSize="18" Foreground="White" Text="Status: Active"  />
                                     <TextBlock FontSize="18" Foreground="White" Text="Comments:"  />
@@ -505,7 +505,7 @@
                                 </TabItem>-->
                                 <TabItem Header="Filters"  >
                                     <StackPanel Margin="10">
-                                        <TreeView>
+                                        <TreeView x:Name="FilterTreeView" SelectedItemChanged="FilterTreeView_SelectedItemChanged">
                                             <TreeViewItem Header="Filter 1">
                                                 <TreeViewItem Header="Filter 1.1">
                                                     <TreeViewItem Header="Filter 1.1.1" />

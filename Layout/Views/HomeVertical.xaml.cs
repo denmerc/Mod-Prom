@@ -178,5 +178,10 @@ namespace Layout
         {
             FilterStackPanel.Visibility = Visibility.Visible;
         }
+
+        private void FilterTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            
+        }
 	}
 }
