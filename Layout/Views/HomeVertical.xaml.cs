@@ -156,7 +156,7 @@ namespace Layout
         {
             if (e.AddedItems.Contains(ModuleListBox.Items[0])) 
             {
-                FilterStackPanel.Visibility = Visibility.Visible;
+                FilterStack.Visibility = System.Windows.Visibility.Visible;
             }
             else { FilterStackPanel.Visibility = Visibility.Collapsed; AnalyticTabDetail.Visibility = Visibility.Collapsed; }
             
@@ -172,6 +172,11 @@ namespace Layout
             view.StepContentControl.Content = subView;
             this.Content = view;
 
+        }
+
+        private void IsOwnedToggle_Checked(object sender, RoutedEventArgs e)
+        {
+            FilterStackPanel.Visibility = Visibility.Visible;
         }
 	}
 }

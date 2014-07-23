@@ -248,7 +248,9 @@ namespace Layout.ViewModels
                         Id="1",
                         Name="Air & Fuel Delivery",
                         Description = "All Air & Fuel Delivery parts",
-                        Status = "Active"
+                        Status = "Active",
+                        Group1 = "Group!",
+                        Group2 = "Group2"
                     },
                     new Domain.Analytic()
                     {
@@ -256,6 +258,9 @@ namespace Layout.ViewModels
                         Name="Bed Mats & Tonneau Covers",
                         Description = "All Mats and Covers",
                         Status = "Active"
+                        ,Group1 = "Group1",
+                        Group2 = "Group2"
+
                     },
                     new Domain.Analytic()
                     {
@@ -263,6 +268,8 @@ namespace Layout.ViewModels
                         Name="Books",
                         Description = "All Books",
                         Status = "Active"
+                        ,Group1 = "Group@",
+                        Group2 = "Group2"
                     },
                     new Domain.Analytic()
                     {
@@ -270,6 +277,8 @@ namespace Layout.ViewModels
                         Name="Brake Systems",
                         Description = "All Brake Systems",
                         Status = "Active"
+                        ,Group1 = "Group$",
+                        Group2 = "Group2"
                     },
                     new Domain.Analytic()
                     {
@@ -277,6 +286,8 @@ namespace Layout.ViewModels
                         Name="Bumpers & Hardware",
                         Description = "All Bumpers & Hardware",
                         Status = "Active"
+                        ,Group1 = "Group$",
+                        Group2 = "Group2"
                     },
                     new Domain.Analytic()
                     {
@@ -284,6 +295,8 @@ namespace Layout.ViewModels
                         Name="Car Care & Paint",
                         Description = "All Car Care parts",
                         Status = "Active"
+                        ,Group1 = "Group$",
+                        Group2 = "Group2"
                     },
                     new Domain.Analytic()
                     {
@@ -291,6 +304,8 @@ namespace Layout.ViewModels
                         Name="Video & Software",
                         Description = "All Video & Software parts",
                         Status = "Active"
+                        ,Group1 = "Group$",
+                        Group2 = "Group2"
                     },
                     new Domain.Analytic()
                     {
@@ -298,6 +313,8 @@ namespace Layout.ViewModels
                         Name="Loyalty Points",
                         Description = "All Loyalty Points",
                         Status = "Active"
+                        ,Group1 = "Group$",
+                        Group2 = "Group2"
                     }
                 }
                 
@@ -357,6 +374,8 @@ namespace Layout.Domain
         public string Status { get; set; }
         public string Description { get; set; }
         public string Comments { get; set; }
+        public string Group1 { get; set; }
+        public string Group2 { get; set; }
 
         List<Filter> Filters { get; set; }
         List<ValueDriver> ValueDrivers { get; set; }
