@@ -491,7 +491,7 @@
                     <Button x:Name="ApproveButton" FontSize="14"
                                 
                                         Margin="0,3,0,10"
-                                        Content="Approve..."
+                                        Content="Submit for Approval..."
                                         Click="ApproveButton_Click"
                                         Style="{StaticResource LinkButton}" />
 
