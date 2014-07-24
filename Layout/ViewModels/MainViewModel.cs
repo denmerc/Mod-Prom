@@ -236,6 +236,46 @@ namespace Layout.ViewModels
                 //    Workflow = null
 
                 //};
+            Seed();
+       }
+
+        public Domain.Session Session { get; set; }
+        public ViewModelBase SelectedPlanningViewModel { get; set; }
+        public ViewModelBase SelectedTrackingViewModel { get; set; }
+        public ViewModelBase SelectedAdminViewModel { get; set; } //preload
+        
+
+        //Screen sections
+        public string MessageCenterViewModel { get; set; }
+        public string StatusCenterViewModel { get; set; }
+
+
+        //service references
+
+        //Lookup lists?
+        public List<Domain.Filter> SampleFilters { get; set; }
+        public List<Domain.Folder> SampleFolders { get; set; }
+
+
+
+        public void Seed()
+        {
+            Random r = new Random();
+
+            //Mock lookups
+            SampleFilters = new List<Domain.Filter>();
+            SampleFolders = new List<Domain.Folder>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                SampleFilters.Add(new Domain.Filter());
+                SampleFolders.Add(new Domain.Folder());
+            }
+            int j = 0;
+            SampleFilters.ForEach(x => x.Id = ++j);
+            SampleFilters.ForEach(x => x.Code +=  ++j);
+
+            SampleFilters.ForEach(x => x.IsSelected = r.NextDouble() > 0.5);
 
 
             Session = new Layout.Domain.Session
@@ -250,7 +290,9 @@ namespace Layout.ViewModels
                         Description = "All Air & Fuel Delivery parts",
                         Status = "Active",
                         Group1 = "Group!",
-                        Group2 = "Group2"
+                        Group2 = "Group2",
+                        Folder = "Folder1",
+                        Filters = SampleFilters.Where(x => x.IsSelected == true).ToList()
                     },
                     new Domain.Analytic()
                     {
@@ -259,8 +301,9 @@ namespace Layout.ViewModels
                         Description = "All Mats and Covers",
                         Status = "Active"
                         ,Group1 = "Group1",
-                        Group2 = "Group2"
-
+                        Group2 = "Group2",
+                        Folder = "Folder1",
+                        Filters = SampleFilters.Where(x => x.IsSelected == false).ToList()
                     },
                     new Domain.Analytic()
                     {
@@ -270,15 +313,19 @@ namespace Layout.ViewModels
                         Status = "Active"
                         ,Group1 = "Group@",
                         Group2 = "Group2"
+                        ,Folder = "Folder1",
+                        Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
                     },
                     new Domain.Analytic()
                     {
-                        Id="4",
-                        Name="Brake Systems",
-                        Description = "All Brake Systems",
-                        Status = "Active"
-                        ,Group1 = "Group$",
-                        Group2 = "Group2"
+                        Id="4"
+                        ,Name="Brake Systems"
+                        ,Description = "All Brake Systems"
+                        ,Status = "Active"
+                        ,Group1 = "Group$"
+                        ,Group2 = "Group2"
+                        ,Folder = "Folder1"
+                        ,Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
                     },
                     new Domain.Analytic()
                     {
@@ -286,17 +333,21 @@ namespace Layout.ViewModels
                         Name="Bumpers & Hardware",
                         Description = "All Bumpers & Hardware",
                         Status = "Active"
-                        ,Group1 = "Group$",
-                        Group2 = "Group2"
+                        ,Group1 = "Group$"
+                        ,Group2 = "Group2"
+                        ,Folder = "Folder1"
+                        ,Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
+
                     },
                     new Domain.Analytic()
                     {
-                        Id="6",
-                        Name="Car Care & Paint",
-                        Description = "All Car Care parts",
-                        Status = "Active"
-                        ,Group1 = "Group$",
-                        Group2 = "Group2"
+                        Id="6"
+                        ,Name="Car Care & Paint"
+                        ,Description = "All Car Care parts"
+                        ,Status = "Active"
+                        ,Group1 = "Group$"
+                        ,Group2 = "Group2"
+                        ,Folder = "Folder1"
                     },
                     new Domain.Analytic()
                     {
@@ -304,54 +355,135 @@ namespace Layout.ViewModels
                         Name="Video & Software",
                         Description = "All Video & Software parts",
                         Status = "Active"
-                        ,Group1 = "Group$",
-                        Group2 = "Group2"
+                        ,Group1 = "Group$"
+                        ,Group2 = "Group2"
+                        ,Folder = "Folder1"
                     },
                     new Domain.Analytic()
                     {
-                        Id="8",
-                        Name="Loyalty Points",
-                        Description = "All Loyalty Points",
-                        Status = "Active"
-                        ,Group1 = "Group$",
-                        Group2 = "Group2"
+                        Id="8"
+                        ,Name="Loyalty Points"                      
+                        ,Description = "All Loyalty Points"
+                        ,Status = "Active"
+                        ,Group1 = "Group$"
+                        ,Group2 = "Group2"
+                        ,Folder = "Folder1"
+                        ,Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
                     }
                 }
                 
             };
 
-            Filters = new List<Domain.Filter>()
-            {
-                new Domain.Filter(){IsSelected = true, Value = "Filter1"},
-                new Domain.Filter(){IsSelected = true, Value = "Filter2"},
-                new Domain.Filter(){IsSelected = true, Value = "Filter3"},
-                new Domain.Filter(){IsSelected = true, Value = "Filter4"},
-                new Domain.Filter(){IsSelected = true, Value = "Filter5"},
-                new Domain.Filter(){IsSelected = true, Value = "Filter6"},
-                new Domain.Filter(){IsSelected = true, Value = "Filter7"},
-                new Domain.Filter(){IsSelected = true, Value = "Filter8"},
-            };
 
-       }
+            
+        }
+    }
+}
 
-        public Domain.Session Session { get; set; }
-        public ViewModelBase SelectedPlanningViewModel { get; set; }
-        public List<Domain.Filter> Filters { get; set; }
+
+namespace Layout.ViewModels
+{
+    public class PlanningViewModel
+    {
+        /**
+         * Folder List By Selected Module by User
+         * Analytics by User By Group
+         * Status
+         * Messages
+         * Services need for analytic 
+         * 
+         **/
+        public AnalyticViewModel SelectedAnalyticViewModel { get; set; }
+        public AnalyticViewModel SelectedPricingViewModel { get; set; }
+
+    }
+
+    //
+    public class AdministrationViewModel
+    {
+        /**
+         * User mgmt
+         * Global Defaults - PriceLists, Optimizations, Markup Rules, Rounding
+         * Global functions, processes, alerts
+         * 
+         * */
+    }
+
+
+    //Planning sections
+    public class AnalyticViewModel
+    {
+        /**
+         * SelectedAnalytic - contains selected filters, pricelists, valuedrivers
+         * SelectedAnalyticStepType - enum
+         * SelectedStepViewModel to bind to content control
+         * 
+         * */
+        AnalyticViewModel(Domain.Analytic analytic)
+        {
+
+        }
+
+        void Save(){}
+    }
+
+    public class PricingViewModel
+    {
+        /**
+         * SelectedPriceRoutine - contains selected filters, pricelists, valuedrivers
+         * SelectedPricingStepType - enum
+         * SelectedStepViewModel to bind to content control
+         * 
+         * */
+        PricingViewModel(Domain.PriceRoutine routine)
+        {
+
+        }
+
     }
 }
 
 //TODO: Navigate using an action - must map to a viewmodel & populate recent activity?
 namespace Layout.Domain
 {
+    public class Folder
+    {
+        public string Name { get; set; }
+    }
+
+    public enum Module
+    {
+        Planning,
+        Tracking,
+        Reporting
+    }
+
+    public enum AnalyticStepType
+    {
+        Identity,
+        Filters,
+        PriceLists,
+        ValueDrivers
+    }
+
+    public enum PricingStepType
+    {
+        Identity,
+        Filters,
+        PriceLists,
+        Rounding,
+        Strategy,
+        Results,
+        Forecasts,
+        Approval
+    }
+
+   
     public class Session
     {
         public User User { get; set; }        
         public List<Analytic> Analytics { get; set; }
         public List<PriceRoutine> PriceRoutines { get; set; }
-        
-
-
-
     }
 
     public class User
@@ -359,7 +491,8 @@ namespace Layout.Domain
         public string Login { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Dictionary<Action, ViewModelBase> RecentActivity { get; set; }
+        public Dictionary<Action, ViewModelBase> RecentHistory { get; set; }
+        public List<PriceRoutine> Folders { get; set; }
         public class Role
         {
             List<Action> Permissions { get; set; } //which actions can they execute
@@ -376,18 +509,46 @@ namespace Layout.Domain
         public string Comments { get; set; }
         public string Group1 { get; set; }
         public string Group2 { get; set; }
+        public string Folder { get; set; }
+        public bool Shared { get; set; }
 
-        List<Filter> Filters { get; set; }
-        List<ValueDriver> ValueDrivers { get; set; }
-        List<PriceRoutine> RelatedPriceRoutines { get; set; }
-        List<Action> Actions { get; set; } // usually navigates to step in module eg - for analytic->filters, price lists, rounding
+        public List<Filter> Filters { get; set; }
+        public List<ValueDriver> ValueDrivers { get; set; }
+        public List<PriceRoutine> RelatedPriceRoutines { get; set; }
+        public List<Action> Actions { get; set; } // usually navigates to step in module eg - for analytic->filters, price lists, rounding
     }
 
     public class PriceRoutine
     {
-        public PriceRoutineType @Type { get; set; }
-        List<Analytic> RelatedAnalytics { get; set; }
+        public PriceRoutineType @Type { get; set; } //everyday, promo, kits
+        public List<Analytic> RelatedAnalytics { get; set; }
+        public List<Action> Actions { get; set; }
+        public List<RoundingScheme> RoundingSchemes { get; set; }
+        public List<PriceList> PriceLists { get; set; }
     }
+
+
+    public class PriceList
+    {
+        
+    }
+
+    public enum PricingMode
+	{
+	    Single,
+        Cascade,
+        GlobalKey,
+        GlobalKeyPlus
+	}
+
+
+    public class RoundingScheme
+    {
+        public string Lower { get; set; }
+        public string Upper { get; set; }
+        public int RoundTo { get; set; }
+    }
+
 
     public enum PriceRoutineType
     {
@@ -408,10 +569,17 @@ namespace Layout.Domain
     public class ValueDriver
     {
         public int Group { get; set; }
+        public ValueDriverType @Type { get; set; }
+    }
+
+    public enum ValueDriverType
+    {
+        
     }
 
     public class Filter
     {
+        public int Id { get; set; }
         public Boolean IsSelected { get; set; }
         public string Code { get; set; }
         public string Value { get; set; }
