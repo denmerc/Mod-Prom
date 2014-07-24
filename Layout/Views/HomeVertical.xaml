@@ -325,10 +325,10 @@
                             </ListBoxItem>
 
                         </ListBox>
-                            <StackPanel x:Name="FilterStack" Orientation="Vertical" Width="230" Visibility="Hidden" Margin="5 50 10 0">
-                                <TextBlock Text="Filters" FontSize="30" ></TextBlock>
+                            <StackPanel x:Name="FilterStack" Orientation="Vertical" Width="230"  Visibility="Hidden" Margin="5 50 10 0">
+                                <TextBlock Text="Folders" FontSize="30"></TextBlock>
                                 <Separator ></Separator>
-                                <Label Margin="15 10 10 0" FontSize="15" FontWeight="SemiBold">Group:</Label>
+                                <!--<Label Margin="15 10 10 0" FontSize="15" FontWeight="SemiBold">Group:</Label>-->
                                 <!--<ComboBox Width="200"
                                           Margin="0, 0, 0, 0"
                                           controls:TextboxHelper.Watermark="Select a Group/SubGroup"
@@ -350,8 +350,8 @@
                                                             </GroupStyle>
                                                         </ComboBox.GroupStyle>
                                 </ComboBox>-->
-                                <TreeView x:Name="GroupTree" Margin="10" >
-                                    <TreeViewItem IsExpanded="True" Header="Group 1">
+                                <TreeView x:Name="GroupTree" Margin="10" SelectedItemChanged="GroupTree_SelectedItemChanged">
+                                    <TreeViewItem IsExpanded="True" Header="User">
                                         <TreeViewItem IsExpanded="True" Header="Group 1.1">
                                             <TreeViewItem IsExpanded="True" Header="Group 1.1.1" />
                                             <TreeViewItem IsExpanded="True" Header="Group 1.1.2" />
@@ -359,8 +359,7 @@
                                         <TreeViewItem  IsExpanded="True" Header="Group 1.2" />
                                         <TreeViewItem  IsExpanded="True" Header="Group 1.3" />
                                     </TreeViewItem>
-                                    <TreeViewItem IsExpanded="True" Header="Group 22" />
-                                    <TreeViewItem IsExpanded="True" Header="Group 3">
+                                    <TreeViewItem IsExpanded="False" Header="Shared">
                                         <TreeViewItem IsExpanded="True" Header="Group 3.1">
                                             <TreeViewItem IsExpanded="True" Header="Group 3.1.1" />
                                             <TreeViewItem IsExpanded="True" Header="Group 3.1.2" />
@@ -369,8 +368,8 @@
                                         <TreeViewItem IsExpanded="True" Header="Group 3.3" />
                                     </TreeViewItem>
                                 </TreeView>
-                                <controls:ToggleSwitch x:Name="IsOwnedToggle" IsChecked="False" Unchecked="IsOwnedToggle_Unchecked"
-                                    Margin="20 20 20 20" OnLabel="Owned By Me" OffLabel="Not Owned By Me" Checked="IsOwnedToggle_Checked"/>
+                                <!--<controls:ToggleSwitch x:Name="IsOwnedToggle" IsChecked="False" Unchecked="IsOwnedToggle_Unchecked"
+                                    Margin="20 20 20 20" OnLabel="Owned By Me" OffLabel="Not Owned By Me" Checked="IsOwnedToggle_Checked"/>-->
                                 <!--<controls:ToggleSwitch Style="{DynamicResource CustomMetroToggleSwitch}"
                                    IsChecked="True"
                                    Margin="0, 5, 0, 0" />-->

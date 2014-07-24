@@ -174,20 +174,14 @@ namespace Layout
 
         }
 
-        private void IsOwnedToggle_Checked(object sender, RoutedEventArgs e)
-        {
-            FilterStackPanel.Visibility = Visibility.Visible;
-        }
-
         private void FilterTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             
         }
 
-        private void IsOwnedToggle_Unchecked(object sender, RoutedEventArgs e)
+        private void GroupTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            FilterStackPanel.Visibility = Visibility.Hidden;
-            AnalyticTabDetail.Visibility = Visibility.Hidden;
+            FilterStackPanel.Visibility = Visibility.Visible;
         }
 	}
 }
