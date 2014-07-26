@@ -331,7 +331,7 @@
 							Foreground="{StaticResource Foreground}" Text="Price Lists"/>
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem>
+                        <ListBoxItem Visibility="Collapsed">
                             <StackPanel>
 
 
@@ -355,10 +355,10 @@
                             </Canvas>
 							</InlineUIContainer></TextBlock>
                                 <TextBlock FontSize="25" TextAlignment="Center" MinWidth="150"
-							Foreground="{StaticResource Foreground}" Text="Markup Rules"/>
+							Foreground="{StaticResource Foreground}" Text="Rules"/>
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem>
+                        <ListBoxItem Visibility="Collapsed">
                             <StackPanel>
                                 <TextBlock FontSize="40" TextAlignment="Center"
 						Foreground="{StaticResource Foreground}"><InlineUIContainer>
@@ -396,7 +396,7 @@
 							Foreground="{StaticResource Foreground}" Text="Processes"/>
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem>
+                        <ListBoxItem Visibility="Collapsed">
                             <StackPanel>
                                 <TextBlock FontSize="40" TextAlignment="Center"
 							Foreground="{StaticResource Foreground}"><InlineUIContainer>
