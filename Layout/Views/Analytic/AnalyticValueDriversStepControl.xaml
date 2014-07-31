@@ -110,7 +110,7 @@
                     <controls:NumericUpDown x:Name="RowNo" Minimum="0" Maximum="15" Margin="5" Foreground="{StaticResource Foreground}" IsReadOnly="True" IncrementValue="RowNo_IncrementValue" DecrementValue="RowNo_DecrementValue" Background="Transparent"></controls:NumericUpDown>
                 </StackPanel>
             <DataGrid x:Name="FilterGrid" ItemsSource="{Binding}" Height="500"
-                  AutoGenerateColumns="False" Width="800" IsReadOnly="True">
+                  AutoGenerateColumns="False" Width="500" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn                                        
                                         Width="200"

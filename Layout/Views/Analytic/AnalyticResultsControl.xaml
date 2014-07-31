@@ -79,17 +79,17 @@
                 </StackPanel>
             </ListBoxItem>
         </ListBox>
-            <StackPanel Orientation="Vertical" Height="auto">
+            <StackPanel Orientation="Vertical" Height="auto" Width="500">
                 
             <controls:MetroProgressBar IsIndeterminate="True"
                                        x:Name="ProgressBar"
                                        Minimum="0"
                                        Maximum="100"
-                                       Width="800"
+                                       Width="500"
                                        Foreground="{StaticResource Foreground}"
                                        Margin="0, -5, 0, 0" />
             <DataGrid x:Name="FilterGrid" ItemsSource="{Binding}" Height="500"
-                  AutoGenerateColumns="False" Visibility="Hidden" Width="800">
+                  AutoGenerateColumns="False" Visibility="Hidden" Width="500"> //was 800
             <DataGrid.Columns>
                 <DataGridTextColumn                                        
                                         Width="200"
@@ -98,7 +98,7 @@
                 <DataGridTextColumn Header="SKU Count" Width="100"
                                     />
                 <DataGridTextColumn Header="Min"
-                                    Width="50"/>
+                                    Width="Auto"/>
                 <DataGridTextColumn Header="Max"
                                 Width="50"/>
 
