@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using System.Linq;
 
 namespace Layout
 {
@@ -27,6 +28,7 @@ namespace Layout
         private void UserListItem_Selected(object sender, RoutedEventArgs e)
         {
             UserListStack.Visibility = Visibility.Visible;
+            FilterStack.Visibility = Visibility.Collapsed;
         }
 
         private void UserListItem_Selected(object sender, SelectionChangedEventArgs e)
@@ -34,6 +36,17 @@ namespace Layout
             RoleStack.Visibility = Visibility.Visible;
             MarginStackPanel.Visibility = Visibility.Visible;
             ProfileStack.Visibility = Visibility.Visible;
+            FilterStack.Visibility = Visibility.Collapsed;
+        }
+
+        private void RulesItem_Selected(object sender, RoutedEventArgs e)
+        {
+            UserListStack.Visibility = Visibility.Collapsed;
+            FilterStack.Visibility = Visibility.Visible;
+            ProfileStack.Visibility = Visibility.Hidden;
+            RoleStack.Visibility = Visibility.Hidden;
+            MarginStackPanel.Visibility = Visibility.Hidden;
+            FilterList.ItemsSource = new[] { new { Name = "Optimization" }, new { Name = "Rounding" } }.ToList();
         }
 	}
 }
