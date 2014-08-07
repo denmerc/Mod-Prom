@@ -485,7 +485,7 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                                 <Separator></Separator>-->
-                                <TextBlock Text="Results" FontSize="30" Margin="5 20 0 0"></TextBlock>
+                                <TextBlock Text="Results" FontSize="30" Margin="5 40 0 0"></TextBlock>
                                 <Separator ></Separator>
                                 <ListBox x:Name="FilterListBox" Margin="0 10 0 0" ItemsSource="{Binding Session.Analytics}" Height="Auto" Width="Auto" Visibility="Collapsed" SelectionChanged="Filters_SelectionChanged">
                                     <ListBox.ItemTemplate>
@@ -505,7 +505,7 @@
                             <WrapPanel.Resources>
                                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />-->
                             </WrapPanel.Resources>
-                                <StackPanel Margin="10 20 0 0" Width="500" HorizontalAlignment="Left">
+                                <StackPanel Margin="10 40 0 0" Width="500" HorizontalAlignment="Left">
                                     <TextBlock x:Name="AnalyticTitle" FontSize="30" Foreground="White" Text="{Binding Name}" />
                                     <Separator Margin="0 2 0 15"></Separator>
                                     <TextBlock FontSize="18" Foreground="White" Text="All OPGI Parts" />
