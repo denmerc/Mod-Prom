@@ -259,7 +259,7 @@
             <TabControl Margin="25,20,0,20">
                 <TabItem Header="Home">
                     <WrapPanel x:Name="TabContentStackPanel" Orientation="Horizontal">
-                        <ListBox x:Name="ModuleListBox"  Margin="25 25 0 10" Height="Auto" Width="Auto" SelectionChanged="ModuleListBox_SelectionChanged"
+                        <ListBox x:Name="ModuleListBox"  Margin="20 40 0 10" Height="Auto" Width="Auto" SelectionChanged="ModuleListBox_SelectionChanged"
 				                    VerticalAlignment="Top">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -347,7 +347,7 @@
                                     </StackPanel>
                                 </ListBoxItem>-->
                             </ListBox>
-                            <StackPanel x:Name="FilterStack" Orientation="Vertical" Width="150"  Visibility="Hidden" Margin="15 20 10 0">
+                            <StackPanel x:Name="FilterStack" Orientation="Vertical" Width="150"  Visibility="Hidden" Margin="15 40 10 0">
                                 <TextBlock Text="Folders" FontSize="30"></TextBlock>
                                 <Separator ></Separator>
                                 <!--<Label Margin="15 10 10 0" FontSize="15" FontWeight="SemiBold">Group:</Label>-->
