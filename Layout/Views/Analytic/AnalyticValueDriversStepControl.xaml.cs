@@ -54,7 +54,7 @@ namespace Layout
         private void RowNo_IncrementValue(object sender, MahApps.Metro.Controls.NumericUpDownChangedRoutedEventArgs args)
         {
             
-            FilterGrid.Items.Add(new Domain.ValueDriver() { Group = ++i});
+            //FilterGrid.Items.Add(new Domain.ValueDriver() { Group = ++i}); //TODO: should be List<Group>
             
         }
 

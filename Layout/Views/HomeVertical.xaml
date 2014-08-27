@@ -347,9 +347,28 @@
                                     </StackPanel>
                                 </ListBoxItem>-->
                             </ListBox>
-                            <StackPanel x:Name="FilterStack" Orientation="Vertical" Width="150"  Visibility="Hidden" Margin="15 40 10 0">
-                                <TextBlock Text="Folders" FontSize="30"></TextBlock>
+                            <StackPanel x:Name="FilterStack" Orientation="Vertical" Width="Auto" Height="Auto" Visibility="Hidden" Margin="15 40 10 0">
+                                <TextBlock Text="Tags" FontSize="30"></TextBlock>
                                 <Separator ></Separator>
+                                <ListBox x:Name="TagListBox" Margin="0 10 0 0" ItemsSource="{Binding Session.Tags}" Height="250" Width="200">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+
+                                            <StackPanel>
+
+                                                <!--<Button Background="Transparent" BorderBrush="Transparent">
+                                                </Button>-->
+                                                
+                                                    
+                                                <TextBlock FontSize="16"
+								                        Foreground="{StaticResource Foreground}"><Run Text="{Binding Mode=OneWay}"/>
+                                                            
+                                                            </TextBlock>
+                                            </StackPanel>
+
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
                                 <!--<Label Margin="15 10 10 0" FontSize="15" FontWeight="SemiBold">Group:</Label>-->
                                 <!--<ComboBox Width="200"
                                           Margin="0, 0, 0, 0"
@@ -372,7 +391,7 @@
                                                             </GroupStyle>
                                                         </ComboBox.GroupStyle>
                                 </ComboBox>-->
-                                <TreeView x:Name="GroupTree" Margin="10" SelectedItemChanged="GroupTree_SelectedItemChanged">
+                                <!--<TreeView x:Name="GroupTree" Margin="10" SelectedItemChanged="GroupTree_SelectedItemChanged">
                                     <TreeViewItem IsExpanded="True" Header="User">
                                         <TreeViewItem IsExpanded="True" Header="Group 1.1">
                                             <TreeViewItem IsExpanded="True" Header="Group 1.1.1" />
@@ -389,7 +408,7 @@
                                         <TreeViewItem IsExpanded="True" Header="Group 3.2" />
                                         <TreeViewItem IsExpanded="True" Header="Group 3.3" />
                                     </TreeViewItem>
-                                </TreeView>
+                                </TreeView>-->
                                 <!--<controls:ToggleSwitch x:Name="IsOwnedToggle" IsChecked="False" Unchecked="IsOwnedToggle_Unchecked"
                                     Margin="20 20 20 20" OnLabel="Owned By Me" OffLabel="Not Owned By Me" Checked="IsOwnedToggle_Checked"/>-->
                                 <!--<controls:ToggleSwitch Style="{DynamicResource CustomMetroToggleSwitch}"

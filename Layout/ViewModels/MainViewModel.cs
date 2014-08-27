@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Layout;
 using Layout.ViewModels;
+using ReactiveUI;
+using System.Reactive.Linq;
 
 
 namespace Layout.ViewModels
@@ -14,7 +16,7 @@ namespace Layout.ViewModels
         public MainViewModel()
         {
 
-                //Session = new Session<NullT>()
+            //Session = new Session<NullT>()
                 //{
                                       //    AppOnline = true,
                 //    Authenticated = true,
@@ -236,10 +238,60 @@ namespace Layout.ViewModels
                 //    Workflow = null
 
                 //};
-            Seed();
+            //Seed();
+
+            AnalyticRepo = new Data.MockAnalyticRepository();
+
+            //initialize session --> login mock User.IsAuthenticated = true
+            //load session module list and tags
+            Session = new Domain.Session
+            {
+                User = new Domain.User { Login = "dennism", FirstName = "Dennis", LastName = "Mercado", IsAuthenticated  = true }
+
+            };
+
+
+            var loadTags = ReactiveCommand.Create();
+            loadTags.Subscribe(_ => {
+
+                Session.Tags = AnalyticRepo.AllTags();
+                Console.WriteLine(Session.Tags);
+            });
+
+            loadTags.Execute(null);
+
+    
+
+
+
+
+            //load default module --> Plannning - Analytics - Home(Search)
+            // load master tag list 
+
+            //Commands
+            //search by tags -> session.analytics
+            //ReadAnalytic(id) find in session.analytics and show detail in panel inline
+            //EditAnalytic(id) SelectedModuleViewModel == EditAnalyticVM(analytic)
+            //navigate module -- change SelectedModuleVM
+            //navigate by submodule -- change SelectedSubModuleVM
+            //navigate by section -- change SelecetedSectionVM
+            
+
+       
+            //load lookups - filters  Filters_GetDistinctFilterTypeList()
+            
+            
        }
 
-        public Domain.Session Session { get; set; }
+        public Data.IRepository AnalyticRepo { get; set; }
+
+        public Domain.Session Session { get; set; } //contains user history
+
+        public ViewModelBase SelectedModuleViewModel { get; set;} //Planning  -  1) Home/SearchVM or 2) AnalyticEditVM 3) PricingEditVM  4) MySettings VM
+                                                                  //Admin - 1) UsersVM 2) RulesVM etc..
+
+        public void NavigateModuleByModuleType(Domain.Module module) {}
+
         public ViewModelBase SelectedPlanningViewModel { get; set; }
         public ViewModelBase SelectedTrackingViewModel { get; set; }
         public ViewModelBase SelectedAdminViewModel { get; set; } //preload
@@ -254,7 +306,7 @@ namespace Layout.ViewModels
 
         //Lookup lists?
         public List<Domain.Filter> SampleFilters { get; set; }
-        public List<Domain.Folder> SampleFolders { get; set; }
+        //public List<Domain.Folder> SampleFolders { get; set; }
 
 
 
@@ -264,21 +316,21 @@ namespace Layout.ViewModels
 
             //Mock lookups
             SampleFilters = new List<Domain.Filter>();
-            SampleFolders = new List<Domain.Folder>();
+            //SampleFolders = new List<Domain.Folder>();
 
             for (int i = 0; i < 100; i++)
             {
                 SampleFilters.Add(new Domain.Filter());
-                SampleFolders.Add(new Domain.Folder());
+                //SampleFolders.Add(new Domain.Folder());
             }
             int j = 0;
-            SampleFilters.ForEach(x => x.Id = ++j);
+            //SampleFilters.ForEach(x => x.Id = ++j);
             SampleFilters.ForEach(x => x.Code +=  ++j);
 
-            SampleFilters.ForEach(x => x.IsSelected = r.NextDouble() > 0.5);
+            //SampleFilters.ForEach(x => x.IsSelected = r.NextDouble() > 0.5);
 
 
-            Session = new Layout.Domain.Session
+            Session = new Domain.Session
             {
                 User = new Domain.User { Login="dennism", FirstName = "Dennis", LastName="Mercado"},
                 Analytics = new List<Domain.Analytic>
@@ -289,10 +341,10 @@ namespace Layout.ViewModels
                         Name="Air & Fuel Delivery",
                         Description = "All Air & Fuel Delivery parts",
                         Status = "Active",
-                        Group1 = "Group!",
-                        Group2 = "Group2",
-                        Folder = "Folder1",
-                        Filters = SampleFilters.Where(x => x.IsSelected == true).ToList()
+                        //Group1 = "Group!",
+                        //Group2 = "Group2",
+                        //Folder = "Folder1",
+                        //Filters = SampleFilters.Where(x => x.IsSelected == true).ToList()
                     },
                     new Domain.Analytic()
                     {
@@ -300,10 +352,10 @@ namespace Layout.ViewModels
                         Name="Bed Mats & Tonneau Covers",
                         Description = "All Mats and Covers",
                         Status = "Active"
-                        ,Group1 = "Group1",
-                        Group2 = "Group2",
-                        Folder = "Folder1",
-                        Filters = SampleFilters.Where(x => x.IsSelected == false).ToList()
+                        //,Group1 = "Group1",
+                        //Group2 = "Group2",
+                        //Folder = "Folder1",
+                        //,Filters = SampleFilters.Where(x => x.IsSelected == false).ToList()
                     },
                     new Domain.Analytic()
                     {
@@ -311,10 +363,10 @@ namespace Layout.ViewModels
                         Name="Books",
                         Description = "All Books",
                         Status = "Active"
-                        ,Group1 = "Group@",
-                        Group2 = "Group2"
-                        ,Folder = "Folder1",
-                        Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
+                        //,Group1 = "Group@",
+                        //Group2 = "Group2"
+                        //,Folder = "Folder1",
+                        //,Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
                     },
                     new Domain.Analytic()
                     {
@@ -322,10 +374,10 @@ namespace Layout.ViewModels
                         ,Name="Brake Systems"
                         ,Description = "All Brake Systems"
                         ,Status = "Active"
-                        ,Group1 = "Group$"
-                        ,Group2 = "Group2"
-                        ,Folder = "Folder1"
-                        ,Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
+                        //,Group1 = "Group$"
+                        //,Group2 = "Group2"
+                        //,Folder = "Folder1"
+                        //,Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
                     },
                     new Domain.Analytic()
                     {
@@ -333,10 +385,10 @@ namespace Layout.ViewModels
                         Name="Bumpers & Hardware",
                         Description = "All Bumpers & Hardware",
                         Status = "Active"
-                        ,Group1 = "Group$"
-                        ,Group2 = "Group2"
-                        ,Folder = "Folder1"
-                        ,Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
+                        //,Group1 = "Group$"
+                        //,Group2 = "Group2"
+                        //,Folder = "Folder1"
+                        //,Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
 
                     },
                     new Domain.Analytic()
@@ -345,9 +397,9 @@ namespace Layout.ViewModels
                         ,Name="Car Care & Paint"
                         ,Description = "All Car Care parts"
                         ,Status = "Active"
-                        ,Group1 = "Group$"
-                        ,Group2 = "Group2"
-                        ,Folder = "Folder1"
+                        //,Group1 = "Group$"
+                        //,Group2 = "Group2"
+                        //,Folder = "Folder1"
                     },
                     new Domain.Analytic()
                     {
@@ -355,9 +407,9 @@ namespace Layout.ViewModels
                         Name="Video & Software",
                         Description = "All Video & Software parts",
                         Status = "Active"
-                        ,Group1 = "Group$"
-                        ,Group2 = "Group2"
-                        ,Folder = "Folder1"
+                        //,Group1 = "Group$"
+                        //,Group2 = "Group2"
+                        //,Folder = "Folder1"
                     },
                     new Domain.Analytic()
                     {
@@ -365,10 +417,10 @@ namespace Layout.ViewModels
                         ,Name="Loyalty Points"                      
                         ,Description = "All Loyalty Points"
                         ,Status = "Active"
-                        ,Group1 = "Group$"
-                        ,Group2 = "Group2"
-                        ,Folder = "Folder1"
-                        ,Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
+                        //,Group1 = "Group$"
+                        //,Group2 = "Group2"
+                        //,Folder = "Folder1"
+                        //,Filters = SampleFilters.Skip(r.Next()).Take(r.Next()).ToList()
                     }
                 }
                 
@@ -383,23 +435,29 @@ namespace Layout.ViewModels
 
 namespace Layout.ViewModels
 {
-    public class PlanningViewModel
+    public class PlanningModuleViewModel
     {
         /**
-         * Folder List By Selected Module by User
-         * Analytics by User By Group
-         * Status
-         * Messages
-         * Services need for analytic 
+         * Folder List By Selected Section by User
+         * Analytics by User By Group -or- PriceRoutines By User
+         * 
+         * 
+         * 
          * 
          **/
-        public AnalyticViewModel SelectedAnalyticViewModel { get; set; }
-        public AnalyticViewModel SelectedPricingViewModel { get; set; }
+        public ViewModelBase SelectedSection { get; set;}
+
+        public void NavigateSectionBySectionType() { }
+
+        //public AnalyticViewModel SelectedAnalyticViewModel { get; set; }
+        //public PricingViewModel SelectedPricingViewModel { get; set; }
+
+        
 
     }
 
     //
-    public class AdministrationViewModel
+    public class AdministrationModuleViewModel
     {
         /**
          * User mgmt
@@ -407,6 +465,11 @@ namespace Layout.ViewModels
          * Global functions, processes, alerts
          * 
          * */
+        AdministrationModuleViewModel()
+        {
+        
+        }
+
     }
 
 
@@ -416,14 +479,27 @@ namespace Layout.ViewModels
         /**
          * SelectedAnalytic - contains selected filters, pricelists, valuedrivers
          * SelectedAnalyticStepType - enum
-         * SelectedStepViewModel to bind to content control
-         * 
+         * static Dictionary of Steps / vm / selected
+         * -OR-
+         * List<Steps> and navigated vm's
+         * SelectedStepViewModel to bind to content control with analytic state , actions
+         * Services needed for analytic 
          * */
-        AnalyticViewModel(Domain.Analytic analytic)
+        //AnalyticViewModel(Domain.Analytic analytic)
+        //{
+
+        //}
+
+        private Dictionary<Domain.AnalyticStepType, ViewModelBase> Steps;
+        private static Domain.EntityBase Analytic { get; set; }
+
+        private ViewModelBase SelectedStepViewModel {get; set;}
+
+        public void NavigateByStepType(Domain.AnalyticStepType stepType){}
+        public AnalyticViewModel(Domain.Analytic analytic)
         {
-
+            
         }
-
         void Save(){}
     }
 
@@ -439,152 +515,182 @@ namespace Layout.ViewModels
         {
 
         }
-
+        
     }
 }
 
 //TODO: Navigate using an action - must map to a viewmodel & populate recent activity?
-namespace Layout.Domain
-{
-    public class Folder
-    {
-        public string Name { get; set; }
-    }
+//namespace Layout.Domain
+//{
 
-    public enum Module
-    {
-        Planning,
-        Tracking,
-        Reporting
-    }
+//    public class Folder
+//    {
+//        public string Name { get; set; }
+//    }
 
-    public enum AnalyticStepType
-    {
-        Identity,
-        Filters,
-        PriceLists,
-        ValueDrivers
-    }
+//    public enum Module
+//    {
+//        Planning,
+//        Tracking,
+//        Reporting
+//    }
 
-    public enum PricingStepType
-    {
-        Identity,
-        Filters,
-        PriceLists,
-        Rounding,
-        Strategy,
-        Results,
-        Forecasts,
-        Approval
-    }
+//    public enum Sections
+//    {
+//        Analytics,
+//        Everyday,
+//        Promotions,
+//        Kits,
+//        MySettings,
+//        Settings,
+//        Rules,
+//        PriceLists,
 
-   
-    public class Session
-    {
-        public User User { get; set; }        
-        public List<Analytic> Analytics { get; set; }
-        public List<PriceRoutine> PriceRoutines { get; set; }
-    }
+//    }
 
-    public class User
-    {
-        public string Login { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Dictionary<Action, ViewModelBase> RecentHistory { get; set; }
-        public List<PriceRoutine> Folders { get; set; }
-        public class Role
-        {
-            List<Action> Permissions { get; set; } //which actions can they execute
-        }
-
-    }
-
-    public class Analytic
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Status { get; set; }
-        public string Description { get; set; }
-        public string Comments { get; set; }
-        public string Group1 { get; set; }
-        public string Group2 { get; set; }
-        public string Folder { get; set; }
-        public bool Shared { get; set; }
-
-        public List<Filter> Filters { get; set; }
-        public List<ValueDriver> ValueDrivers { get; set; }
-        public List<PriceRoutine> RelatedPriceRoutines { get; set; }
-        public List<Action> Actions { get; set; } // usually navigates to step in module eg - for analytic->filters, price lists, rounding
-    }
-
-    public class PriceRoutine
-    {
-        public PriceRoutineType @Type { get; set; } //everyday, promo, kits
-        public List<Analytic> RelatedAnalytics { get; set; }
-        public List<Action> Actions { get; set; }
-        public List<RoundingScheme> RoundingSchemes { get; set; }
-        public List<PriceList> PriceLists { get; set; }
-    }
+//    public enum AnalyticStepType
+//    {
+//        Identity,
+//        Filters,
+//        PriceLists,
+//        ValueDrivers
+//    }
 
 
-    public class PriceList
-    {
+
+//    public enum PricingStepType
+//    {
+//        Identity,
+//        Filters,
+//        PriceLists,
+//        Rounding,
+//        Strategy,
+//        Results,
+//        Forecasts,
+//        Approval
+//    }
+
+//    public enum PricingType
+//    {
+//        Everyday,
+//        Promotion,
+//        Kits
+//    }
+//    public class Session
+//    {
+//        public User User { get; set; }        
+//        public List<Analytic> Analytics { get; set; }
+//        public List<PriceRoutine> PriceRoutines { get; set; }
+//        public List<Tag> Tags { get; set; }
+
+
+//    }
+
+//    public class User
+//    {
+//        public string Login { get; set; }
+//        public string FirstName { get; set; }
+//        public string LastName { get; set; }
+//        public Boolean IsAuthenticated { get; set; }
+//        public Dictionary<Action, ViewModelBase> RecentHistory { get; set; }
+//        //public List<Folder> Folders { get; set; } // Deprecated for tags defined on analytic
+//        public class Role
+//        {
+//            List<Action> Permissions { get; set; } //which actions can they execute
+//        }
+
+//    }
+
+//    public class Analytic
+//    {
+//        public string Id { get; set; }
+//        public string Name { get; set; }
+//        public string Status { get; set; }
+//        public string Description { get; set; }
+//        public string Comments { get; set; }
+//        public string Group1 { get; set; }
+//        public string Group2 { get; set; }
+//        public string Folder { get; set; }
+//        public bool Shared { get; set; }
+
+//        public List<Filter> Filters { get; set; }
+//        public List<ValueDriver> ValueDrivers { get; set; }
+//        public List<PriceRoutine> RelatedPriceRoutines { get; set; }
+//        public List<Action> Actions { get; set; } // TODO: seperate into own logic // usually navigates to step in module eg - for analytic->filters, price lists, rounding
+//    }
+
+//    public class PriceRoutine
+//    {
+//        public PriceRoutineType @Type { get; set; } //everyday, promo, kits
+//        public List<string> AssignedAnalytics { get; set; } // list of ids
+//        public List<Action> Actions { get; set; }
+//        public List<RoundingScheme> RoundingSchemes { get; set; }
+//        public List<PriceList> PriceLists { get; set; }
+//    }
+
+
+//    public class PriceList
+//    {
         
-    }
+//    }
 
-    public enum PricingMode
-	{
-	    Single,
-        Cascade,
-        GlobalKey,
-        GlobalKeyPlus
-	}
-
-
-    public class RoundingScheme
-    {
-        public string Lower { get; set; }
-        public string Upper { get; set; }
-        public int RoundTo { get; set; }
-    }
+//    public enum PricingMode
+//    {
+//        Single,
+//        Cascade,
+//        GlobalKey,
+//        GlobalKeyPlus
+//    }
 
 
-    public enum PriceRoutineType
-    {
-        EveryDay,
-        Promo,
-        Kit
-    }
-
-    public enum ModuleType
-    {
-        Planning,
-        Tracking,
-        Reporting,
-        Administration
-    }
+//    public class RoundingScheme
+//    {
+//        public string Lower { get; set; }
+//        public string Upper { get; set; }
+//        public int RoundTo { get; set; }
+//    }
 
 
-    public class ValueDriver
-    {
-        public int Group { get; set; }
-        public ValueDriverType @Type { get; set; }
-    }
+//    public enum PriceRoutineType
+//    {
+//        EveryDay,
+//        Promo,
+//        Kit
+//    }
 
-    public enum ValueDriverType
-    {
+//    public enum ModuleType
+//    {
+//        Planning,
+//        Tracking,
+//        Reporting,
+//        Administration
+//    }
+
+
+//    public class ValueDriver
+//    {
+//        public int Group { get; set; }
+//        public ValueDriverType @Type { get; set; }
+//    }
+
+//    public enum ValueDriverType
+//    {
         
-    }
+//    }
 
-    public class Filter
-    {
-        public int Id { get; set; }
-        public Boolean IsSelected { get; set; }
-        public string Code { get; set; }
-        public string Value { get; set; }
-    }
-}
+//    public class Filter
+//    {
+//        public int Id { get; set; }
+//        public Boolean IsSelected { get; set; }
+//        public string Code { get; set; }
+//        public string Value { get; set; }
+//    }
+
+//    public class EntityBase
+//    {
+
+//    }
+//}
 
 
 

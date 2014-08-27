@@ -13,13 +13,17 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ReactiveUI;
+using Layout.ViewModels;
+using System.Linq;
+using System.Reactive.Linq;
 
 namespace Layout
 {
 	/// <summary>
 	/// Interaction logic for HomeControl.xaml
 	/// </summary>
-	public partial class HomeVerticalControl : UserControl
+	public partial class HomeVerticalControl : IViewFor<MainViewModel>
 	{
         //ObservableCollection<UserControl> views;
         Domain.Analytic _SelectedAnalytic;
@@ -27,6 +31,10 @@ namespace Layout
 		public HomeVerticalControl()
 		{
 			this.InitializeComponent();
+
+            
+            //this.Bind(ViewModel, x => x.SelectedPlanningViewModel, x => x.Filte);
+
             //views = new ObservableCollection<UserControl>();
             //var h = new HomeVerticalControl();
 
@@ -36,6 +44,12 @@ namespace Layout
             //DataContext = views;
 
             //this.Content = views[0];
+
+            this.WhenAnyValue(x => x.TagListBox.SelectedItem).Subscribe( x => 
+            {
+                Console.WriteLine(x);
+            }
+            );
 		}
 
         private void AddNewAnalyticButton_Click(object sender, RoutedEventArgs e)
@@ -43,6 +57,8 @@ namespace Layout
             AnalyticStepsControl c = new AnalyticStepsControl();
             c.TitleTextBox.Text = "Analytic - New";
             this.Content = c;
+
+            
         }
 
         //private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
@@ -79,7 +95,7 @@ namespace Layout
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
             AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
             c.AnalyticStepContentControl.Content = new FilterStepControl();
             c.StepListBox.SelectedItem = c.StepListBox.Items[1];
             this.Content = c;
@@ -88,7 +104,7 @@ namespace Layout
         private void PriceListButton_Click(object sender, RoutedEventArgs e)
         {
             AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
             c.AnalyticStepContentControl.Content = new FilterStepControl();
             c.StepListBox.SelectedItem = c.StepListBox.Items[2];
             this.Content = c;    
@@ -96,7 +112,7 @@ namespace Layout
         private void ValueDriversButtons_Click(object sender, RoutedEventArgs e)
         {
             AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
             c.AnalyticStepContentControl.Content = new AnalyticValueDriversStepControl();
             c.StepListBox.SelectedItem = c.StepListBox.Items[3];
             this.Content = c;            
@@ -107,7 +123,7 @@ namespace Layout
         {
             if(e.AddedItems.Count > 0)
             {
-                var analytic = e.AddedItems[0] as Layout.Domain.Analytic;
+                var analytic = e.AddedItems[0] as Domain.Analytic;
                 if (analytic != null) 
                 {
                     _SelectedAnalytic = analytic;
@@ -138,9 +154,9 @@ namespace Layout
         private void RenameButton_Click(object sender, RoutedEventArgs e)
         {
             AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
+            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
             AnalyticIdentityStepControl i = new AnalyticIdentityStepControl();
-            i.NameTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
+            i.NameTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
             c.AnalyticStepContentControl.Content = i;
             this.Content = c;
         }
@@ -167,8 +183,8 @@ namespace Layout
 
             PricingStepsControl view = new PricingStepsControl();
             PricingIdentityStepControl subView = new PricingIdentityStepControl();
-            subView.NameTextBox.Text = "Price Routine for " + (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
-            subView.AnalyticTextBox.Text = (FilterListBox.SelectedItem as Layout.Domain.Analytic).Name;
+            subView.NameTextBox.Text = "Price Routine for " + (FilterListBox.SelectedItem as Domain.Analytic).Name;
+            subView.AnalyticTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
             view.StepContentControl.Content = subView;
             this.Content = view;
 
@@ -183,5 +199,27 @@ namespace Layout
         {
             FilterStackPanel.Visibility = Visibility.Visible;
         }
+
+        public MainViewModel ViewModel
+        {
+            get
+            {
+                return (MainViewModel)GetValue(ViewModelProperty);
+            }
+            set
+            {
+                SetValue(ViewModelProperty,
+                    value);
+            }
+        }
+
+        object IViewFor.ViewModel
+        {
+            get { return ViewModel; }
+            set { ViewModel = (MainViewModel)value; }
+        }
+
+        public static readonly DependencyProperty ViewModelProperty =
+DependencyProperty.Register("ViewModel", typeof(MainViewModel), typeof(HomeVerticalControl), new PropertyMetadata(null));
 	}
 }
