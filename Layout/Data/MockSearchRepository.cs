@@ -12,7 +12,7 @@ using MongoDB.Driver.Builders;
 
 namespace Layout.Data
 {
-    public class MockAnalyticRepository : IRepository
+    public class MockSearchRepository : IRepository
     {
         private readonly string connectionString = ConfigurationManager.AppSettings["connectionString"].ToString();
         private const string databaseName = "promo";
@@ -24,7 +24,7 @@ namespace Layout.Data
         protected MongoDatabase database { get; set; }
 
 
-        public MockAnalyticRepository()
+        public MockSearchRepository()
         {
             client = new MongoClient(connectionString);
             server = client.GetServer();
@@ -53,6 +53,35 @@ namespace Layout.Data
            }
            return list;
         }
+
+        public List<string> AllTagsBySubModule(string subModule)
+        {
+            List<string> list = new List<string>();
+           //var query = from a in Analytics.AsQueryable<Domain.Analytic>()
+           //        select a.Tags.Distinct();
+
+           //return query.ToList();
+
+            switch (subModule)
+            {
+                case "Analytics":
+                        var query = Analytics.Distinct(
+
+                        "Tags"
+
+                        );
+
+                       foreach (var item in query.ToList())
+                       {
+                           list.Add(item.ToString());
+                       }
+                       return list;
+                      
+                
+                default: return null;
+            }
+        }
+
 
         public List<Domain.Analytic> FindByTag(List<string> tags)
         { 
@@ -138,7 +167,27 @@ namespace Layout.Data
 
         public List<T> FindByTag<T>(List<string> tags) where T : class, new()
         {
-            throw new NotImplementedException();
+            var name = typeof(T).Name;
+            //Type typeParameterType = typeof(T);
+            switch (name)
+            {
+                case "Analytic":
+                    var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).Cast<T>().ToList();
+                    return list;
+                default:
+                    return null;
+            }
+        }
+
+
+        public List<Domain.Analytic> FindAnalyticsByTag(List<string> tags)
+        {
+
+            //var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).Cast<T>().ToList(); //not supported
+
+            return Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).ToList();
+  
+            
         }
 
 
@@ -155,6 +204,9 @@ namespace Layout.Data
         System.Linq.IQueryable<T> All<T>(int page, int pageSize) where T : class, new();
 
         List<T> FindByTag<T>(List<string> tags) where T : class, new();
+        List<Domain.Analytic> FindAnalyticsByTag(List<string> tags);
         List<string> AllTags();
+
+        List<string> AllTagsBySubModule(string subModule);
     }
 }

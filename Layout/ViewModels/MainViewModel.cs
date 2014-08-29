@@ -7,6 +7,7 @@ using Layout;
 using Layout.ViewModels;
 using ReactiveUI;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 
 namespace Layout.ViewModels
@@ -239,8 +240,8 @@ namespace Layout.ViewModels
 
                 //};
             //Seed();
-
-            AnalyticRepo = new Data.MockAnalyticRepository();
+            EventManager = ((Reactive.EventAggregator)App.Current.Resources["EventManager"]);
+            SearchRepo = new Data.MockSearchRepository();
 
             //initialize session --> login mock User.IsAuthenticated = true
             //load session module list and tags
@@ -251,21 +252,24 @@ namespace Layout.ViewModels
             };
 
 
-            var loadTags = ReactiveCommand.Create();
-            loadTags.Subscribe(_ => {
+            //var loadTags = ReactiveCommand.Create();
+            //loadTags.Subscribe(_ => {
 
-                Session.Tags = AnalyticRepo.AllTags();
-                Console.WriteLine(Session.Tags);
-            });
+            //    Session.Tags = SearchRepo.AllTags();
+            //    Console.WriteLine(Session.Tags);
+            //});
 
-            loadTags.Execute(null);
+            //loadTags.Execute(null);
 
     
 
 
+            SubModuleKeys = new[] { Domain.SubModuleType.Analytics, Domain.SubModuleType.Everyday, Domain.SubModuleType.Promotions, Domain.SubModuleType.Kits, Domain.SubModuleType.MySettings }.ToList();
 
 
             //load default module --> Plannning - Analytics - Home(Search)
+            SelectedSubModuleViewModel = new HomeSearchViewModel(SearchRepo, Session, EventManager);
+
             // load master tag list 
 
             //Commands
@@ -274,7 +278,7 @@ namespace Layout.ViewModels
             //EditAnalytic(id) SelectedModuleViewModel == EditAnalyticVM(analytic)
             //navigate module -- change SelectedModuleVM
             //navigate by submodule -- change SelectedSubModuleVM
-            //navigate by section -- change SelecetedSectionVM
+            //navigate by section -- change SelectedSectionVM
             
 
        
@@ -283,19 +287,19 @@ namespace Layout.ViewModels
             
        }
 
-        public Data.IRepository AnalyticRepo { get; set; }
+        public Reactive.EventAggregator EventManager { get; set; }
+
+        public Data.IRepository SearchRepo { get; set; }
 
         public Domain.Session Session { get; set; } //contains user history
-
-        public ViewModelBase SelectedModuleViewModel { get; set;} //Planning  -  1) Home/SearchVM or 2) AnalyticEditVM 3) PricingEditVM  4) MySettings VM
+        
+        public ViewModelBase SelectedSubModuleViewModel { get; set;} //eg. 1) Home/SearchVM or 2) AnalyticEditVM 3) PricingEditVM  4) MySettings VM
                                                                   //Admin - 1) UsersVM 2) RulesVM etc..
 
-        public void NavigateModuleByModuleType(Domain.Module module) {}
+        //public ViewModelBase SelectedPlanningViewModel { get; set; }
+        //public ViewModelBase SelectedTrackingViewModel { get; set; }
+        //public ViewModelBase SelectedAdminViewModel { get; set; } //preload
 
-        public ViewModelBase SelectedPlanningViewModel { get; set; }
-        public ViewModelBase SelectedTrackingViewModel { get; set; }
-        public ViewModelBase SelectedAdminViewModel { get; set; } //preload
-        
 
         //Screen sections
         public string MessageCenterViewModel { get; set; }
@@ -308,7 +312,7 @@ namespace Layout.ViewModels
         public List<Domain.Filter> SampleFilters { get; set; }
         //public List<Domain.Folder> SampleFolders { get; set; }
 
-
+        public List<Domain.SubModuleType> SubModuleKeys { get; set; }
 
         public void Seed()
         {
@@ -428,35 +432,169 @@ namespace Layout.ViewModels
 
 
             
-        }
+        }//original seed
     }
 }
 
 
 namespace Layout.ViewModels
 {
-    public class PlanningModuleViewModel
+
+    namespace Reactive
+    {
+
+        public class EventAggregator : IEventAggregator
+        {
+            readonly ISubject<object> subject = new Subject<object>();
+
+            public IObservable<TEvent> GetEvent<TEvent>()
+            {
+                return subject.OfType<TEvent>().AsObservable();
+            }
+
+            public void Publish<TEvent>(TEvent sampleEvent)
+            {
+                subject.OnNext(sampleEvent);
+            }
+        }
+
+        public interface IEventAggregator
+        {
+            IObservable<TEvent> GetEvent<TEvent>();
+            void Publish<TEvent>(TEvent sampleEvent);
+        }
+    }
+
+    public class Navigator
+	{
+        //TODO: make this is own class so we can pass it to submodules or use event aggregator
+        public Dictionary<Domain.ModuleType, ViewModelBase> NavigatedModuleCache { get; set; }
+        private string EventAggregatorReceiver { get; set; } //receive navigation events from aggregator
+        protected ReactiveCommand<object> NavigateModuleByModuleType(Domain.Module module) { return null; }
+        public ReactiveCommand<object> NavigateSectionBySectionType(Domain.SectionType section) { return null; }
+
+	}
+    public class PlanningModuleViewModel : ViewModelBase
     {
         /**
-         * Folder List By Selected Section by User
+         * Tag List By Selected Section by User with animation
          * Analytics by User By Group -or- PriceRoutines By User
-         * 
+         * Default is Home/Search current HomeVertical
          * 
          * 
          * 
          **/
-        public ViewModelBase SelectedSection { get; set;}
 
-        public void NavigateSectionBySectionType() { }
+        public PlanningModuleViewModel(Data.IRepository repository, Domain.Session session){
+
+            //load default submoduleVM
+            //SelectedSubModule = new HomeSearchViewModel(repository);
+        }
+
+    }
+
+    //Default SubModule for plannning
+    public class HomeSearchViewModel : ViewModelBase
+    {
+        /*
+         * Bindings List submodules, List of tags, List of results, selected entityVM -- set of actions eg. copy, edit, add
+         * 
+         * command that switches object type to search (analytics or price routines) & gets tags by submodule type
+         * command that set detail to specfic object in searched list
+         * */
+        public HomeSearchViewModel(Data.IRepository repo, Domain.Session session, Reactive.EventAggregator eventManager)
+        {
+
+            Session = session;
+            EventManager = eventManager;
+
+
+
+            SubModuleKeys = new[] { Domain.SubModuleType.Analytics, Domain.SubModuleType.Everyday, Domain.SubModuleType.Promotions, Domain.SubModuleType.Kits, Domain.SubModuleType.MySettings }.ToList();
+
+
+
+            LoadTagsBySubModuleCommand = ReactiveCommand.Create();
+            LoadTagsBySubModuleCommand.Subscribe(x =>
+            {
+                Tags = repo.AllTagsBySubModule(x.ToString());
+            });
+            EventManager.GetEvent<Domain.SubModuleType>()
+                .Subscribe(submodule =>
+                {
+                    LoadTagsBySubModuleCommand.Execute(submodule);
+                });
+
+            LoadAnalyticsByTagCommand = ReactiveCommand.Create();
+            LoadAnalyticsByTagCommand.Subscribe(x => 
+            {
+                //Analytics = repo.FindByTag<Domain.Analytic>(new List<string> { ((Domain.Tag)x).Value });
+                Analytics = repo.FindAnalyticsByTag(new List<string> { ((Domain.Tag)x).Value });
+            });
+
+            EventManager.GetEvent<Domain.Tag>().Subscribe(tag =>
+            {
+                LoadAnalyticsByTagCommand.Execute(tag);
+            });
+        }
+
+
+        private List<string> _tags;
+        public List<string> Tags 
+        { 
+            get 
+            {
+                return _tags;
+            }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _tags, value.ToList()); 
+            }            
+        }
+
+
+        private List<Domain.Analytic> _analytics;
+        public List<Domain.Analytic> Analytics
+        {
+            get
+            {
+                return _analytics;
+            }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _analytics, value);
+            }
+        }
+
+        public Reactive.EventAggregator EventManager { get; set; }
+        public List<Domain.SubModuleType> SubModuleKeys { get; set; }
+
+        public string SelectedSubModuleItem { get; set; }
+        public List<String> SelectedTagItems { get; set; }
+
+        protected ReactiveCommand<object> LoadTagsBySubModuleCommand;
+        protected ReactiveCommand<object> LoadAnalyticsByTagCommand;
+
+
+
+
+        public Data.IRepository SearchRepository { get; set; }
+        public Domain.Session Session { get; set; }
+
+        public Navigator Navigator { get; set; } //TODO: needs to be handled globally on mainviewmodel but can be passed as ref
 
         //public AnalyticViewModel SelectedAnalyticViewModel { get; set; }
         //public PricingViewModel SelectedPricingViewModel { get; set; }
 
-        
+
+
 
     }
 
-    //
+
+
+
+    
     public class AdministrationModuleViewModel
     {
         /**
@@ -465,7 +603,7 @@ namespace Layout.ViewModels
          * Global functions, processes, alerts
          * 
          * */
-        AdministrationModuleViewModel()
+        public AdministrationModuleViewModel()
         {
         
         }

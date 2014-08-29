@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Domain
 {
@@ -59,6 +60,86 @@ namespace Domain
             Reporting,
             Administration
         }
+
+        public enum SubModuleType
+        {
+            Analytics,
+            Everyday,
+            Promotions,
+            Kits,
+            MySettings
+        }
+
+        public enum SectionType
+        {
+            #region Common view types...
+
+            #endregion
+
+            [EnumMember]
+            StartupLoginInitialization = 110, // Step 1) Initialization
+            [EnumMember]
+            StartupLoginAuthentication = 115, // Step 2) Authentication
+            [EnumMember]
+            StartupLoginChangePassword = 119, // Step 3) Change Password
+
+            [EnumMember]
+            PlanningHomeMyHomePage = 111, // Step 1) My Home Page
+            [EnumMember]
+            PlanningHomeMyOptimization = 177, // Step 2) My Optimization
+            [EnumMember]
+            PlanningHomeMyMarkuprules = 178, // Step 3) My Markup rules
+            [EnumMember]
+            PlanningHomeMyRoundingrules = 179, // Step 4) My Rounding rules
+
+            [EnumMember]
+            PlanningAnalyticsMyAnalytics = 112, // Step 1) My Analytics
+            [EnumMember]
+            PlanningAnalyticsIdentity = 116, // Step 2) Identity
+            [EnumMember]
+            PlanningAnalyticsFilters = 120, // Step 3) Filters
+            [EnumMember]
+            PlanningAnalyticsPriceLists = 123, // Step 4) Price Lists
+            [EnumMember]
+            PlanningAnalyticsValueDrivers = 126, // Step 5) Value Drivers
+            [EnumMember]
+            PlanningAnalyticsResults = 129, // Step 6) Results
+
+            [EnumMember]
+            PlanningPricingMyPricing = 113, // Step 1) My Pricing
+            [EnumMember]
+            PlanningPricingIdentity = 117, // Step 2) Identity
+            [EnumMember]
+            PlanningPricingFilters = 121, // Step 3) Filters
+            [EnumMember]
+            PlanningPricingPriceLists = 124, // Step 4) Price Lists
+            [EnumMember]
+            PlanningPricingRounding = 127, // Step 5) Rounding
+            [EnumMember]
+            PlanningPricingStrategy = 130, // Step 6) Strategy
+            [EnumMember]
+            PlanningPricingResults = 132, // Step 7) Results
+            [EnumMember]
+            PlanningPricingForecast = 134, // Step 8) Forecast
+            [EnumMember]
+            PlanningPricingApproval = 135, // Step 9) Approval
+
+            [EnumMember]
+            PlanningAdministrationUserMaintenance = 114, // Step 1) User Maintenance
+            [EnumMember]
+            PlanningAdministrationPricelists = 118, // Step 2) Price lists
+            [EnumMember]
+            PlanningAdministrationOptimization = 128, // Step 3) Optimization
+            [EnumMember]
+            PlanningAdministrationMarkuprules = 122, // Step 4) Markup rules
+            [EnumMember]
+            PlanningAdministrationRoundingrules = 125, // Step 5) Rounding rules
+            [EnumMember]
+            PlanningAdministrationRollback = 133, // Step 6) Rollback
+            [EnumMember]
+            PlanningAdministrationProcesses = 131, // Step 7) Processes
+        }
+
 
         public enum AnalyticStepType
         {
@@ -133,6 +214,7 @@ namespace Domain
             //public string Group2 { get; set; }
             //public string Folder { get; set; }
             public List<string> Tags { get; set; }
+            public List<string> FavoriteTags { get; set; }
             //public IList<string> Drivers { get; set; }
             public bool Shared { get; set; }
             public List<FilterSet> Filters { get; set; }

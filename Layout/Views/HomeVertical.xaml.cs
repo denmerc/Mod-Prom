@@ -12,7 +12,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Collections.ObjectModel;
-using System.Linq;
 using ReactiveUI;
 using Layout.ViewModels;
 using System.Linq;
@@ -23,17 +22,17 @@ namespace Layout
 	/// <summary>
 	/// Interaction logic for HomeControl.xaml
 	/// </summary>
-	public partial class HomeVerticalControl : IViewFor<MainViewModel>
+	public partial class HomeVerticalControl
 	{
         //ObservableCollection<UserControl> views;
         Domain.Analytic _SelectedAnalytic;
-
+        Layout.ViewModels.Reactive.EventAggregator Publisher = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
 		public HomeVerticalControl()
 		{
 			this.InitializeComponent();
+            //this.WhenAnyValue(x => x.ViewModel).BindTo(this, x => x.DataContext);
 
-            
-            //this.Bind(ViewModel, x => x.SelectedPlanningViewModel, x => x.Filte);
+            //this.Bind(ViewModel, x => x.S, x => x.Filte);
 
             //views = new ObservableCollection<UserControl>();
             //var h = new HomeVerticalControl();
@@ -47,8 +46,34 @@ namespace Layout
 
             this.WhenAnyValue(x => x.TagListBox.SelectedItem).Subscribe( x => 
             {
-                Console.WriteLine(x);
+                if(x != null)
+                { 
+                    //Load analytics by Tag
+                    Publisher.Publish<Domain.Tag>(new Domain.Tag { Value = x.ToString()});
+                    //Console.WriteLine(x);
+                    FilterStackPanel.Visibility = Visibility.Visible;
+                }
             }
+            );
+
+            this.WhenAnyValue(x => x.ModuleListBox.SelectedItem).Subscribe( x =>
+                    {
+                        //Load analytics by ModuleType
+                        if (x != null)
+                        {
+                            Console.WriteLine((x as ListBoxItem).Tag);
+
+                            switch ((x as ListBoxItem).Tag.ToString())
+                            {
+                                case "Analytics":
+                                    Publisher.Publish<Domain.SubModuleType>(Domain.SubModuleType.Analytics);
+                                    break;
+                                default:
+                                    TagStack.Visibility = Visibility.Hidden;
+                                    break;
+                            }
+                        }
+                    }
             );
 		}
 
@@ -80,6 +105,10 @@ namespace Layout
         private void AnalyticsListItem_Selected(object sender, RoutedEventArgs e)
         {
             FilterListBox.Visibility = Visibility.Visible;
+
+            //ViewModel.LoadTagsBySubModule("Analytics");
+
+            //Publisher.Publish<string>("Analytics");
 
         }
 
@@ -172,7 +201,7 @@ namespace Layout
         {
             if (e.AddedItems.Contains(ModuleListBox.Items[0])) 
             {
-                FilterStack.Visibility = System.Windows.Visibility.Visible;
+                TagStack.Visibility = System.Windows.Visibility.Visible;
             }
             else { FilterStackPanel.Visibility = Visibility.Collapsed; AnalyticTabDetail.Visibility = Visibility.Collapsed; }
             
@@ -200,26 +229,26 @@ namespace Layout
             FilterStackPanel.Visibility = Visibility.Visible;
         }
 
-        public MainViewModel ViewModel
-        {
-            get
-            {
-                return (MainViewModel)GetValue(ViewModelProperty);
-            }
-            set
-            {
-                SetValue(ViewModelProperty,
-                    value);
-            }
-        }
+//        public HomeSearchViewModel ViewModel
+//        {
+//            get
+//            {
+//                return (HomeSearchViewModel)GetValue(ViewModelProperty);
+//            }
+//            set
+//            {
+//                SetValue(ViewModelProperty,
+//                    value);
+//            }
+//        }
 
-        object IViewFor.ViewModel
-        {
-            get { return ViewModel; }
-            set { ViewModel = (MainViewModel)value; }
-        }
+//        object IViewFor.ViewModel
+//        {
+//            get { return ViewModel; }
+//            set { ViewModel = (HomeSearchViewModel)value; }
+//        }
 
-        public static readonly DependencyProperty ViewModelProperty =
-DependencyProperty.Register("ViewModel", typeof(MainViewModel), typeof(HomeVerticalControl), new PropertyMetadata(null));
+//        public static readonly DependencyProperty ViewModelProperty =
+//DependencyProperty.Register("ViewModel", typeof(HomeSearchViewModel), typeof(HomeVerticalControl), new PropertyMetadata(null));
 	}
 }

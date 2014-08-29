@@ -26,15 +26,17 @@ namespace Layout
         public MainWindow()
         {
             InitializeComponent();
-            views = new ObservableCollection<UserControl>();
-            var h = new HomeVerticalControl();
+            //views = new ObservableCollection<UserControl>();
+            //var h = new HomeVerticalControl();
             
-            views.Add(new HomeVerticalControl());
-            views.Add(new AnalyticStepsControl());
+            //views.Add(new HomeVerticalControl());
+            //views.Add(new AnalyticStepsControl());
 
             //DataContext = views;
 
-            ChildControl.Content = views[0];
+
+
+           // ModuleControl.Content = views[0]; //selected module
             
         }
 
@@ -85,7 +87,7 @@ namespace Layout
 
         private void AddNewAnalyticButton_Click(object sender, RoutedEventArgs e)
         {
-            ChildControl.Content = views[1];
+            ModuleControl.Content = views[1]; //go to analytic steps
         }
 
         private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
@@ -93,20 +95,20 @@ namespace Layout
             HomeVerticalControl h = new HomeVerticalControl();
             h.ModuleListBox.SelectedItem = h.ModuleListBox.Items[0];
             h.FilterListBox.Visibility = Visibility.Visible;
-            ChildControl.Content = h;
+            ModuleControl.Content = h;
 
         }
 
         private void RelatedPriceRoutineButton_Click(object sender, RoutedEventArgs e)
         {
             PricingStepsControl view = new PricingStepsControl();
-            ChildControl.Content = view;
+            ModuleControl.Content = view;
         }
 
         private void AdministrationModuleButton_Click(object sender, RoutedEventArgs e)
         {
             AdminControl c = new AdminControl();
-            ChildControl.Content = c;
+            ModuleControl.Content = c;
         }
 
 

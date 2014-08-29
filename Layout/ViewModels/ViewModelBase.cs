@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Layout.ViewModels
 {
-    public class ViewModelBase
+    public class ViewModelBase : ReactiveObject
     {
     }
 }

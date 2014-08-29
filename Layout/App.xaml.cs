@@ -13,5 +13,13 @@ namespace Layout
     /// </summary>
     public partial class App : Application
     {
+
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            var eventManager = new Layout.ViewModels.Reactive.EventAggregator();
+            App.Current.Resources.Add("EventManager", eventManager);
+            base.OnStartup(e);
+        }
     }
 }
