@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using Layout.ViewModels.Events;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,7 @@ namespace Layout
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        Layout.ViewModels.Reactive.EventAggregator Publisher = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
         ObservableCollection<UserControl> views;
         public MainWindow()
         {
@@ -92,11 +94,21 @@ namespace Layout
 
         private void PlanningModuleButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeVerticalControl h = new HomeVerticalControl();
-            h.ModuleListBox.SelectedItem = h.ModuleListBox.Items[0];
-            h.FilterListBox.Visibility = Visibility.Visible;
-            ModuleControl.Content = h;
+            //HomeVerticalControl h = new HomeVerticalControl();
+            //h.ModuleListBox.SelectedItem = h.ModuleListBox.Items[0];
+            //h.FilterListBox.Visibility = Visibility.Visible;
+            //ModuleControl.Content = h;
 
+            //Publish SectionType & MVM changes selected sudmodule
+            Publisher.Publish<NavigateEvent>(
+                    new NavigateEvent
+                    {
+                        Module = Domain.ModuleType.Planning,
+                        SubModule = Domain.SubModuleType.Search,
+                        Section = Domain.SectionType.PlanningHomeMyHomePage
+                    }
+                
+                );
         }
 
         private void RelatedPriceRoutineButton_Click(object sender, RoutedEventArgs e)

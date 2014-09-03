@@ -181,6 +181,7 @@
     </Compile>
     <Compile Include="Data\MockSearchRepository.cs" />
     <Compile Include="Domain\Domain.cs" />
+    <Compile Include="ViewModels\Analytic\IdentityViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Analytic\AnalyticResultsControl.xaml.cs">

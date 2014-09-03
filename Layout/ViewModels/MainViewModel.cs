@@ -8,12 +8,18 @@ using Layout.ViewModels;
 using ReactiveUI;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using Layout.ViewModels.Events;
+using Layout.Data;
+using Domain;
 
 
 namespace Layout.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : ViewModelBase
     {
+        private static Dictionary<Domain.SubModuleType, ViewModelBase> SubModuleCache = new Dictionary<Domain.SubModuleType, ViewModelBase>();
+        //private static Dictionary<Domain.SubModuleType, List<ViewModelBase>> SubModuleCacheHistory = new Dictionary<Domain.SubModuleType, List<ViewModelBase>>();
+
         public MainViewModel()
         {
 
@@ -242,6 +248,8 @@ namespace Layout.ViewModels
             //Seed();
             EventManager = ((Reactive.EventAggregator)App.Current.Resources["EventManager"]);
             SearchRepo = new Data.MockSearchRepository();
+            AnalyticRepo = new Data.MockAnalyticRepository();
+            PricingRepo = new Data.MockPricingRepository();
 
             //initialize session --> login mock User.IsAuthenticated = true
             //load session module list and tags
@@ -261,16 +269,81 @@ namespace Layout.ViewModels
 
             //loadTags.Execute(null);
 
-    
+            //EventManager.GetEvent<Domain.ModuleType>()
+            //    .Subscribe(module =>
+            //    {
+            //        var moduleType = (Domain.ModuleType)module;
+            //        if(SubModuleCache.ContainsKey(moduleType))
+            //        {
+            //             SelectedSubModuleViewModel = SubModuleCache[moduleType];
+            //        }
+            //        else
+            //        {
+            //             SelectedSubModuleViewModel = new HomeSearchViewModel(SearchRepo, Session, EventManager);
+            //        }
+            //    });
+
+            EventManager.GetEvent<NavigateEvent>()
+                .Subscribe(navigator =>
+                {
+                    switch (navigator.SubModule)
+                    {
+                        case Domain.SubModuleType.Analytics: //static-singleton SubModuleVM with proxies with sections reloaded
+                            //add if it doesnt exist otherwise navigate 
+                            if(!SubModuleCache.ContainsKey(navigator.SubModule))
+                            {
+                                SelectedSubModuleViewModel = new AnalyticViewModel(AnalyticRepo, Session);
+                            }
+                            else
+                            {
+                                SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Analytics];
+                               ((AnalyticViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator);
+                            }
+                            
+                            break;
+                        case Domain.SubModuleType.Everyday:
+                        case Domain.SubModuleType.Promotions:
+                        case Domain.SubModuleType.Kits:
+                            if (!SubModuleCache.ContainsKey(navigator.SubModule))
+                            {
+                                SelectedSubModuleViewModel = new PricingViewModel(PricingRepo, Session);
+                            }
+                            else
+                            {
+                                ((PricingViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator.Section);
+                            }
+                            break;
+                        case Domain.SubModuleType.Search:
+                            if(!SubModuleCache.ContainsKey(navigator.SubModule))
+                            {
+                                SelectedSubModuleViewModel = new HomeSearchViewModel(SearchRepo, Session, EventManager); 
+                            }
+                            else
+                            {
+                                SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Search]; this.RaisePropertyChanged("SelectedSubModuleViewModel");
+                            }
+                            break;
+                        case Domain.SubModuleType.MySettings:
+                            break;
+                        default:
+                            break;
+                    }
+                    if (!SubModuleCache.ContainsKey(navigator.SubModule))
+                    {
+                        SubModuleCache.Add(navigator.SubModule, SelectedSubModuleViewModel);
+                    }
+                    
+                    //SelectedSubModuleViewModel = Navigator.NavigateSectionBySectionType((Domain.SubModuleType)section);
+                    
+                });
+            //SubModuleKeys = new[] { Domain.SubModuleType.Analytics, Domain.SubModuleType.Everyday, Domain.SubModuleType.Promotions, Domain.SubModuleType.Kits, Domain.SubModuleType.MySettings }.ToList();
 
 
-            SubModuleKeys = new[] { Domain.SubModuleType.Analytics, Domain.SubModuleType.Everyday, Domain.SubModuleType.Promotions, Domain.SubModuleType.Kits, Domain.SubModuleType.MySettings }.ToList();
+            
+           //default
+           SelectedSubModuleViewModel = new HomeSearchViewModel(SearchRepo, Session, EventManager); 
+           SubModuleCache.Add(Domain.SubModuleType.Search, SelectedSubModuleViewModel);
 
-
-            //load default module --> Plannning - Analytics - Home(Search)
-            SelectedSubModuleViewModel = new HomeSearchViewModel(SearchRepo, Session, EventManager);
-
-            // load master tag list 
 
             //Commands
             //search by tags -> session.analytics
@@ -287,13 +360,28 @@ namespace Layout.ViewModels
             
        }
 
+        public ViewModels.Navigator Navigator { get; set; }
         public Reactive.EventAggregator EventManager { get; set; }
 
         public Data.IRepository SearchRepo { get; set; }
+        public Data.IRepository AnalyticRepo { get; set; }
+        public Data.IRepository PricingRepo { get; set; }
 
         public Domain.Session Session { get; set; } //contains user history
         
-        public ViewModelBase SelectedSubModuleViewModel { get; set;} //eg. 1) Home/SearchVM or 2) AnalyticEditVM 3) PricingEditVM  4) MySettings VM
+        private ViewModelBase _SelectedSubViewModel;
+        public ViewModelBase SelectedSubModuleViewModel { 
+            get
+            {
+                return _SelectedSubViewModel;
+            }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _SelectedSubViewModel, value);
+
+            }
+        
+        } //eg. 1) Home/SearchVM or 2) AnalyticEditVM 3) PricingEditVM  4) MySettings VM
                                                                   //Admin - 1) UsersVM 2) RulesVM etc..
 
         //public ViewModelBase SelectedPlanningViewModel { get; set; }
@@ -312,7 +400,7 @@ namespace Layout.ViewModels
         public List<Domain.Filter> SampleFilters { get; set; }
         //public List<Domain.Folder> SampleFolders { get; set; }
 
-        public List<Domain.SubModuleType> SubModuleKeys { get; set; }
+        //public List<Domain.SubModuleType> SubModuleKeys { get; set; }
 
         public void Seed()
         {
@@ -440,6 +528,17 @@ namespace Layout.ViewModels
 namespace Layout.ViewModels
 {
 
+    namespace Events
+    {
+        public class NavigateEvent
+        {
+            public Domain.ModuleType Module { get; set; }
+            public Domain.SubModuleType SubModule { get; set; }
+            public Domain.SectionType Section { get; set; }
+            public Object Entity { get; set; }
+        }
+    }
+
     namespace Reactive
     {
 
@@ -468,10 +567,46 @@ namespace Layout.ViewModels
     public class Navigator
 	{
         //TODO: make this is own class so we can pass it to submodules or use event aggregator
-        public Dictionary<Domain.ModuleType, ViewModelBase> NavigatedModuleCache { get; set; }
-        private string EventAggregatorReceiver { get; set; } //receive navigation events from aggregator
-        protected ReactiveCommand<object> NavigateModuleByModuleType(Domain.Module module) { return null; }
-        public ReactiveCommand<object> NavigateSectionBySectionType(Domain.SectionType section) { return null; }
+
+        private static Dictionary<Domain.ModuleType, ViewModelBase> ModuleSearchCache = new Dictionary<Domain.ModuleType,ViewModelBase>();
+        private static Dictionary<Domain.SubModuleType, List<ViewModelBase>> SubModuleCache = new Dictionary<Domain.SubModuleType, List<ViewModelBase>>();
+        //private string EventAggregatorReceiver { get; set; } //receive navigation events from aggregator
+        public ViewModelBase NavigateHomeByModuleType(Domain.ModuleType module) 
+        { 
+            //find HomeSearch for Planning Landing page only if one exists and reload
+            if(ModuleSearchCache.ContainsKey(module))
+            {
+                return ModuleSearchCache[module];
+            }
+            return null;
+        }
+        public ViewModelBase NavigateSectionBySectionType(Domain.SubModuleType section) 
+        { 
+            //multiple analytic and pricing viewmodels can exist here TODO: determine cap to hold in cache
+            if (SubModuleCache.ContainsKey(section))
+            {
+                var list = SubModuleCache[section];
+                while (list.Count > 10)
+                {
+                    list.RemoveAt(0);  
+                }
+                return list.Last();
+                //TODO: dispose of any eventagg related items
+                
+                
+            }
+            return null; //return approp SectionViewModel
+        }
+        public void AddModule(Domain.ModuleType moduleType, ViewModelBase viewModel)
+        {
+            
+        }
+
+        public void AddNewSection(Domain.SectionType sectionType, ViewModelBase viewModel )
+        {
+            //only on selection of analytic or price routine -> edit link clicked
+        }
+
 
 	}
     public class PlanningModuleViewModel : ViewModelBase
@@ -510,8 +645,8 @@ namespace Layout.ViewModels
 
 
 
-            SubModuleKeys = new[] { Domain.SubModuleType.Analytics, Domain.SubModuleType.Everyday, Domain.SubModuleType.Promotions, Domain.SubModuleType.Kits, Domain.SubModuleType.MySettings }.ToList();
-
+            //SubModuleKeys = new[] { Domain.SubModuleTypke.Analytics, Domain.SubModuleType.Everyday, Domain.SubModuleType.Promotions, Domain.SubModuleType.Kits, Domain.SubModuleType.MySettings }.ToList();
+            SubModuleKeys = Enum.GetValues(typeof(Domain.SubModuleType)).Cast<Domain.SubModuleType>().ToList();
 
 
             LoadTagsBySubModuleCommand = ReactiveCommand.Create();
@@ -612,7 +747,7 @@ namespace Layout.ViewModels
 
 
     //Planning sections
-    public class AnalyticViewModel
+    public class AnalyticViewModel : ViewModelBase
     {
         /**
          * SelectedAnalytic - contains selected filters, pricelists, valuedrivers
@@ -628,20 +763,115 @@ namespace Layout.ViewModels
 
         //}
 
-        private Dictionary<Domain.AnalyticStepType, ViewModelBase> Steps;
-        private static Domain.EntityBase Analytic { get; set; }
+        private Dictionary<Domain.SectionType, ViewModelBase> StepCache = new Dictionary<SectionType,ViewModelBase>();
+        private static Domain.Analytic SelectedAnalytic { get; set; }
 
-        private ViewModelBase SelectedStepViewModel {get; set;}
-
-        public void NavigateByStepType(Domain.AnalyticStepType stepType){}
-        public AnalyticViewModel(Domain.Analytic analytic)
+        private ViewModelBase _SelectedStepViewModel;
+        public ViewModelBase SelectedStepViewModel
         {
+            get { return _SelectedStepViewModel; }
+            set 
+            {
+                this.RaiseAndSetIfChanged(ref _SelectedStepViewModel, value);
+            }
+        }
+
+        public void Navigate(NavigateEvent navigator)
+        {
+            SelectedAnalytic = (Domain.Analytic)navigator.Entity;
+            if(!StepCache.ContainsKey(navigator.Section))
+            {
+                switch (navigator.Section)
+                {
+                    //case SectionType.StartupLoginInitialization:
+                    //    break;
+                    //case SectionType.StartupLoginAuthentication:
+                    //    break;
+                    //case SectionType.StartupLoginChangePassword:
+                    //    break;
+                    //case SectionType.PlanningHomeMyHomePage:
+                    //    break;
+                    //case SectionType.PlanningHomeMyOptimization:
+                    //    break;
+                    //case SectionType.PlanningHomeMyMarkuprules:
+                    //    break;
+                    //case SectionType.PlanningHomeMyRoundingrules:
+                    //    break;
+                    case SectionType.PlanningAnalyticsMyAnalytics:
+                        break;
+                    case SectionType.PlanningAnalyticsIdentity:
+                        SelectedStepViewModel = new ViewModels.Analytic.IdentityViewModel();
+                        break;
+                    case SectionType.PlanningAnalyticsFilters:
+                        break;
+                    case SectionType.PlanningAnalyticsPriceLists:
+                        break;
+                    case SectionType.PlanningAnalyticsValueDrivers:
+                        break;
+                    case SectionType.PlanningAnalyticsResults:
+                        break;
+                    case SectionType.PlanningPricingMyPricing:
+                        break;
+                    case SectionType.PlanningPricingIdentity:
+                        //SelectedStepViewModel = new PricingIdentityViewModel();
+                        break;
+                    case SectionType.PlanningPricingFilters:
+                        break;
+                    case SectionType.PlanningPricingPriceLists:
+                        break;
+                    case SectionType.PlanningPricingRounding:
+                        break;
+                    case SectionType.PlanningPricingStrategy:
+                        break;
+                    case SectionType.PlanningPricingResults:
+                        break;
+                    case SectionType.PlanningPricingForecast:
+                        break;
+                    case SectionType.PlanningPricingApproval:
+                        break;
+                    case SectionType.PlanningAdministrationUserMaintenance:
+                        break;
+                    case SectionType.PlanningAdministrationPricelists:
+                        break;
+                    case SectionType.PlanningAdministrationOptimization:
+                        break;
+                    case SectionType.PlanningAdministrationMarkuprules:
+                        break;
+                    case SectionType.PlanningAdministrationRoundingrules:
+                        break;
+                    case SectionType.PlanningAdministrationRollback:
+                        break;
+                    case SectionType.PlanningAdministrationProcesses:
+                        break;
+                    default:
+                        break;
+                }
+            }
+                else // in cache
+	            {
+                    SelectedStepViewModel = StepCache[navigator.Section].Navigate(navigator.Entity);
+	            }
+        }
+        //public AnalyticViewModel()
+        //{
+
+        //}
+        //public AnalyticViewModel(NavigateEvent navigator)
+        //{
+
+        //}
+        //public AnalyticViewModel(Domain.Analytic analytic, Domain.SectionType step)
+        //{
             
+        //}
+        public AnalyticViewModel(IRepository repo, Session session)
+        {
+
         }
         void Save(){}
     }
 
-    public class PricingViewModel
+    public class PricingViewModel : ViewModelBase
     {
         /**
          * SelectedPriceRoutine - contains selected filters, pricelists, valuedrivers
@@ -649,11 +879,17 @@ namespace Layout.ViewModels
          * SelectedStepViewModel to bind to content control
          * 
          * */
-        PricingViewModel(Domain.PriceRoutine routine)
+        public PricingViewModel(IRepository pricingRepo, Session session)
         {
-
-        }
         
+        }
+        //PricingViewModel(Domain.PriceRoutine routine)
+        //{
+
+        //}
+        public void Navigate(SectionType section)
+        {
+        }
     }
 }
 

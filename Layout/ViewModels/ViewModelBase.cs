@@ -8,5 +8,9 @@ namespace Layout.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {
+        public ViewModelBase Navigate(object entity)
+        {
+            return new ViewModels.Analytic.IdentityViewModel();
+        }
     }
 }

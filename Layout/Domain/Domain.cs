@@ -53,21 +53,23 @@ namespace Domain
             public string Name { get; set; }
         }
 
-        public enum Module
-        {
-            Planning,
-            Tracking,
-            Reporting,
-            Administration
-        }
+        //public enum Module
+        //{
+        //    Planning,
+        //    Tracking,
+        //    Reporting,
+        //    Administration
+        //}
 
         public enum SubModuleType
         {
+            
             Analytics,
             Everyday,
             Promotions,
             Kits,
-            MySettings
+            MySettings,
+                Search
         }
 
         public enum SectionType
@@ -170,6 +172,7 @@ namespace Domain
             public List<string> Tags { get; set; }
 
 
+
         }
 
         public class User
@@ -178,8 +181,11 @@ namespace Domain
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public List<Role> Roles { get; set; }
-            public List<string> FavoriteTags { get; set; }
             public Boolean IsAuthenticated { get; set; }
+
+            public List<string> FavoriteTags { get; set; }
+            //public List<Analytic> RecentAnalytics { get; set; }
+            //public List<PriceRoutine> RecentPriceRoutines { get; set; }
             
             //public Dictionary<Action, EntityBase> RecentHistory { get; set; } //instead of ViewModelBase
             //public List<PriceRoutine> Folders { get; set; }
@@ -197,7 +203,7 @@ namespace Domain
             Reviewer
         }
         //[BsonKnownTypes(typeof(Filter))]
-        public class Analytic
+        public class Analytic : ReactiveUI.ReactiveObject //TODO: ReactiveValidatedEntity
         {
             [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
             public string Id { get; set; }
@@ -264,7 +270,7 @@ namespace Domain
             Global,
             GlobalPlus
         }
-
+    
 
         public class RoundingScheme
         {

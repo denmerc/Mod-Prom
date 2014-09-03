@@ -16,6 +16,7 @@ using ReactiveUI;
 using Layout.ViewModels;
 using System.Linq;
 using System.Reactive.Linq;
+using Layout.ViewModels.Events;
 
 namespace Layout
 {
@@ -132,11 +133,22 @@ namespace Layout
         }
         private void PriceListButton_Click(object sender, RoutedEventArgs e)
         {
-            AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
-            c.AnalyticStepContentControl.Content = new FilterStepControl();
-            c.StepListBox.SelectedItem = c.StepListBox.Items[2];
-            this.Content = c;    
+            Publisher.Publish<Layout.ViewModels.Events.NavigateEvent>(
+                    new Layout.ViewModels.Events.NavigateEvent
+                    {
+                        Module = Domain.ModuleType.Planning,
+                        SubModule = Domain.SubModuleType.Analytics,
+                        Section = Domain.SectionType.PlanningAnalyticsIdentity,
+                        Entity = FilterListBox.SelectedItem
+                    }
+                
+                
+                );
+            //AnalyticStepsControl c = new AnalyticStepsControl();
+            //c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
+            //c.AnalyticStepContentControl.Content = new FilterStepControl();
+            //c.StepListBox.SelectedItem = c.StepListBox.Items[2];
+            //this.Content = c;    
         }
         private void ValueDriversButtons_Click(object sender, RoutedEventArgs e)
         {
@@ -182,12 +194,18 @@ namespace Layout
 
         private void RenameButton_Click(object sender, RoutedEventArgs e)
         {
-            AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
-            AnalyticIdentityStepControl i = new AnalyticIdentityStepControl();
-            i.NameTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
-            c.AnalyticStepContentControl.Content = i;
-            this.Content = c;
+            //AnalyticStepsControl c = new AnalyticStepsControl();
+            //c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
+            //AnalyticIdentityStepControl i = new AnalyticIdentityStepControl();
+            //i.NameTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
+            //c.AnalyticStepContentControl.Content = i;
+            //this.Content = c;
+            Publisher.Publish<NavigateEvent>(new NavigateEvent { 
+                Module = Domain.ModuleType.Planning,
+                SubModule = Domain.SubModuleType.Analytics,
+                Section = Domain.SectionType.PlanningAnalyticsIdentity,
+                Entity = FilterListBox.SelectedItem
+            });
         }
 
         private void CopyAnalyticButton_Click(object sender, RoutedEventArgs e)
@@ -199,6 +217,7 @@ namespace Layout
 
         private void ModuleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //if (e.AddedItems.Count >= 1)
             if (e.AddedItems.Contains(ModuleListBox.Items[0])) 
             {
                 TagStack.Visibility = System.Windows.Visibility.Visible;
@@ -227,6 +246,12 @@ namespace Layout
         private void GroupTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             FilterStackPanel.Visibility = Visibility.Visible;
+        }
+
+        private void TagListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(AnalyticTabDetail.Visibility == Visibility.Visible)
+                 AnalyticTabDetail.Visibility = Visibility.Hidden;
         }
 
 //        public HomeSearchViewModel ViewModel

@@ -3,6 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local ="clr-namespace:Layout"
     xmlns:vm ="clr-namespace:Layout.ViewModels"
+     xmlns:vma ="clr-namespace:Layout.ViewModels.Analytic"
 	x:Class="Layout.App"
 	StartupUri="MainWindow.xaml">
 	<Application.Resources>
@@ -16,6 +17,12 @@
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type vm:HomeSearchViewModel}">
                 <local:HomeVerticalControl />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vma:IdentityViewModel}">
+                <local:AnalyticIdentityStepControl />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AnalyticViewModel}">
+                <local:AnalyticStepsControl />
             </DataTemplate>
         </ResourceDictionary>
 
