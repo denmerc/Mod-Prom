@@ -21,6 +21,8 @@ namespace Layout
     /// </summary>
     public partial class AnalyticValueDriversStepControl : UserControl
     {
+        Layout.ViewModels.Reactive.EventAggregator Publisher = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
+
         public AnalyticValueDriversStepControl()
         {
             InitializeComponent();
@@ -44,7 +46,8 @@ namespace Layout
             storyboard.Begin();
 
 
-            ResetGroups(); ModeList.SelectedItem = null;
+            //ResetGroups(); 
+            ModeList.SelectedItem = null;
             //FilterGrid.Visibility = Visibility.Visible;
             ModeList.Visibility = Visibility.Visible;
             DetailStack.Visibility = Visibility.Hidden;
@@ -60,38 +63,49 @@ namespace Layout
 
         private void RowNo_DecrementValue(object sender, MahApps.Metro.Controls.NumericUpDownChangedRoutedEventArgs args)
         {
-            FilterGrid.Items.Remove(FilterGrid.Items[--i]);
+            //FilterGrid.Items.Remove(FilterGrid.Items[--i]);
         }
 
         void ResetGroups()
         {
             i = 0;
             RowNo.Value = RowNo.Minimum;
-            FilterGrid.Items.Clear();
+            //FilterGrid.Items.Clear();
             
         }
 
         private void ModeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DetailStack.Visibility = Visibility.Collapsed;
-            ResetGroups();
-            var a = new DoubleAnimation
+            if(ModeList.SelectedItem != null)
             {
-                From = 0.0,
-                To = 1.0,
-                FillBehavior = FillBehavior.Stop,
-                Duration = new Duration(TimeSpan.FromSeconds(1))
-            };
-            var storyboard = new Storyboard();
 
-            storyboard.Children.Add(a);
-            Storyboard.SetTarget(a, DetailStack);
-            Storyboard.SetTargetProperty(a, new PropertyPath(OpacityProperty));
-            storyboard.Begin();
+                Publisher.Publish<ViewModels.Events.DriverSelectedEvent>(
+                    new ViewModels.Events.DriverSelectedEvent 
+                    {
+                        Mode = (Domain.Mode)ModeList.SelectedItem,
+                        DriverType = (Domain.ValueDriverType)StepContentListBox.SelectedItem
+                    });
+
+                DetailStack.Visibility = Visibility.Collapsed;
+                ResetGroups();
+                var a = new DoubleAnimation
+                {
+                    From = 0.0,
+                    To = 1.0,
+                    FillBehavior = FillBehavior.Stop,
+                    Duration = new Duration(TimeSpan.FromSeconds(1))
+                };
+                var storyboard = new Storyboard();
+
+                storyboard.Children.Add(a);
+                Storyboard.SetTarget(a, DetailStack);
+                Storyboard.SetTargetProperty(a, new PropertyPath(OpacityProperty));
+                storyboard.Begin();
 
 
-            DetailStack.Visibility = Visibility.Visible;
+                DetailStack.Visibility = Visibility.Visible;
             
+            }
 
         }
     }

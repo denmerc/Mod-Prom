@@ -26,7 +26,7 @@ namespace Layout
 	public partial class HomeVerticalControl
 	{
         //ObservableCollection<UserControl> views;
-        Domain.Analytic _SelectedAnalytic;
+        //Domain.Analytic _SelectedAnalytic;
         Layout.ViewModels.Reactive.EventAggregator Publisher = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
 		public HomeVerticalControl()
 		{
@@ -53,6 +53,7 @@ namespace Layout
                     Publisher.Publish<Domain.Tag>(new Domain.Tag { Value = x.ToString()});
                     //Console.WriteLine(x);
                     FilterStackPanel.Visibility = Visibility.Visible;
+                    
                 }
             }
             );
@@ -124,55 +125,87 @@ namespace Layout
 
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
-            AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
-            c.AnalyticStepContentControl.Content = new FilterStepControl();
-            c.StepListBox.SelectedItem = c.StepListBox.Items[1];
-            this.Content = c;
+
+            var analytic = (Domain.Analytic)FilterListBox.SelectedItem;
+            Publisher.Publish<NavigateEvent>(new NavigateEvent
+            {
+                Module = Domain.ModuleType.Planning,
+                SubModule = Domain.SubModuleType.Analytics,
+                Section = Domain.SectionType.PlanningAnalyticsFilters,
+                Entity = analytic
+            });
+            //AnalyticStepsControl c = new AnalyticStepsControl();
+            //c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
+            //c.AnalyticStepContentControl.Content = new FilterStepControl();
+            //c.StepListBox.SelectedItem = c.StepListBox.Items[1];
+            //this.Content = c;
             
         }
-        private void PriceListButton_Click(object sender, RoutedEventArgs e)
-        {
-            Publisher.Publish<Layout.ViewModels.Events.NavigateEvent>(
-                    new Layout.ViewModels.Events.NavigateEvent
-                    {
-                        Module = Domain.ModuleType.Planning,
-                        SubModule = Domain.SubModuleType.Analytics,
-                        Section = Domain.SectionType.PlanningAnalyticsIdentity,
-                        Entity = FilterListBox.SelectedItem
-                    }
+        //private void PriceListButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Publisher.Publish<Layout.ViewModels.Events.NavigateEvent>(
+        //            new Layout.ViewModels.Events.NavigateEvent
+        //            {
+        //                Module = Domain.ModuleType.Planning,
+        //                SubModule = Domain.SubModuleType.Analytics,
+        //                Section = Domain.SectionType.PlanningAnalyticsIdentity,
+        //                Entity = FilterListBox.SelectedItem
+        //            }
                 
                 
-                );
+        //        );
             //AnalyticStepsControl c = new AnalyticStepsControl();
             //c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
             //c.AnalyticStepContentControl.Content = new FilterStepControl();
             //c.StepListBox.SelectedItem = c.StepListBox.Items[2];
             //this.Content = c;    
-        }
+        //}
         private void ValueDriversButtons_Click(object sender, RoutedEventArgs e)
         {
-            AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
-            c.AnalyticStepContentControl.Content = new AnalyticValueDriversStepControl();
-            c.StepListBox.SelectedItem = c.StepListBox.Items[3];
-            this.Content = c;            
+
+            var analytic = (Domain.Analytic)FilterListBox.SelectedItem;
+            Publisher.Publish<NavigateEvent>(new NavigateEvent
+            {
+                Module = Domain.ModuleType.Planning,
+                SubModule = Domain.SubModuleType.Analytics,
+                Section = Domain.SectionType.PlanningAnalyticsValueDrivers,
+                Entity = analytic
+            });
+            //AnalyticStepsControl c = new AnalyticStepsControl();
+            //c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
+            //c.AnalyticStepContentControl.Content = new AnalyticValueDriversStepControl();
+            //c.StepListBox.SelectedItem = c.StepListBox.Items[3];
+            //this.Content = c;            
 
         }
 
         private void Filters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(e.AddedItems.Count > 0)
+
+            if (e.AddedItems.Count > 0)
             {
-                var analytic = e.AddedItems[0] as Domain.Analytic;
-                if (analytic != null) 
-                {
-                    _SelectedAnalytic = analytic;
-                    AnalyticTabDetail.DataContext = analytic; 
-                }
-                AnalyticTabDetail.Visibility = Visibility.Visible;
-                if (MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
+                //publish HomesearchVM.SelectedAnalytic    -- edit in margin navigates to identity
+                Publisher.Publish<SelectionEvent>(
+                    new SelectionEvent
+                    {
+                        Entity = e.AddedItems[0] as Domain.Analytic
+                    }
+
+                    );
             }
+
+            //if (e.AddedItems.Count > 0)
+            //{
+            //    var analytic = e.AddedItems[0] as Domain.Analytic;
+            //    if (analytic != null)
+            //    {
+            //        _SelectedAnalytic = analytic;
+            //        //AnalyticTabDetail.DataContext = analytic;
+            //    }
+            if(FilterListBox.IsMouseCaptured)
+               AnalyticTabDetail.Visibility = Visibility.Visible;
+                if (MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
+            //}
             
 
 
@@ -200,29 +233,42 @@ namespace Layout
             //i.NameTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
             //c.AnalyticStepContentControl.Content = i;
             //this.Content = c;
-            Publisher.Publish<NavigateEvent>(new NavigateEvent { 
-                Module = Domain.ModuleType.Planning,
-                SubModule = Domain.SubModuleType.Analytics,
-                Section = Domain.SectionType.PlanningAnalyticsIdentity,
-                Entity = FilterListBox.SelectedItem
-            });
+            if(FilterListBox.SelectedItem != null)
+            { 
+                Publisher.Publish<NavigateEvent>(new NavigateEvent { 
+                    Module = Domain.ModuleType.Planning,
+                    SubModule = Domain.SubModuleType.Analytics,
+                    Section = Domain.SectionType.PlanningAnalyticsIdentity,
+                    Entity = FilterListBox.SelectedItem
+                });
+            }
         }
 
         private void CopyAnalyticButton_Click(object sender, RoutedEventArgs e)
         {
-            AnalyticStepsControl c = new AnalyticStepsControl();
-            c.TitleTextBox.Text = "Analytic - Copy";
-            this.Content = c;
+            var analytic = (Domain.Analytic)FilterListBox.SelectedItem;
+            analytic.Description += "-Copy";
+            Publisher.Publish<NavigateEvent>(new NavigateEvent
+            {
+                Module = Domain.ModuleType.Planning,
+                SubModule = Domain.SubModuleType.Analytics,
+                Section = Domain.SectionType.PlanningAnalyticsIdentity,
+                Entity = analytic
+            });
+
+            //AnalyticStepsControl c = new AnalyticStepsControl();
+            //c.TitleTextBox.Text = "Analytic - Copy";
+            //this.Content = c;
         }
 
         private void ModuleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //if (e.AddedItems.Count >= 1)
-            if (e.AddedItems.Contains(ModuleListBox.Items[0])) 
-            {
+            //if (e.AddedItems.Contains(ModuleListBox.Items[0])) 
+            //{
                 TagStack.Visibility = System.Windows.Visibility.Visible;
-            }
-            else { FilterStackPanel.Visibility = Visibility.Collapsed; AnalyticTabDetail.Visibility = Visibility.Collapsed; }
+            //}
+            //else { FilterStackPanel.Visibility = Visibility.Collapsed; AnalyticTabDetail.Visibility = Visibility.Collapsed; }
             
         }
 
@@ -250,9 +296,16 @@ namespace Layout
 
         private void TagListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(AnalyticTabDetail.Visibility == Visibility.Visible)
+            //if(AnalyticTabDetail.Visibility == Visibility.Visible)
+            
                  AnalyticTabDetail.Visibility = Visibility.Hidden;
+                
         }
+
+
+
+
+
 
 //        public HomeSearchViewModel ViewModel
 //        {

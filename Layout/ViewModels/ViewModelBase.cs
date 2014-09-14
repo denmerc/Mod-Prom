@@ -8,9 +8,13 @@ namespace Layout.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {
-        public ViewModelBase Navigate(object entity)
+
+
+        private Domain.Analytic _SelectedAnalytic;
+        public Domain.Analytic SelectedAnalytic { get { return _SelectedAnalytic; } set { this.RaiseAndSetIfChanged(ref _SelectedAnalytic, value); } }
+        public void Load(object entity)
         {
-            return new ViewModels.Analytic.IdentityViewModel();
+            SelectedAnalytic = (Domain.Analytic)entity;
         }
     }
 }

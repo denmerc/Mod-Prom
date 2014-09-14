@@ -44,19 +44,19 @@
             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                 <StackPanel Orientation="Horizontal">
                     <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="150" Content="Analytic Name:" HorizontalContentAlignment="Right"></Label>
-                    <TextBox x:Name="NameTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="250" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}"></TextBox>
+                    <TextBox x:Name="NameTextBox" Text="{Binding SelectedAnalytic.Name}" FontSize="16" Foreground="{StaticResource Foreground}" Width="250" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}"></TextBox>
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                 <StackPanel Orientation="Horizontal">
                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Description:</Label>
-                    <TextBox x:Name="DescriptionTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="450" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+                    <TextBox x:Name="DescriptionTextBox" Text="{Binding SelectedAnalytic.Description}" FontSize="16" Foreground="{StaticResource Foreground}" Width="450" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                 <StackPanel Orientation="Horizontal">
                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Status:</Label>
-                    <TextBox x:Name="StatusTextBox" FontSize="16" Foreground="{StaticResource Foreground}" Width="150" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
+                    <TextBox x:Name="StatusTextBox" Text="{Binding SelectedAnalytic.Status}" FontSize="16" Foreground="{StaticResource Foreground}" Width="150" VerticalAlignment="Bottom" Style="{DynamicResource TextBoxStyle1}" ></TextBox>
                 </StackPanel>
             </ListBoxItem>
             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">

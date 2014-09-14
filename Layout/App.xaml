@@ -18,11 +18,20 @@
             <DataTemplate DataType="{x:Type vm:HomeSearchViewModel}">
                 <local:HomeVerticalControl />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AnalyticViewModel}">
+                <local:AnalyticStepsControl />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vma:IdentityViewModel}">
                 <local:AnalyticIdentityStepControl />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:AnalyticViewModel}">
-                <local:AnalyticStepsControl />
+            <DataTemplate DataType="{x:Type vma:FilterViewModel}">
+                <local:FilterStepControl />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vma:DriverViewModel}">
+                <local:AnalyticValueDriversStepControl />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vma:ResultsViewModel}">
+                <local:AnalyticResultsControl />
             </DataTemplate>
         </ResourceDictionary>
 

@@ -292,13 +292,18 @@ namespace Layout.ViewModels
                             //add if it doesnt exist otherwise navigate 
                             if(!SubModuleCache.ContainsKey(navigator.SubModule))
                             {
-                                SelectedSubModuleViewModel = new AnalyticViewModel(AnalyticRepo, Session);
+                                //populate name for header
+                                var analytic = (Domain.Analytic)navigator.Entity;
+
+                                SelectedSubModuleViewModel = new AnalyticViewModel(AnalyticRepo, Session, analytic.Name);
+                                SubModuleCache.Add(navigator.SubModule, SelectedSubModuleViewModel);
                             }
                             else
                             {
                                 SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Analytics];
-                               ((AnalyticViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator);
                             }
+                            //if(navigator.Entity != null)
+                               ((AnalyticViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator);
                             
                             break;
                         case Domain.SubModuleType.Everyday:
@@ -328,11 +333,11 @@ namespace Layout.ViewModels
                         default:
                             break;
                     }
-                    if (!SubModuleCache.ContainsKey(navigator.SubModule))
-                    {
-                        SubModuleCache.Add(navigator.SubModule, SelectedSubModuleViewModel);
-                    }
                     
+                    //if (!SubModuleCache.ContainsKey(navigator.SubModule))
+                    //{
+                    //    SubModuleCache.Add(navigator.SubModule, SelectedSubModuleViewModel);
+                    //}
                     //SelectedSubModuleViewModel = Navigator.NavigateSectionBySectionType((Domain.SubModuleType)section);
                     
                 });
@@ -537,6 +542,17 @@ namespace Layout.ViewModels
             public Domain.SectionType Section { get; set; }
             public Object Entity { get; set; }
         }
+
+        public class SelectionEvent
+        {
+            public Object Entity { get; set; }
+        }
+
+        public class DriverSelectedEvent
+        {
+            public Domain.Mode Mode { get; set; }
+            public Domain.ValueDriverType DriverType {get; set;}
+        }
     }
 
     namespace Reactive
@@ -671,6 +687,12 @@ namespace Layout.ViewModels
             {
                 LoadAnalyticsByTagCommand.Execute(tag);
             });
+
+            //watch for changed selected analytic & populate selectedAnalytic prop on this vm to capture state
+            EventManager.GetEvent<SelectionEvent>().Subscribe(selection =>
+            {
+                SelectedAnalytic = selection.Entity as Domain.Analytic;
+            });
         }
 
 
@@ -686,7 +708,19 @@ namespace Layout.ViewModels
                 this.RaiseAndSetIfChanged(ref _tags, value.ToList()); 
             }            
         }
+        private Domain.Analytic _SelectedAnalytic;
+        public Domain.Analytic SelectedAnalytic
+        {
+            get
+            {
+                return _SelectedAnalytic;
+            }
 
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _SelectedAnalytic, value);
+            }
+        }
 
         private List<Domain.Analytic> _analytics;
         public List<Domain.Analytic> Analytics
@@ -706,6 +740,25 @@ namespace Layout.ViewModels
 
         public string SelectedSubModuleItem { get; set; }
         public List<String> SelectedTagItems { get; set; }
+
+        private System.Windows.Visibility _IsTagsDisplayed = System.Windows.Visibility.Hidden;
+        public System.Windows.Visibility IsTagsDisplayed 
+        {
+            get { return _IsTagsDisplayed; }
+            set { this.RaiseAndSetIfChanged(ref _IsTagsDisplayed, value); }
+        }
+        private System.Windows.Visibility _IsFiltersDisplayed = System.Windows.Visibility.Hidden;
+        public System.Windows.Visibility IsFiltersDisplayed
+        {
+            get { return _IsFiltersDisplayed; }
+            set { this.RaiseAndSetIfChanged(ref _IsFiltersDisplayed, value); }
+        }
+        private System.Windows.Visibility _IsDetailDisplayed = System.Windows.Visibility.Hidden;
+        public System.Windows.Visibility IsDetailDisplayed
+        {
+            get { return _IsDetailDisplayed; }
+            set { this.RaiseAndSetIfChanged(ref _IsDetailDisplayed, value); }
+        }
 
         protected ReactiveCommand<object> LoadTagsBySubModuleCommand;
         protected ReactiveCommand<object> LoadAnalyticsByTagCommand;
@@ -764,7 +817,7 @@ namespace Layout.ViewModels
         //}
 
         private Dictionary<Domain.SectionType, ViewModelBase> StepCache = new Dictionary<SectionType,ViewModelBase>();
-        private static Domain.Analytic SelectedAnalytic { get; set; }
+        //private static Domain.Analytic SelectedAnalytic { get; set; }
 
         private ViewModelBase _SelectedStepViewModel;
         public ViewModelBase SelectedStepViewModel
@@ -778,7 +831,9 @@ namespace Layout.ViewModels
 
         public void Navigate(NavigateEvent navigator)
         {
-            SelectedAnalytic = (Domain.Analytic)navigator.Entity;
+            if (navigator.Entity != null) SelectedAnalytic = (Domain.Analytic)navigator.Entity;
+            Name = SelectedAnalytic.Name;
+            
             if(!StepCache.ContainsKey(navigator.Section))
             {
                 switch (navigator.Section)
@@ -800,56 +855,47 @@ namespace Layout.ViewModels
                     case SectionType.PlanningAnalyticsMyAnalytics:
                         break;
                     case SectionType.PlanningAnalyticsIdentity:
-                        SelectedStepViewModel = new ViewModels.Analytic.IdentityViewModel();
+                        SelectedStepViewModel = new ViewModels.Analytic.IdentityViewModel(SelectedAnalytic);
                         break;
                     case SectionType.PlanningAnalyticsFilters:
+                        SelectedStepViewModel = new ViewModels.Analytic.FilterViewModel(SelectedAnalytic);
                         break;
-                    case SectionType.PlanningAnalyticsPriceLists:
-                        break;
+                    //case SectionType.PlanningAnalyticsPriceLists:
+                    //    break;
                     case SectionType.PlanningAnalyticsValueDrivers:
+                        SelectedStepViewModel = new ViewModels.Analytic.DriverViewModel(SelectedAnalytic);
                         break;
                     case SectionType.PlanningAnalyticsResults:
-                        break;
-                    case SectionType.PlanningPricingMyPricing:
-                        break;
-                    case SectionType.PlanningPricingIdentity:
-                        //SelectedStepViewModel = new PricingIdentityViewModel();
-                        break;
-                    case SectionType.PlanningPricingFilters:
-                        break;
-                    case SectionType.PlanningPricingPriceLists:
-                        break;
-                    case SectionType.PlanningPricingRounding:
-                        break;
-                    case SectionType.PlanningPricingStrategy:
-                        break;
-                    case SectionType.PlanningPricingResults:
-                        break;
-                    case SectionType.PlanningPricingForecast:
-                        break;
-                    case SectionType.PlanningPricingApproval:
-                        break;
-                    case SectionType.PlanningAdministrationUserMaintenance:
-                        break;
-                    case SectionType.PlanningAdministrationPricelists:
-                        break;
-                    case SectionType.PlanningAdministrationOptimization:
-                        break;
-                    case SectionType.PlanningAdministrationMarkuprules:
-                        break;
-                    case SectionType.PlanningAdministrationRoundingrules:
-                        break;
-                    case SectionType.PlanningAdministrationRollback:
-                        break;
-                    case SectionType.PlanningAdministrationProcesses:
+                        SelectedStepViewModel = new ViewModels.Analytic.ResultsViewModel(SelectedAnalytic);
                         break;
                     default:
                         break;
+
                 }
+                StepCache.Add(navigator.Section, _SelectedStepViewModel);
             }
                 else // in cache
 	            {
-                    SelectedStepViewModel = StepCache[navigator.Section].Navigate(navigator.Entity);
+                    switch (navigator.Section)
+	                {
+                        case SectionType.PlanningAnalyticsIdentity:
+                            SelectedStepViewModel = ((Analytic.IdentityViewModel)StepCache[navigator.Section]);
+                           
+                            break;
+                        case SectionType.PlanningAnalyticsFilters:
+                            SelectedStepViewModel = ((Analytic.FilterViewModel)StepCache[navigator.Section]);
+                            break;
+                        case SectionType.PlanningAnalyticsValueDrivers:
+                            SelectedStepViewModel = ((Analytic.DriverViewModel)StepCache[navigator.Section]);
+                            break;
+                        case SectionType.PlanningAnalyticsResults:
+                            SelectedStepViewModel = ((Analytic.ResultsViewModel)StepCache[navigator.Section]);
+                            break;
+		                default:
+                            break;
+	                }
+                    SelectedStepViewModel.Load(SelectedAnalytic);
+                    
 	            }
         }
         //public AnalyticViewModel()
@@ -864,10 +910,12 @@ namespace Layout.ViewModels
         //{
             
         //}
-        public AnalyticViewModel(IRepository repo, Session session)
+        public AnalyticViewModel(IRepository repo, Session session, string name)
         {
-
+            Name = name;
         }
+
+        public string Name { get; set; }
         void Save(){}
     }
 
@@ -889,9 +937,64 @@ namespace Layout.ViewModels
         //}
         public void Navigate(SectionType section)
         {
+            switch (section)
+	        {
+                    //case SectionType.PlanningPricingMyPricing:
+                    //    break;
+                    case SectionType.PlanningPricingIdentity:
+                        //SelectedStepViewModel = new PricingIdentityViewModel();
+                        break;
+                    case SectionType.PlanningPricingFilters:
+                        break;
+                    case SectionType.PlanningPricingPriceLists:
+                        break;
+                    case SectionType.PlanningPricingRounding:
+                        break;
+                    case SectionType.PlanningPricingStrategy:
+                        break;
+                    case SectionType.PlanningPricingResults:
+                        break;
+                    case SectionType.PlanningPricingForecast:
+                        break;
+                    case SectionType.PlanningPricingApproval:
+                        break;
+		            default:
+                        break;
+
+	        }
         }
     }
+
+
+
+    public class AdminViewModel : ViewModelBase
+    {
+
+        public  void Navigate(NavigateEvent navigator)
+        {
+            switch(navigator.Section)
+            {
+
+                case SectionType.PlanningAdministrationUserMaintenance:
+                    break;
+                case SectionType.PlanningAdministrationPricelists:
+                    break;
+                case SectionType.PlanningAdministrationOptimization:
+                    break;
+                case SectionType.PlanningAdministrationMarkuprules:
+                    break;
+                case SectionType.PlanningAdministrationRoundingrules:
+                    break;
+                case SectionType.PlanningAdministrationRollback:
+                    break;
+                case SectionType.PlanningAdministrationProcesses:
+                    break;
+            }
+        }
+
+    }
 }
+
 
 //TODO: Navigate using an action - must map to a viewmodel & populate recent activity?
 //namespace Layout.Domain

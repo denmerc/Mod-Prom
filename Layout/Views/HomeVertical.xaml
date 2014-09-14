@@ -527,7 +527,7 @@
                                 <Separator></Separator>-->
                                 <TextBlock Text="Results" FontSize="30" Margin="5 35 0 0"></TextBlock>
                                 <Separator ></Separator>
-                                <ListBox x:Name="FilterListBox" Margin="0 10 0 0" ItemsSource="{Binding Analytics}" Height="Auto" Width="Auto" Visibility="Visible" SelectionChanged="Filters_SelectionChanged">
+                                <ListBox x:Name="FilterListBox" Margin="0 10 0 0" ItemsSource="{Binding Analytics}" Height="Auto" Width="Auto" Visibility="Hidden" SelectionChanged="Filters_SelectionChanged"  SelectedItem="{Binding SelectedAnalytic}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
 
@@ -540,33 +540,33 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                         </StackPanel>
-                        <WrapPanel x:Name="AnalyticTabDetail" Background="Transparent" Visibility="Collapsed">
+                        <WrapPanel x:Name="AnalyticTabDetail" Background="Transparent" Visibility="{Binding IsDetailDisplayed}">
 
                             <WrapPanel.Resources>
                                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />-->
                             </WrapPanel.Resources>
-                                <ContentControl x:Name="DetailControl" ></ContentControl>
+                                <!--<ContentControl x:Name="DetailControl" ></ContentControl>-->
                                 <StackPanel Margin="10 40 0 40" Width="600" HorizontalAlignment="Left">
-                                    <TextBlock x:Name="AnalyticTitle" FontSize="30" Foreground="White" Text="{Binding Name}" />
+                                    <TextBlock x:Name="AnalyticTitle" FontSize="30" Foreground="White" Text="{Binding SelectedAnalytic.Name}" />
                                     <Separator Margin="0 2 0 15"></Separator>
                                     <!--<TextBlock FontSize="18" Foreground="White" Text="All OPGI Parts" />-->
                                     <!--<TextBlock FontSize="18" Foreground="White" Text="Status: "  />-->
                                     <TextBlock FontSize="18" Foreground="White">
-                                        <Run Text="Status: " /><Run Text="{Binding Status}"/>
+                                        <Run Text="Status: " /><Run Text="{Binding SelectedAnalytic.Status}"/>
                                     </TextBlock>
                                     <TextBlock FontSize="18" Foreground="White">
-                                        <Run Text="Description: "/><Run Text="{Binding Description}"/>
+                                        <Run Text="Description: "/><Run Text="{Binding SelectedAnalytic.Description}"/>
                                     </TextBlock>
                                    
                                     <TextBlock FontSize="18" Foreground="White">
-                                        <Run Text="Last Updated: "/><Run Text="{Binding LastUpdated}"/>
+                                        <Run Text="Last Updated: "/><Run Text="{Binding SelectedAnalytic.LastUpdated}"/>
                                     </TextBlock>
 
                                     <TextBlock FontSize="18" Foreground="White">
-                                        <Run Text="Last User Updated: "/><Run Text="{Binding LastUserUpdated}"/>
+                                        <Run Text="Last User Updated: "/><Run Text="{Binding SelectedAnalytic.LastUserUpdated}"/>
                                     </TextBlock>
                                     
-                                    <ListView ItemsSource="{Binding Tags}" Margin="0 10 10 10" Height="500" Width="Auto"/>
+                                    <ListView ItemsSource="{Binding SelectedAnalytic.Tags}" Margin="0 10 10 10" Height="500" Width="Auto"/>
                                     <!--<TabControl Margin="0, 50, 0, 0"
                                     TabStripPlacement="Top"
                                     Height="300" Width="850">
@@ -671,7 +671,7 @@
                                         Style="{StaticResource LinkButton}" />
                 <Button x:Name="RenameButton" FontSize="14"
                                         Margin="0,3,0,10"
-                                        Content="Rename Anayltic..."
+                                        Content="Edit Anayltic..."
                                         Click="RenameButton_Click"
                                         Style="{StaticResource LinkButton}" />
                 <Button x:Name="FilterButton" FontSize="14"
@@ -679,11 +679,11 @@
                                         Content="Add/Edit Filters..."
                                         Click="FilterButton_Click"
                                         Style="{StaticResource LinkButton}" />
-                <Button x:Name="PriceListButton" FontSize="14"
+                <!--<Button x:Name="PriceListButton" FontSize="14"
                                         Margin="0,3,0,10"
                                         Content="Add/Edit Price Lists..."
                                         Click="PriceListButton_Click"
-                                        Style="{StaticResource LinkButton}" />
+                                        Style="{StaticResource LinkButton}" />-->
                 <Button x:Name="ValueDriversButtons" FontSize="14"
                                         Margin="0,3,0,10"
                                         Click="ValueDriversButtons_Click"

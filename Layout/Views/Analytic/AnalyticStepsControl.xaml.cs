@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Timers;
 using System.Threading;
+using Layout.ViewModels.Events;
 
 namespace Layout
 {
@@ -21,6 +22,7 @@ namespace Layout
 	/// </summary>
 	public partial class AnalyticStepsControl : UserControl
 	{
+        Layout.ViewModels.Reactive.EventAggregator Publisher = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
         public AnalyticStepsControl()
 		{
 			this.InitializeComponent();
@@ -42,41 +44,50 @@ namespace Layout
 
         private void FilterListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
-            FilterStepControl control = new FilterStepControl();
-            control.FilterGrid.Visibility = Visibility.Collapsed;
-            this.AnalyticStepContentControl.Content = control;
+            //FilterStepControl control = new FilterStepControl();
+            //control.FilterGrid.Visibility = Visibility.Collapsed;
+            //this.AnalyticStepContentControl.Content = control;
+
+            //Publisher.Publish<NavigateEvent>(
+            //        new NavigateEvent
+            //        {
+            //            Module = Domain.ModuleType.Planning,
+            //            SubModule = Domain.SubModuleType.Analytics,
+            //            Section = Domain.SectionType.PlanningAnalyticsFilters
+                        
+            //        });
         }
 
         private void AnalyticIdentityStepListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
-            if(AnalyticStepContentControl != null)
-            { 
-                AnalyticIdentityStepControl c = new AnalyticIdentityStepControl();
-                this.AnalyticStepContentControl.Content = c;
-            }
+            //if(AnalyticStepContentControl != null)
+            //{ 
+            //    AnalyticIdentityStepControl c = new AnalyticIdentityStepControl();
+            //    this.AnalyticStepContentControl.Content = c;
+            //}
         }
 
         private void PriceListItem_Selected(object sender, RoutedEventArgs e)
         {
-            if (AnalyticStepContentControl != null)
-            {
-                PriceListStepControl c = new PriceListStepControl();
-                this.AnalyticStepContentControl.Content = c;
-            }
+            //if (AnalyticStepContentControl != null)
+            //{
+            //    PriceListStepControl c = new PriceListStepControl();
+            //    this.AnalyticStepContentControl.Content = c;
+            //}
         }
 
         private void ValueDriverItem_Selected(object sender, RoutedEventArgs e)
         {
-            if (AnalyticStepContentControl != null)
-            {
-                AnalyticValueDriversStepControl c = new AnalyticValueDriversStepControl();
-                this.AnalyticStepContentControl.Content = c;
-            }          
+            //if (AnalyticStepContentControl != null)
+            //{
+            //    AnalyticValueDriversStepControl c = new AnalyticValueDriversStepControl();
+            //    this.AnalyticStepContentControl.Content = c;
+            //}          
         }
 
         private void ResultItem_Selected(object sender, RoutedEventArgs e)
         {
-            this.AnalyticStepContentControl.Content = null;
+            //this.AnalyticStepContentControl.Content = null;
         }
 
         private void RunAnalytic_Click(object sender, RoutedEventArgs e)
@@ -88,14 +99,66 @@ namespace Layout
 
         private void StepListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (AnalyticStepContentControl != null)
-            {
-                if (StepListBox.SelectedItem != StepListBox.Items[4])
-                {
 
-                    (StepListBox.Items[4] as ListBoxItem).Visibility = Visibility.Collapsed;
-                }
+
+
+            //((ListBoxItem) StepListBox.SelectedItem)
+            var step = ((ListBoxItem)StepListBox.SelectedItem).Tag.ToString();
+            switch (step)
+            {
+                case "1": //identity
+                    Publisher.Publish<NavigateEvent>(
+                    new NavigateEvent
+                    {
+                        Module = Domain.ModuleType.Planning,
+                        SubModule = Domain.SubModuleType.Analytics,
+                        Section = Domain.SectionType.PlanningAnalyticsIdentity
+
+                    });
+                    break;
+                case "2" : //filters
+                    Publisher.Publish<NavigateEvent>(
+                    new NavigateEvent
+                    {
+                        Module = Domain.ModuleType.Planning,
+                        SubModule = Domain.SubModuleType.Analytics,
+                        Section = Domain.SectionType.PlanningAnalyticsFilters
+
+                    });
+                    break; 
+                case "3" : //price lists
+                    break;
+                case "4" : //value driver
+                    Publisher.Publish<NavigateEvent>(
+                    new NavigateEvent
+                    {
+                        Module = Domain.ModuleType.Planning,
+                        SubModule = Domain.SubModuleType.Analytics,
+                        Section = Domain.SectionType.PlanningAnalyticsValueDrivers
+
+                    });
+                    break;
+                case "5" : //results
+                    Publisher.Publish<NavigateEvent>(
+                    new NavigateEvent
+                    {
+                        Module = Domain.ModuleType.Planning,
+                        SubModule = Domain.SubModuleType.Analytics,
+                        Section = Domain.SectionType.PlanningAnalyticsResults
+
+                    });
+                    break;
+                default:
+                    break;
             }
+            //if (AnalyticStepContentControl != null)
+            //{
+            //    if (StepListBox.SelectedItem != StepListBox.Items[4])
+            //    {
+
+            //        (StepListBox.Items[4] as ListBoxItem).Visibility = Visibility.Collapsed;
+            //    }
+            //}
         }
 
         private void CreatePriceRoutineButton_Click(object sender, RoutedEventArgs e)

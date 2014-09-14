@@ -37,13 +37,21 @@
     <Grid x:Name="LayoutRoot">
         <StackPanel Orientation="Horizontal">
 
-            <ListBox x:Name="StepContentListBox"  Margin="0 0 0 0" Height="Auto" Width="Auto" SelectionChanged="ListBoxItem_OnSelected">
+            <ListBox x:Name="StepContentListBox"  Margin="0 0 0 0" Height="Auto" Width="Auto" ItemsSource="{Binding FilterTypes}" SelectionChanged="ListBoxItem_OnSelected">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178" Content="{Binding}"></Label>
+                        </StackPanel>
+                    </DataTemplate>
+                    
+                </ListBox.ItemTemplate>
             <!--<ListBox.ItemContainerStyle>
                                                 <Style TargetType="{x:Type ListBoxItem}">
                                                     <Setter Property="Background" Value="Transparent" />
                                                 </Style>
                                             </ListBox.ItemContainerStyle>-->
-            <ListBoxItem x:Name="VendorSelectedListBoxItem">
+            <!--<ListBoxItem x:Name="VendorSelectedListBoxItem">
                 <StackPanel Orientation="Horizontal">
                     <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Vendor Code</Label>
                 </StackPanel>
@@ -82,19 +90,31 @@
                 <StackPanel Orientation="Horizontal">
                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Stock Class</Label>
                 </StackPanel>
-            </ListBoxItem>
+            </ListBoxItem>-->
         </ListBox>
-        <DataGrid x:Name="FilterGrid" ItemsSource="{Binding Filters}" Height="Auto" Margin="20 0 0 0"
+        <DataGrid x:Name="FilterGrid" ItemsSource="{Binding FilterItems}" Height="Auto" Margin="20 0 0 0" Visibility="Collapsed"
                   AutoGenerateColumns="False">
-            <DataGrid.Columns>
+
+                <!--<DataGrid.ItemTemplate>
+                    <DataTemplate>
+                        <DataGrid ItemsSource="{Binding Items}">
+                            <DataGrid.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Code}" />
+                                </DataTemplate>
+                            </DataGrid.ItemTemplate>
+                        </DataGrid>
+                    </DataTemplate>
+                </DataGrid.ItemTemplate>-->
+                <DataGrid.Columns>
                 <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                         Header="Selected"
                                         Binding="{Binding IsSelected}"
                                         />
-                                        <!--Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"--> 
+                                        <!--Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"-->
                 <DataGridTextColumn Header="Filter Value"
-                                    Binding="{Binding Value}" />
+                                    Binding="{Binding Description}" />
                 <DataGridTextColumn Header="Code"
                                     Binding="{Binding Code}" />
             </DataGrid.Columns>

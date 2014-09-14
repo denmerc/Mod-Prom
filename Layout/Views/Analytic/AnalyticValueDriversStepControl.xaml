@@ -37,13 +37,22 @@
     <Grid x:Name="LayoutRoot">
         <StackPanel Orientation="Horizontal">
             
-        <ListBox x:Name="StepContentListBox"  Margin="0 0 0 0" Height="Auto" Width="Auto" SelectionChanged="StepContentListBox_SelectionChanged">
+        <ListBox x:Name="StepContentListBox"  Margin="0 0 0 0" Height="Auto" Width="Auto" ItemsSource="{Binding DriverTypes}" SelectionChanged="StepContentListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178" Content="{Binding}"></Label>
+                            <CheckBox></CheckBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            
             <!--<ListBox.ItemContainerStyle>
                                                 <Style TargetType="{x:Type ListBoxItem}">
                                                     <Setter Property="Background" Value="Transparent" />
                                                 </Style>
                                             </ListBox.ItemContainerStyle>-->
-            <ListBoxItem x:Name="VendorSelectedListBoxItem" >
+            <!--<ListBoxItem x:Name="VendorSelectedListBoxItem" >
                 <StackPanel Orientation="Horizontal">
                         <Label  FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Movement</Label>
                         <CheckBox></CheckBox>
@@ -84,11 +93,19 @@
                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="178">Competition</Label>
                         <CheckBox></CheckBox>
                     </StackPanel>
-            </ListBoxItem>
+            </ListBoxItem>-->
         </ListBox>
                 
-            <ListBox x:Name="ModeList" Visibility="Hidden" SelectionChanged="ModeList_SelectionChanged">
-                <ListBoxItem>
+            <ListBox x:Name="ModeList" ItemsSource="{Binding ModeTypes}" Visibility="Hidden" SelectionChanged="ModeList_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="78" Content="{Binding}"></Label>
+                            <CheckBox></CheckBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <!--<ListBoxItem>
                     <StackPanel Orientation="Horizontal">
                         <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="78">Auto</Label>
                         <CheckBox></CheckBox>
@@ -99,7 +116,7 @@
                         <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="78">Manual</Label>
                         <CheckBox></CheckBox>
                     </StackPanel>
-                </ListBoxItem>
+                </ListBoxItem>-->
 
             </ListBox>
             
@@ -109,9 +126,9 @@
                     <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="Auto">No of Distribution Groups:</Label>
                     <controls:NumericUpDown x:Name="RowNo" Minimum="0" Maximum="15" Margin="5" Foreground="{StaticResource Foreground}" IsReadOnly="True" IncrementValue="RowNo_IncrementValue" DecrementValue="RowNo_DecrementValue" Background="Transparent"></controls:NumericUpDown>
                 </StackPanel>
-            <DataGrid x:Name="FilterGrid" ItemsSource="{Binding}" Height="500"
-                  AutoGenerateColumns="False" Width="500" IsReadOnly="True">
-                <DataGrid.Columns>
+                <DataGrid x:Name="FilterGrid" ItemsSource="{Binding Groups}" Height="500"
+                  AutoGenerateColumns="True" Width="500" IsReadOnly="True">
+                <!--<DataGrid.Columns>
                     <DataGridTextColumn                                        
                                         Width="200"
                                         Header="Distribution Groups"
@@ -127,7 +144,7 @@
 
                     <DataGridTextColumn Header="Sales Value"
                                  Width="100"/>
-                </DataGrid.Columns>
+                </DataGrid.Columns>-->
             </DataGrid>
             </StackPanel>
         </StackPanel>

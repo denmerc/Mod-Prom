@@ -147,7 +147,6 @@ namespace Domain
         {
             Identity,
             Filters,
-            PriceLists,
             ValueDrivers
         }
 

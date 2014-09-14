@@ -21,6 +21,8 @@ namespace Layout
     /// </summary>
     public partial class FilterStepControl : UserControl
     {
+        Layout.ViewModels.Reactive.EventAggregator Publisher = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
+
         public FilterStepControl()
         {
             InitializeComponent();
@@ -28,21 +30,28 @@ namespace Layout
 
         private void ListBoxItem_OnSelected(object sender, RoutedEventArgs e)
         {
-            FilterGrid.Visibility = Visibility.Collapsed;
-            var a = new DoubleAnimation
+            var selected = StepContentListBox.SelectedItem;
+            if (selected != null)
             {
-                From = 0.0,
-                To = 1.0,
-                FillBehavior = FillBehavior.Stop,
-                Duration = new Duration(TimeSpan.FromSeconds(1))
-            };
-            var storyboard = new Storyboard();
+                Publisher.Publish<Domain.FilterType>(
+                        (Domain.FilterType) selected
+                    );
+                FilterGrid.Visibility = Visibility.Collapsed;
+                var a = new DoubleAnimation
+                {
+                    From = 0.0,
+                    To = 1.0,
+                    FillBehavior = FillBehavior.Stop,
+                    Duration = new Duration(TimeSpan.FromSeconds(1))
+                };
+                var storyboard = new Storyboard();
 
-            storyboard.Children.Add(a);
-            Storyboard.SetTarget(a, FilterGrid);
-            Storyboard.SetTargetProperty(a, new PropertyPath(OpacityProperty));
-            storyboard.Begin();  
-            FilterGrid.Visibility = Visibility.Visible;
+                storyboard.Children.Add(a);
+                Storyboard.SetTarget(a, FilterGrid);
+                Storyboard.SetTargetProperty(a, new PropertyPath(OpacityProperty));
+                storyboard.Begin();  
+                FilterGrid.Visibility = Visibility.Visible;
+            }
         }   
     }
 
