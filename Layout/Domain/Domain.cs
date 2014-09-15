@@ -69,7 +69,7 @@ namespace Domain
             Promotions,
             Kits,
             MySettings,
-                Search
+            Search
         }
 
         public enum SectionType
@@ -232,11 +232,27 @@ namespace Domain
 
         public class PriceRoutine
         {
+            [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+            public string Id { get; set; }
             public PriceRoutineType @Type { get; set; } //everyday, promo, kits
-            public List<string> AssignedAnalytics { get; set; }
-            public List<Action> Actions { get; set; }
-            public List<RoundingScheme> RoundingSchemes { get; set; }
-            public List<PriceList> PriceLists { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public Boolean Shared { get; set; }
+            public List<string> Tags { get; set; }
+            public DateTime LastUpdated { get; set; }
+            public string LastUserUpdated { get; set; }
+            public string Owner { get; set; }
+
+            public Domain.Analytic Analytic { get; set; }
+            public List<Domain.Filter> Filters { get; set; }
+
+            public List<Domain.PriceScheme> PriceSchemes { get; set; }
+            public List<Domain.ValueDriver> Drivers { get; set; }
+
+            //public List<string> AssignedAnalytics { get; set; }
+            //public List<Action> Actions { get; set; }
+            //public List<RoundingScheme> RoundingSchemes { get; set; }
+            //public List<PriceList> PriceLists { get; set; }
         }
 
         public class PriceScheme
@@ -260,6 +276,7 @@ namespace Domain
             public string Code { get; set; }
             public string Description { get; set; }
             public Boolean IsKey { get; set; }
+            public List<RoundingScheme> RoundingRules { get; set; }
         }
 
         public enum PricingMode
@@ -273,9 +290,15 @@ namespace Domain
 
         public class RoundingScheme
         {
-            public string Lower { get; set; }
-            public string Upper { get; set; }
-            public int RoundTo { get; set; }
+            
+            public int SortId { get; set; }
+            public Double Min { get; set; }
+            public Double Max { get; set; }
+            public string RoundToValue { get; set; }
+            public string RoundingType { get; set; }
+            //public string Lower { get; set; }
+            //public string Upper { get; set; }
+            //public int RoundTo { get; set; }
         }
 
 

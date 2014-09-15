@@ -11,6 +11,7 @@ using System.Reactive.Subjects;
 using Layout.ViewModels.Events;
 using Layout.Data;
 using Domain;
+using System.Windows;
 
 
 namespace Layout.ViewModels
@@ -301,6 +302,7 @@ namespace Layout.ViewModels
                             else
                             {
                                 SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Analytics];
+                                
                             }
                             //if(navigator.Entity != null)
                                ((AnalyticViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator);
@@ -326,6 +328,7 @@ namespace Layout.ViewModels
                             else
                             {
                                 SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Search]; this.RaisePropertyChanged("SelectedSubModuleViewModel");
+                                ((HomeSearchViewModel)SelectedSubModuleViewModel).ToggleSearchPane(true);
                             }
                             break;
                         case Domain.SubModuleType.MySettings:
@@ -368,9 +371,9 @@ namespace Layout.ViewModels
         public ViewModels.Navigator Navigator { get; set; }
         public Reactive.EventAggregator EventManager { get; set; }
 
-        public Data.IRepository SearchRepo { get; set; }
-        public Data.IRepository AnalyticRepo { get; set; }
-        public Data.IRepository PricingRepo { get; set; }
+        public Data.ISearchRepository SearchRepo { get; set; }
+        public Data.IAnalyticRepository AnalyticRepo { get; set; }
+        public Data.IPricingRepository PricingRepo { get; set; }
 
         public Domain.Session Session { get; set; } //contains user history
         
@@ -543,8 +546,17 @@ namespace Layout.ViewModels
             public Object Entity { get; set; }
         }
 
+        public class TagSearchEvent
+        {
+            public Domain.ModuleType Module { get; set; }
+            public Domain.SubModuleType SubModule { get; set; }
+            public Domain.SectionType Section { get; set; }
+            public List<Domain.Tag> Tags { get; set; }
+        }
+
         public class SelectionEvent
         {
+            public Domain.SubModuleType EntityType { get; set; }
             public Object Entity { get; set; }
         }
 
@@ -636,7 +648,7 @@ namespace Layout.ViewModels
          * 
          **/
 
-        public PlanningModuleViewModel(Data.IRepository repository, Domain.Session session){
+        public PlanningModuleViewModel(Data.ISearchRepository repository, Domain.Session session){
 
             //load default submoduleVM
             //SelectedSubModule = new HomeSearchViewModel(repository);
@@ -653,7 +665,7 @@ namespace Layout.ViewModels
          * command that switches object type to search (analytics or price routines) & gets tags by submodule type
          * command that set detail to specfic object in searched list
          * */
-        public HomeSearchViewModel(Data.IRepository repo, Domain.Session session, Reactive.EventAggregator eventManager)
+        public HomeSearchViewModel(Data.ISearchRepository repo, Domain.Session session, Reactive.EventAggregator eventManager)
         {
 
             Session = session;
@@ -674,24 +686,89 @@ namespace Layout.ViewModels
                 .Subscribe(submodule =>
                 {
                     LoadTagsBySubModuleCommand.Execute(submodule);
+                    switch (submodule)
+                    {
+                        case SubModuleType.Analytics:
+                            ToggleResults("All");
+                            break;
+                        case SubModuleType.Everyday:
+                        case SubModuleType.Promotions:
+                        case SubModuleType.Kits:
+                            ToggleResults("All");
+                            break;
+                        case SubModuleType.MySettings:
+                            break;
+                        case SubModuleType.Search:
+                            break;
+                        default:
+                            break;
+                    }
                 });
 
             LoadAnalyticsByTagCommand = ReactiveCommand.Create();
             LoadAnalyticsByTagCommand.Subscribe(x => 
             {
+                var list = ((Events.TagSearchEvent)x).Tags.Select(y => y.Value).ToList();
                 //Analytics = repo.FindByTag<Domain.Analytic>(new List<string> { ((Domain.Tag)x).Value });
-                Analytics = repo.FindAnalyticsByTag(new List<string> { ((Domain.Tag)x).Value });
+                Analytics = repo.FindAnalyticsByTag(list);
             });
 
-            EventManager.GetEvent<Domain.Tag>().Subscribe(tag =>
+
+            LoadPricingByTagCommand = ReactiveCommand.Create();
+            LoadPricingByTagCommand.Subscribe(x =>
             {
-                LoadAnalyticsByTagCommand.Execute(tag);
+                var list = ((Events.TagSearchEvent)x).Tags.Select(y => y.Value).ToList();
+                PriceRoutines = repo.FindPricingByTag(list);
+            });
+
+            EventManager.GetEvent<ViewModels.Events.TagSearchEvent>().Subscribe(evt =>
+            {
+
+                switch (evt.SubModule)
+                {
+                    case Domain.SubModuleType.Analytics:
+                        LoadAnalyticsByTagCommand.Execute(evt);
+                        ToggleResults("Analytics");
+                        break;
+                    case Domain.SubModuleType.Everyday:
+                    case Domain.SubModuleType.Promotions:
+                    case Domain.SubModuleType.Kits:
+                        LoadPricingByTagCommand.Execute(evt);
+                        ToggleResults("Pricing");
+                        break;
+                    case Domain.SubModuleType.MySettings:
+                        break;
+                    case Domain.SubModuleType.Search:
+                        break;
+                    default:
+                        break;
+                }
             });
 
             //watch for changed selected analytic & populate selectedAnalytic prop on this vm to capture state
             EventManager.GetEvent<SelectionEvent>().Subscribe(selection =>
             {
-                SelectedAnalytic = selection.Entity as Domain.Analytic;
+                switch (selection.EntityType)
+                {
+                    case SubModuleType.Analytics:
+                        SelectedAnalytic = selection.Entity as Domain.Analytic;
+                        break;
+                    case SubModuleType.Everyday:
+                        SelectedPriceRoutine = selection.Entity as Domain.PriceRoutine;
+                        break;
+                    case SubModuleType.Promotions:
+                        SelectedPriceRoutine = selection.Entity as Domain.PriceRoutine;
+                        break;
+                    case SubModuleType.Kits:
+                        SelectedPriceRoutine = selection.Entity as Domain.PriceRoutine;
+                        break;
+                    case SubModuleType.MySettings:
+                        break;
+                    case SubModuleType.Search:
+                        break;
+                    default:
+                        break;
+                }
             });
         }
 
@@ -722,6 +799,20 @@ namespace Layout.ViewModels
             }
         }
 
+        private Domain.PriceRoutine _SelectedPriceRoutine;
+        public Domain.PriceRoutine SelectedPriceRoutine
+        {
+            get
+            {
+                return _SelectedPriceRoutine;
+            }
+
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _SelectedPriceRoutine, value);
+            }
+        }
+
         private List<Domain.Analytic> _analytics;
         public List<Domain.Analytic> Analytics
         {
@@ -735,6 +826,19 @@ namespace Layout.ViewModels
             }
         }
 
+
+        private List<Domain.PriceRoutine> _PriceRoutines;
+        public List<Domain.PriceRoutine> PriceRoutines
+        {
+            get
+            {
+                return _PriceRoutines;
+            }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _PriceRoutines, value);
+            }
+        }
         public Reactive.EventAggregator EventManager { get; set; }
         public List<Domain.SubModuleType> SubModuleKeys { get; set; }
 
@@ -747,26 +851,64 @@ namespace Layout.ViewModels
             get { return _IsTagsDisplayed; }
             set { this.RaiseAndSetIfChanged(ref _IsTagsDisplayed, value); }
         }
+
+        public void ToggleSearchPane(bool on)
+        {
+            if (on)
+            {
+                IsFiltersDisplayed = System.Windows.Visibility.Visible ;
+                IsDetailDisplayed = System.Windows.Visibility.Visible;
+                IsTagsDisplayed = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                IsFiltersDisplayed = System.Windows.Visibility.Hidden;
+                IsDetailDisplayed = System.Windows.Visibility.Hidden;
+                IsTagsDisplayed = System.Windows.Visibility.Hidden;
+            }
+        }
+
+        public void ToggleResults(string type)
+        {
+            if (type == "Pricing") { IsFiltersDisplayed = Visibility.Collapsed; IsFiltersPDisplayed = Visibility.Visible; }
+            else if (type == "Analytics") { IsFiltersDisplayed = Visibility.Visible; IsFiltersPDisplayed =  Visibility.Collapsed; }
+            else if (type == "All") { IsFiltersDisplayed = Visibility.Collapsed; IsFiltersPDisplayed = Visibility.Collapsed; IsDetailDisplayed = Visibility.Collapsed; }
+        }
+
         private System.Windows.Visibility _IsFiltersDisplayed = System.Windows.Visibility.Hidden;
         public System.Windows.Visibility IsFiltersDisplayed
         {
             get { return _IsFiltersDisplayed; }
             set { this.RaiseAndSetIfChanged(ref _IsFiltersDisplayed, value); }
         }
-        private System.Windows.Visibility _IsDetailDisplayed = System.Windows.Visibility.Hidden;
+
+        private System.Windows.Visibility _IsFiltersPDisplayed = System.Windows.Visibility.Collapsed;
+        public System.Windows.Visibility IsFiltersPDisplayed
+        {
+            get { return _IsFiltersPDisplayed; }
+            set { this.RaiseAndSetIfChanged(ref _IsFiltersPDisplayed, value); }
+        }
+
+        private System.Windows.Visibility _IsDetailDisplayed = System.Windows.Visibility.Collapsed;
         public System.Windows.Visibility IsDetailDisplayed
         {
             get { return _IsDetailDisplayed; }
             set { this.RaiseAndSetIfChanged(ref _IsDetailDisplayed, value); }
         }
-
+        private System.Windows.Visibility _IsPDetailDisplayed = System.Windows.Visibility.Collapsed;
+        public System.Windows.Visibility IsPDetailDisplayed
+        {
+            get { return _IsPDetailDisplayed; }
+            set { this.RaiseAndSetIfChanged(ref _IsPDetailDisplayed, value); }
+        }
         protected ReactiveCommand<object> LoadTagsBySubModuleCommand;
         protected ReactiveCommand<object> LoadAnalyticsByTagCommand;
+        protected ReactiveCommand<object> LoadPricingByTagCommand;
 
 
 
 
-        public Data.IRepository SearchRepository { get; set; }
+        public Data.ISearchRepository SearchRepository { get; set; }
         public Domain.Session Session { get; set; }
 
         public Navigator Navigator { get; set; } //TODO: needs to be handled globally on mainviewmodel but can be passed as ref
@@ -910,7 +1052,7 @@ namespace Layout.ViewModels
         //{
             
         //}
-        public AnalyticViewModel(IRepository repo, Session session, string name)
+        public AnalyticViewModel(IAnalyticRepository repo, Session session, string name)
         {
             Name = name;
         }
@@ -927,7 +1069,7 @@ namespace Layout.ViewModels
          * SelectedStepViewModel to bind to content control
          * 
          * */
-        public PricingViewModel(IRepository pricingRepo, Session session)
+        public PricingViewModel(IPricingRepository pricingRepo, Session session)
         {
         
         }

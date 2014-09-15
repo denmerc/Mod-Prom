@@ -47,20 +47,55 @@ namespace Layout
 
             this.WhenAnyValue(x => x.TagListBox.SelectedItem).Subscribe( x => 
             {
-                if(x != null)
+                if(x != null && ModuleListBox.SelectedItem != null)
                 { 
-                    //Load analytics by Tag
-                    Publisher.Publish<Domain.Tag>(new Domain.Tag { Value = x.ToString()});
+                    
+                    //Load entities by Tag selection
+                    var subModuleTag = ((ListBoxItem)ModuleListBox.SelectedItem).Tag.ToString();
+                    var t = new Domain.Tag { Value = x.ToString() };
+                    var tagList = new List<Domain.Tag>();
+                    tagList.Add(t);
+                    Domain.SubModuleType subModuleType;
+                    switch (subModuleTag)
+                    {
+                        case "Analytics":
+                            subModuleType = Domain.SubModuleType.Analytics;
+                            break;
+                        case "Everyday":
+                            subModuleType = Domain.SubModuleType.Everyday;
+                            break;
+                        case "Promotions":
+                            subModuleType = Domain.SubModuleType.Promotions;
+                            break;
+                        case "Kits":
+                            subModuleType = Domain.SubModuleType.Kits;
+                            break;
+                        default:
+                            TagStack.Visibility = Visibility.Hidden;
+                            subModuleType = Domain.SubModuleType.Search;
+                            break;
+                    }
+                    var evt = new TagSearchEvent()
+                            {
+                                SubModule = subModuleType,
+                                Tags = tagList
+                            };
+
+                    Publisher.Publish<ViewModels.Events.TagSearchEvent>(evt);
+
+
+                    //Publisher.Publish<Domain.Tag>(new Domain.Tag { Value = x.ToString()});
                     //Console.WriteLine(x);
                     FilterStackPanel.Visibility = Visibility.Visible;
-                    
+                    //FilterListBox.Visibility = Visibility.Visible;
                 }
             }
             );
 
             this.WhenAnyValue(x => x.ModuleListBox.SelectedItem).Subscribe( x =>
                     {
-                        //Load analytics by ModuleType
+                        
+                        //Do translation to SubmoduleType here - did not want to bind to data  b/c wanted to preserve styling
                         if (x != null)
                         {
                             Console.WriteLine((x as ListBoxItem).Tag);
@@ -70,8 +105,18 @@ namespace Layout
                                 case "Analytics":
                                     Publisher.Publish<Domain.SubModuleType>(Domain.SubModuleType.Analytics);
                                     break;
+                                case "Everyday" :
+                                    Publisher.Publish<Domain.SubModuleType>(Domain.SubModuleType.Everyday);
+                                    break;
+                                case "Promotions" :
+                                    Publisher.Publish<Domain.SubModuleType>(Domain.SubModuleType.Promotions);
+                                    break;
+                                case "Kits" :
+                                    Publisher.Publish<Domain.SubModuleType>(Domain.SubModuleType.Kits);
+                                    break;
                                 default:
-                                    TagStack.Visibility = Visibility.Hidden;
+                                    TagStack.Visibility = Visibility.Collapsed;
+
                                     break;
                             }
                         }
@@ -106,7 +151,7 @@ namespace Layout
 
         private void AnalyticsListItem_Selected(object sender, RoutedEventArgs e)
         {
-            FilterListBox.Visibility = Visibility.Visible;
+            //FilterListBox.Visibility = Visibility.Visible;
 
             //ViewModel.LoadTagsBySubModule("Analytics");
 
@@ -184,14 +229,34 @@ namespace Layout
 
             if (e.AddedItems.Count > 0)
             {
+                var t = e.AddedItems[0].GetType();
                 //publish HomesearchVM.SelectedAnalytic    -- edit in margin navigates to identity
-                Publisher.Publish<SelectionEvent>(
-                    new SelectionEvent
-                    {
-                        Entity = e.AddedItems[0] as Domain.Analytic
-                    }
+                switch (t.Name)
+                {
+                    case "PriceRoutine" :
+                        Publisher.Publish<SelectionEvent>(
+                        new SelectionEvent
+                        {
+                            EntityType = Domain.SubModuleType.Everyday,
+                            Entity = e.AddedItems[0] as Domain.PriceRoutine
+                        }
 
-                    );
+                        );
+                        break;
+                    case "Analytic" :
+                        Publisher.Publish<SelectionEvent>(
+                        new SelectionEvent
+                        {
+                            EntityType = Domain.SubModuleType.Analytics,
+                            Entity = e.AddedItems[0] as Domain.Analytic
+                        }
+
+                        );
+                        break;
+                    default:
+                        break;
+                }
+
             }
 
             //if (e.AddedItems.Count > 0)
@@ -267,6 +332,7 @@ namespace Layout
             //if (e.AddedItems.Contains(ModuleListBox.Items[0])) 
             //{
                 TagStack.Visibility = System.Windows.Visibility.Visible;
+                //FilterListBox.Visibility = Visibility.Collapsed;
             //}
             //else { FilterStackPanel.Visibility = Visibility.Collapsed; AnalyticTabDetail.Visibility = Visibility.Collapsed; }
             
