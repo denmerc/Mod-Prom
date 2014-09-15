@@ -693,7 +693,7 @@ namespace Layout.ViewModels
                 .Subscribe(submodule =>
                 {
                     LoadFavoritesBySubModuleCommand.Execute(submodule);
-                    LoadTagsBySubModuleCommand.Execute(submodule);
+                    //LoadTagsBySubModuleCommand.Execute(submodule);
                     
                     switch (submodule)
                     {

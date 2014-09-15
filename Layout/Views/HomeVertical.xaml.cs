@@ -72,6 +72,7 @@ namespace Layout
                             break;
                         default:
                             TagStack.Visibility = Visibility.Hidden;
+                            FavTagStack.Visibility = Visibility.Hidden;
                             subModuleType = Domain.SubModuleType.Search;
                             break;
                     }
@@ -80,6 +81,55 @@ namespace Layout
                                 SubModule = subModuleType,
                                 Tags = tagList
                             };
+
+                    Publisher.Publish<ViewModels.Events.TagSearchEvent>(evt);
+
+
+                    //Publisher.Publish<Domain.Tag>(new Domain.Tag { Value = x.ToString()});
+                    //Console.WriteLine(x);
+                    FilterStackPanel.Visibility = Visibility.Visible;
+                    //FilterListBox.Visibility = Visibility.Visible;
+                }
+            }
+            );
+
+            this.WhenAnyValue(x => x.FavTagListBox.SelectedItem).Subscribe(x =>
+            {
+                if (x != null && ModuleListBox.SelectedItem != null)
+                {
+
+                    //Load entities by Tag selection
+                    var subModuleTag = ((ListBoxItem)ModuleListBox.SelectedItem).Tag.ToString();
+
+                    var t = new Domain.Tag { Value = x.ToString() };
+                    var tagList = new List<Domain.Tag>();
+                    tagList.Add(t);
+                    Domain.SubModuleType subModuleType;
+                    switch (subModuleTag)
+                    {
+                        case "Analytics":
+                            subModuleType = Domain.SubModuleType.Analytics;
+                            break;
+                        case "Everyday":
+                            subModuleType = Domain.SubModuleType.Everyday;
+                            break;
+                        case "Promotions":
+                            subModuleType = Domain.SubModuleType.Promotions;
+                            break;
+                        case "Kits":
+                            subModuleType = Domain.SubModuleType.Kits;
+                            break;
+                        default:
+                            TagStack.Visibility = Visibility.Hidden;
+                            FavTagStack.Visibility = Visibility.Hidden;
+                            subModuleType = Domain.SubModuleType.Search;
+                            break;
+                    }
+                    var evt = new TagSearchEvent()
+                    {
+                        SubModule = subModuleType,
+                        Tags = tagList
+                    };
 
                     Publisher.Publish<ViewModels.Events.TagSearchEvent>(evt);
 
@@ -116,6 +166,7 @@ namespace Layout
                                     break;
                                 default:
                                     TagStack.Visibility = Visibility.Collapsed;
+                                    FavTagStack.Visibility = Visibility.Collapsed;
 
                                     break;
                             }
@@ -159,14 +210,14 @@ namespace Layout
 
         }
 
-        private void BrakesItem_Selected(object sender, RoutedEventArgs e)
-        {
-            if(AnalyticTabDetail != null)
-            { 
-                AnalyticTabDetail.Visibility = Visibility.Visible;
-            }
-            if(MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
-        }
+        //private void BrakesItem_Selected(object sender, RoutedEventArgs e)
+        //{
+        //    if(AnalyticTabDetail != null)
+        //    { 
+        //        AnalyticTabDetail.Visibility = Visibility.Visible;
+        //    }
+        //    if(MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
+        //}
 
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
@@ -332,6 +383,9 @@ namespace Layout
             //if (e.AddedItems.Contains(ModuleListBox.Items[0])) 
             //{
                 TagStack.Visibility = System.Windows.Visibility.Visible;
+                FavTagStack.Visibility = System.Windows.Visibility.Visible;
+                PricingTabDetail.Visibility = Visibility.Hidden;
+                AnalyticTabDetail.Visibility = Visibility.Hidden;
                 //FilterListBox.Visibility = Visibility.Collapsed;
             //}
             //else { FilterStackPanel.Visibility = Visibility.Collapsed; AnalyticTabDetail.Visibility = Visibility.Collapsed; }
@@ -350,22 +404,32 @@ namespace Layout
 
         }
 
-        private void FilterTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
+        //private void FilterTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        //{
+        //    AnalyticTabDetail.Visibility = Visibility.Hidden;
             
-        }
+        //}
 
-        private void GroupTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            FilterStackPanel.Visibility = Visibility.Visible;
-        }
+        //private void GroupTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        //{
+        //    FilterStackPanel.Visibility = Visibility.Visible;
+        //}
 
         private void TagListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //if(AnalyticTabDetail.Visibility == Visibility.Visible)
             
-                 AnalyticTabDetail.Visibility = Visibility.Hidden;
-                
+            AnalyticTabDetail.Visibility = Visibility.Hidden;
+            PricingTabDetail.Visibility = Visibility.Hidden;     
+        }
+
+        private void FavTagListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+
+            AnalyticTabDetail.Visibility = Visibility.Hidden;
+            PricingTabDetail.Visibility = Visibility.Hidden;
+               
         }
 
 
