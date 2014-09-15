@@ -260,7 +260,7 @@
 
             <TabControl Margin="25,20,0,20">
                 <TabItem Header="Home">
-                    <WrapPanel x:Name="TabContentStackPanel" Orientation="Horizontal">
+                        <WrapPanel x:Name="TabContentStackPanel" Orientation="Horizontal">
                             <ListBox x:Name="ModuleListBox"  Margin="20 40 0 10" Height="Auto" Width="Auto" SelectionChanged="ModuleListBox_SelectionChanged"
                           
 				                    VerticalAlignment="Top">
@@ -351,11 +351,29 @@
                                                     </StackPanel>
                                 </ListBoxItem>-->
                             </ListBox>
-                            <StackPanel x:Name="TagStack" Orientation="Vertical" Width="Auto" Height="Auto" Visibility="{Binding IsTagsDisplayed}" Margin="15 40 10 0">
-                                <TextBlock Text="Tags" FontSize="30"></TextBlock>
+                            <StackPanel Orientation="Vertical">
+                            <StackPanel x:Name="FavTagStack" Orientation="Vertical" Width="Auto" Height="Auto" Visibility="{Binding IsFavTagsDisplayed}" Margin="15 40 10 0">
+                                <TextBlock Text="Favorites" FontSize="30"></TextBlock>
+                                <Separator ></Separator>
+                                <ListBox x:Name="FavTagListBox" Margin="0 10 0 0" ItemsSource="{Binding FavoriteTags, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                         Height="Auto" Width="200" SelectionChanged="TagListBox_SelectionChanged">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock FontSize="16"
+								                        Foreground="{StaticResource Foreground}"><Run Text="{Binding Mode=OneWay}"/>
+
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+
+                                <!--<Separator></Separator>-->
+                            </StackPanel>
+                            <StackPanel x:Name="TagStack" Orientation="Vertical" Width="Auto" Height="Auto" Visibility="{Binding IsTagsDisplayed}" Margin="15 5 10 0">
+                                <TextBlock Text="Tag Search" FontSize="30"></TextBlock>
                                 <Separator ></Separator>
                                 <ListBox x:Name="TagListBox" Margin="0 10 0 0" ItemsSource="{Binding Tags, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                         Height="550" Width="200" SelectionChanged="TagListBox_SelectionChanged">
+                                         Height="250" Width="200" SelectionChanged="TagListBox_SelectionChanged">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
 
@@ -380,13 +398,13 @@
                                                         </ControlTemplate>
                                                     </Button.Template>
                                                 </Button>-->
-                                                
-                                                    
-                                                <TextBlock FontSize="16"
+
+
+                                            <TextBlock FontSize="16"
 								                        Foreground="{StaticResource Foreground}"><Run Text="{Binding Mode=OneWay}"/>
-                                                            
-                                                            </TextBlock>
-                                            
+
+                                            </TextBlock>
+
 
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
@@ -438,6 +456,7 @@
                                    Margin="0, 5, 0, 0" />-->
 
                                 <!--<Separator></Separator>-->
+                            </StackPanel>
                             </StackPanel>
                             <StackPanel x:Name="FilterStackPanel" Orientation="Vertical" Visibility="{Binding IsTagsDisplayed}"  Margin="5">
                                 <StackPanel.Resources>

@@ -176,13 +176,20 @@ namespace Domain
 
         public class User
         {
+
+            [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+            public string Id { get; set; }
             public string Login { get; set; }
+            public string Name { get; set; }
             public string FirstName { get; set; }
             public string LastName { get; set; }
+            public string Email { get; set; }
+            public string Password { get; set; }
             public List<Role> Roles { get; set; }
             public Boolean IsAuthenticated { get; set; }
 
-            public List<string> FavoriteTags { get; set; }
+            public List<string> FavoriteATags { get; set; }
+            public List<string> FavoritePTags { get; set; }
             //public List<Analytic> RecentAnalytics { get; set; }
             //public List<PriceRoutine> RecentPriceRoutines { get; set; }
             

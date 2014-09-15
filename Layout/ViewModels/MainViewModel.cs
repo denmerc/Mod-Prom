@@ -682,10 +682,19 @@ namespace Layout.ViewModels
             {
                 Tags = repo.AllTagsBySubModule(x.ToString());
             });
+
+            LoadFavoritesBySubModuleCommand = ReactiveCommand.Create();
+            LoadFavoritesBySubModuleCommand.Subscribe(x =>
+            {
+                FavoriteTags = repo.FindFavoriteTagsByUserAndSubModule(Session.User.Login, (Domain.SubModuleType)x);
+            });
+
             EventManager.GetEvent<Domain.SubModuleType>()
                 .Subscribe(submodule =>
                 {
+                    LoadFavoritesBySubModuleCommand.Execute(submodule);
                     LoadTagsBySubModuleCommand.Execute(submodule);
+                    
                     switch (submodule)
                     {
                         case SubModuleType.Analytics:
@@ -772,7 +781,18 @@ namespace Layout.ViewModels
             });
         }
 
-
+        private List<string> _favoriteTags;
+        public List<string> FavoriteTags
+        {
+            get
+            {
+                return _favoriteTags;
+            }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _favoriteTags, value.ToList());
+            }
+        }
         private List<string> _tags;
         public List<string> Tags 
         { 
@@ -904,6 +924,7 @@ namespace Layout.ViewModels
         protected ReactiveCommand<object> LoadTagsBySubModuleCommand;
         protected ReactiveCommand<object> LoadAnalyticsByTagCommand;
         protected ReactiveCommand<object> LoadPricingByTagCommand;
+        protected ReactiveCommand<object> LoadFavoritesBySubModuleCommand;
 
 
 

@@ -127,6 +127,14 @@ namespace Layout.Data
             }
         }
 
+        public MongoCollection<Domain.User> Users
+        {
+            get
+            {
+                return database.GetCollection<Domain.User>("Users");
+            }
+        }
+
         public MongoCollection<Domain.Actions> Actions
         {
             get
@@ -220,6 +228,36 @@ namespace Layout.Data
 
 
         }
+
+        public List<string> FindFavoriteTagsByUserAndSubModule(string login, Domain.SubModuleType type)
+        {
+            try
+            {
+                switch (type)
+                {
+                    case Domain.SubModuleType.Analytics:
+                        return Users.AsQueryable().First(u => u.Login == login).FavoriteATags.ToList();
+                    case Domain.SubModuleType.Everyday:
+                    case Domain.SubModuleType.Promotions:
+                    case Domain.SubModuleType.Kits:
+                        return Users.AsQueryable().First(u => u.Login == login).FavoritePTags.ToList();
+                    
+                    //case Domain.SubModuleType.MySettings:
+                    //    break;
+                    //case Domain.SubModuleType.Search:
+                    //    break;
+                    default:
+                        return null;
+                }
+
+            }
+            catch (Exception) //user does not exist
+            {
+                
+                throw;
+            }
+        }
+
 
 
     }
@@ -564,6 +602,16 @@ namespace Layout.Data
         List<string> AllTags();
 
         List<string> AllTagsBySubModule(string subModule);
+
+        List<string> FindFavoriteTagsByUserAndSubModule(string login, Domain.SubModuleType type);
+    }
+
+    public interface IUserRepository : IDisposable
+    {
+        List<string> FindFavoriteTagsByUser(string userName);
+        Domain.Session Login(string userName);
+        Boolean Logoff(string userName);
+
     }
 
 
