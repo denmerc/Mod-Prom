@@ -761,6 +761,8 @@ namespace Layout.ViewModels
                 {
                     case SubModuleType.Analytics:
                         SelectedAnalytic = selection.Entity as Domain.Analytic;
+                        IsDetailDisplayed = Visibility.Visible; this.RaisePropertyChanged("IsDetailDisplayed");
+                        IsActionBarOn = Visibility.Visible;
                         break;
                     case SubModuleType.Everyday:
                         SelectedPriceRoutine = selection.Entity as Domain.PriceRoutine;
@@ -890,9 +892,15 @@ namespace Layout.ViewModels
 
         public void ToggleResults(string type)
         {
-            if (type == "Pricing") { IsFiltersDisplayed = Visibility.Collapsed; IsFiltersPDisplayed = Visibility.Visible; IsDetailDisplayed = Visibility.Collapsed; IsPDetailDisplayed = Visibility.Collapsed; }
-            else if (type == "Analytics") { IsFiltersDisplayed = Visibility.Visible; IsFiltersPDisplayed = Visibility.Collapsed; IsDetailDisplayed = Visibility.Collapsed; IsPDetailDisplayed = Visibility.Collapsed; }
-            else if (type == "All") { IsFiltersDisplayed = Visibility.Collapsed; IsFiltersPDisplayed = Visibility.Collapsed; IsDetailDisplayed = Visibility.Collapsed; IsPDetailDisplayed = Visibility.Collapsed; }
+            if (type == "Pricing") { IsFiltersDisplayed = Visibility.Collapsed; IsFiltersPDisplayed = Visibility.Visible; IsDetailDisplayed = Visibility.Collapsed; IsPDetailDisplayed = Visibility.Collapsed; IsActionBarOn = Visibility.Collapsed; }
+            else if (type == "Analytics") { IsFiltersDisplayed = Visibility.Visible; IsFiltersPDisplayed = Visibility.Collapsed; IsDetailDisplayed = Visibility.Collapsed; IsPDetailDisplayed = Visibility.Collapsed; IsActionBarOn = Visibility.Collapsed; }
+            else if (type == "All") { 
+                IsFiltersDisplayed = Visibility.Collapsed; IsFiltersPDisplayed = Visibility.Collapsed; 
+                IsDetailDisplayed = Visibility.Collapsed; IsPDetailDisplayed = Visibility.Collapsed; 
+                IsActionBarOn = Visibility.Collapsed; 
+                
+            }
+            
         }
 
         private System.Windows.Visibility _IsFiltersDisplayed = System.Windows.Visibility.Hidden;

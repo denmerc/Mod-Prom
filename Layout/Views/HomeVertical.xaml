@@ -590,14 +590,14 @@
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
                                 
-                                <WrapPanel x:Name="AnalyticTabDetail" Background="Transparent" Visibility="{Binding IsDetailDisplayed}">
+                                <WrapPanel x:Name="AnalyticTabDetail" Background="Transparent" Visibility="{Binding IsDetailDisplayed, UpdateSourceTrigger=PropertyChanged}">
 
                                 <WrapPanel.Resources>
                                     <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />-->
                                 </WrapPanel.Resources>
                                     <!--<ContentControl x:Name="DetailControl" ></ContentControl>-->
-                                    <StackPanel Margin="10 40 0 40" Width="600" HorizontalAlignment="Left">
-                                        <TextBlock x:Name="AnalyticTitle" FontSize="30" Foreground="White" Text="{Binding SelectedAnalytic.Name}" />
+                                    <StackPanel Margin="20 40 0 40" Width="600" HorizontalAlignment="Left">
+                                        <TextBlock x:Name="AnalyticTitle" FontSize="25" Foreground="White" Text="{Binding SelectedAnalytic.Name}" />
                                         <Separator Margin="0 2 0 15"></Separator>
                                         <!--<TextBlock FontSize="18" Foreground="White" Text="All OPGI Parts" />-->
                                         <!--<TextBlock FontSize="18" Foreground="White" Text="Status: "  />-->
@@ -707,8 +707,8 @@
                                         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />-->
                                     </WrapPanel.Resources>
                                     <!--<ContentControl x:Name="DetailControl" ></ContentControl>-->
-                                    <StackPanel Margin="10 40 0 40" Width="600" HorizontalAlignment="Left">
-                                        <TextBlock x:Name="PricingTitle" FontSize="30" Foreground="White" Text="{Binding SelectedAnalytic.Name}" />
+                                    <StackPanel Margin="20 40 0 40" Width="600" HorizontalAlignment="Left">
+                                        <TextBlock x:Name="PricingTitle" FontSize="25" Foreground="White" Text="{Binding SelectedAnalytic.Name}" />
                                         <Separator Margin="0 2 0 15"></Separator>
                                         <!--<TextBlock FontSize="18" Foreground="White" Text="All OPGI Parts" />-->
                                         <!--<TextBlock FontSize="18" Foreground="White" Text="Status: "  />-->
@@ -819,8 +819,8 @@
                     </WrapPanel>
                </TabItem>
             </TabControl>
-                <ContentControl x:Name="MarginControl" ></ContentControl>
-                <StackPanel x:Name="MarginStackPanel" Grid.Column="1" Margin="10,25,10,0" Visibility="Collapsed">
+                <!--<ContentControl x:Name="MarginControl" ></ContentControl>-->
+                <StackPanel x:Name="MarginStackPanel" Grid.Column="1" Margin="10,25,10,0" Visibility="{Binding IsActionBarOn, UpdateSourceTrigger=PropertyChanged}">
                 <TextBlock Margin="0,10,0,10"
                                     FontSize="18"
                                     Foreground="{StaticResource Foreground}"

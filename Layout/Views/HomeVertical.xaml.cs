@@ -149,6 +149,8 @@ namespace Layout
                         {
                             Console.WriteLine((x as ListBoxItem).Tag);
 
+                            TagSearchBox.SelectedItems = null;
+                            FavTagListBox.SelectedItem = null;
                             switch ((x as ListBoxItem).Tag.ToString())
                             {
                                 case "Analytics":
@@ -285,23 +287,20 @@ namespace Layout
                 {
                     case "PriceRoutine" :
                         Publisher.Publish<SelectionEvent>(
-                        new SelectionEvent
-                        {
-                            EntityType = Domain.SubModuleType.Everyday,
-                            Entity = e.AddedItems[0] as Domain.PriceRoutine
-                        }
-
-                        );
+                            new SelectionEvent
+                            {
+                                EntityType = Domain.SubModuleType.Everyday,
+                                Entity = e.AddedItems[0] as Domain.PriceRoutine
+                            });
                         break;
                     case "Analytic" :
                         Publisher.Publish<SelectionEvent>(
-                        new SelectionEvent
-                        {
-                            EntityType = Domain.SubModuleType.Analytics,
-                            Entity = e.AddedItems[0] as Domain.Analytic
-                        }
-
-                        );
+                            new SelectionEvent
+                            {
+                                EntityType = Domain.SubModuleType.Analytics,
+                                Entity = e.AddedItems[0] as Domain.Analytic
+                            });
+                        AnalyticTabDetail.Visibility = Visibility.Visible;
                         break;
                     default:
                         break;
@@ -317,9 +316,9 @@ namespace Layout
             //        _SelectedAnalytic = analytic;
             //        //AnalyticTabDetail.DataContext = analytic;
             //    }
-            if(FilterListBox.IsMouseCaptured)
-               AnalyticTabDetail.Visibility = Visibility.Visible;
-                if (MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
+            //if(FilterListBox.IsMouseCaptured)
+            //   AnalyticTabDetail.Visibility = Visibility.Visible;
+            //    if (MarginStackPanel != null) MarginStackPanel.Visibility = Visibility.Visible;
             //}
             
 
@@ -432,23 +431,27 @@ namespace Layout
         }
         private void SearchByAllTags() 
         {
-            Domain.SubModuleType subModuleType = Domain.SubModuleType.MySettings;
-            switch ((ModuleListBox.SelectedItem as ListBoxItem).Tag.ToString())
-                {
-                    case "Analytics":
-                        subModuleType = Domain.SubModuleType.Analytics;
-                        break;
-                    case "Everyday":
-                        subModuleType = Domain.SubModuleType.Everyday;
-                        break;
-                    case "Promotions":
-                        subModuleType = Domain.SubModuleType.Promotions;
-                        break;
-                    case "Kits":
-                        subModuleType = Domain.SubModuleType.Kits;
-                        break;
+             Domain.SubModuleType subModuleType = Domain.SubModuleType.MySettings;
+            if(ModuleListBox.SelectedItem !=null)
+            {
 
-                }
+                switch ((ModuleListBox.SelectedItem as ListBoxItem).Tag.ToString())
+                    {
+                        case "Analytics":
+                            subModuleType = Domain.SubModuleType.Analytics;
+                            break;
+                        case "Everyday":
+                            subModuleType = Domain.SubModuleType.Everyday;
+                            break;
+                        case "Promotions":
+                            subModuleType = Domain.SubModuleType.Promotions;
+                            break;
+                        case "Kits":
+                            subModuleType = Domain.SubModuleType.Kits;
+                            break;
+
+                    }
+            }
 
             if (subModuleType != Domain.SubModuleType.MySettings || subModuleType != Domain.SubModuleType.Search)
             {
