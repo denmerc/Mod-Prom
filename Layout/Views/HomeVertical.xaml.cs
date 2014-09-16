@@ -45,98 +45,97 @@ namespace Layout
 
             //this.Content = views[0];
 
-            this.WhenAnyValue(x => x.TagListBox.SelectedItem).Subscribe( x => 
-            {
-                if(x != null && ModuleListBox.SelectedItem != null)
-                { 
+            //this.WhenAnyValue(x => x.TagListBox.SelectedItem).Subscribe( x => 
+            //{
+            //    if(x != null && ModuleListBox.SelectedItem != null)
+            //    { 
                     
-                    //Load entities by Tag selection
-                    var subModuleTag = ((ListBoxItem)ModuleListBox.SelectedItem).Tag.ToString();
-                    var t = new Domain.Tag { Value = x.ToString() };
-                    var tagList = new List<Domain.Tag>();
-                    tagList.Add(t);
-                    Domain.SubModuleType subModuleType;
-                    switch (subModuleTag)
-                    {
-                        case "Analytics":
-                            subModuleType = Domain.SubModuleType.Analytics;
-                            break;
-                        case "Everyday":
-                            subModuleType = Domain.SubModuleType.Everyday;
-                            break;
-                        case "Promotions":
-                            subModuleType = Domain.SubModuleType.Promotions;
-                            break;
-                        case "Kits":
-                            subModuleType = Domain.SubModuleType.Kits;
-                            break;
-                        default:
-                            TagStack.Visibility = Visibility.Hidden;
-                            FavTagStack.Visibility = Visibility.Hidden;
-                            subModuleType = Domain.SubModuleType.Search;
-                            break;
-                    }
-                    var evt = new TagSearchEvent()
-                            {
-                                SubModule = subModuleType,
-                                Tags = tagList
-                            };
+            //        //Load entities by Tag selection
+            //        var subModuleTag = ((ListBoxItem)ModuleListBox.SelectedItem).Tag.ToString();
+            //        var t = new Domain.Tag { Value = x.ToString() };
+            //        var tagList = new List<Domain.Tag>();
+            //        tagList.Add(t);
+            //        Domain.SubModuleType subModuleType;
+            //        switch (subModuleTag)
+            //        {
+            //            case "Analytics":
+            //                subModuleType = Domain.SubModuleType.Analytics;
+            //                break;
+            //            case "Everyday":
+            //                subModuleType = Domain.SubModuleType.Everyday;
+            //                break;
+            //            case "Promotions":
+            //                subModuleType = Domain.SubModuleType.Promotions;
+            //                break;
+            //            case "Kits":
+            //                subModuleType = Domain.SubModuleType.Kits;
+            //                break;
+            //            default:
+            //                TagStack.Visibility = Visibility.Hidden;
+            //                FavTagStack.Visibility = Visibility.Hidden;
+            //                subModuleType = Domain.SubModuleType.Search;
+            //                break;
+            //        }
+            //        var evt = new TagSearchEvent()
+            //                {
+            //                    SubModule = subModuleType,
+            //                    Tags = tagList
+            //                };
 
-                    Publisher.Publish<ViewModels.Events.TagSearchEvent>(evt);
+            //        Publisher.Publish<ViewModels.Events.TagSearchEvent>(evt);
+            //        FilterStackPanel.Visibility = Visibility.Visible;
 
-
-                    //Publisher.Publish<Domain.Tag>(new Domain.Tag { Value = x.ToString()});
-                    //Console.WriteLine(x);
-                    FilterStackPanel.Visibility = Visibility.Visible;
-                    //FilterListBox.Visibility = Visibility.Visible;
-                }
-            }
-            );
+            //        //Publisher.Publish<Domain.Tag>(new Domain.Tag { Value = x.ToString()});
+            //        //Console.WriteLine(x);
+            //        //FilterListBox.Visibility = Visibility.Visible;
+            //    }
+            //}
+            //);
 
             this.WhenAnyValue(x => x.FavTagListBox.SelectedItem).Subscribe(x =>
             {
                 if (x != null && ModuleListBox.SelectedItem != null)
                 {
+                    SearchByAllTags();
+                    ////Load entities by Tag selection
+                    //var subModuleTag = ((ListBoxItem)ModuleListBox.SelectedItem).Tag.ToString();
 
-                    //Load entities by Tag selection
-                    var subModuleTag = ((ListBoxItem)ModuleListBox.SelectedItem).Tag.ToString();
+                    //var t = new Domain.Tag { Value = x.ToString() };
+                    //var tagList = new List<Domain.Tag>();
+                    //tagList.Add(t);
+                    //Domain.SubModuleType subModuleType;
+                    //switch (subModuleTag)
+                    //{
+                    //    case "Analytics":
+                    //        subModuleType = Domain.SubModuleType.Analytics;
+                    //        break;
+                    //    case "Everyday":
+                    //        subModuleType = Domain.SubModuleType.Everyday;
+                    //        break;
+                    //    case "Promotions":
+                    //        subModuleType = Domain.SubModuleType.Promotions;
+                    //        break;
+                    //    case "Kits":
+                    //        subModuleType = Domain.SubModuleType.Kits;
+                    //        break;
+                    //    default:
+                    //        TagStack.Visibility = Visibility.Hidden;
+                    //        FavTagStack.Visibility = Visibility.Hidden;
+                    //        subModuleType = Domain.SubModuleType.Search;
+                    //        break;
+                    //}
+                    //var evt = new TagSearchEvent()
+                    //{
+                    //    SubModule = subModuleType,
+                    //    Tags = tagList
+                    //};
 
-                    var t = new Domain.Tag { Value = x.ToString() };
-                    var tagList = new List<Domain.Tag>();
-                    tagList.Add(t);
-                    Domain.SubModuleType subModuleType;
-                    switch (subModuleTag)
-                    {
-                        case "Analytics":
-                            subModuleType = Domain.SubModuleType.Analytics;
-                            break;
-                        case "Everyday":
-                            subModuleType = Domain.SubModuleType.Everyday;
-                            break;
-                        case "Promotions":
-                            subModuleType = Domain.SubModuleType.Promotions;
-                            break;
-                        case "Kits":
-                            subModuleType = Domain.SubModuleType.Kits;
-                            break;
-                        default:
-                            TagStack.Visibility = Visibility.Hidden;
-                            FavTagStack.Visibility = Visibility.Hidden;
-                            subModuleType = Domain.SubModuleType.Search;
-                            break;
-                    }
-                    var evt = new TagSearchEvent()
-                    {
-                        SubModule = subModuleType,
-                        Tags = tagList
-                    };
-
-                    Publisher.Publish<ViewModels.Events.TagSearchEvent>(evt);
+                    //Publisher.Publish<ViewModels.Events.TagSearchEvent>(evt);
 
 
                     //Publisher.Publish<Domain.Tag>(new Domain.Tag { Value = x.ToString()});
                     //Console.WriteLine(x);
-                    FilterStackPanel.Visibility = Visibility.Visible;
+                    //FilterStackPanel.Visibility = Visibility.Visible;
                     //FilterListBox.Visibility = Visibility.Visible;
                 }
             }
@@ -430,6 +429,88 @@ namespace Layout
             AnalyticTabDetail.Visibility = Visibility.Hidden;
             PricingTabDetail.Visibility = Visibility.Hidden;
                
+        }
+        private void SearchByAllTags() 
+        {
+            Domain.SubModuleType subModuleType = Domain.SubModuleType.MySettings;
+            switch ((ModuleListBox.SelectedItem as ListBoxItem).Tag.ToString())
+                {
+                    case "Analytics":
+                        subModuleType = Domain.SubModuleType.Analytics;
+                        break;
+                    case "Everyday":
+                        subModuleType = Domain.SubModuleType.Everyday;
+                        break;
+                    case "Promotions":
+                        subModuleType = Domain.SubModuleType.Promotions;
+                        break;
+                    case "Kits":
+                        subModuleType = Domain.SubModuleType.Kits;
+                        break;
+
+                }
+
+            if (subModuleType != Domain.SubModuleType.MySettings || subModuleType != Domain.SubModuleType.Search)
+            {
+
+                var items = TagSearchBox.SelectedItems;
+                var list = new List<string>();
+                foreach (var item in items)
+                {
+                    list.Add(item.ToString());
+                }
+
+                
+                var favItem = FavTagListBox.SelectedItem;
+                var favList = new List<string>();
+                if (favItem != null)
+                {
+                    favList.Add(favItem.ToString());
+                }
+                var mergedList = list.Union(favList).Select(y => new Domain.Tag { Value = y.ToString() }).ToList();
+                var evt = new TagSearchEvent()
+                {
+                    SubModule = subModuleType,
+                    Tags = mergedList
+                };
+
+                Publisher.Publish<ViewModels.Events.TagSearchEvent>(evt);
+                FilterStackPanel.Visibility = Visibility.Visible;
+            }
+
+
+        }
+        private void TagSearchBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            AnalyticTabDetail.Visibility = Visibility.Hidden;
+            PricingTabDetail.Visibility = Visibility.Hidden;
+            SearchByAllTags();
+            //var items = TagSearchBox.SelectedItems;
+            //var list = new List<string>();
+            //foreach (var item in items)
+            //{
+            //    list.Add(item.ToString());
+            //}
+
+            //var favItems = FavTagListBox.SelectedItems;
+            //var favList = new List<string>();
+            //foreach (var item in favItems)
+            //{
+            //    favList.Add(item.ToString());
+            //}
+
+            //var mergedList = list.Union(favList).Select( y => new Domain.Tag{Value = y.ToString()}).ToList();
+
+            //var evt = new TagSearchEvent()
+            //{
+            //    SubModule = Domain.SubModuleType.Analytics,
+            //    Tags = mergedList
+            //};
+
+            //Publisher.Publish<ViewModels.Events.TagSearchEvent>(evt);
+               
+                
         }
 
 

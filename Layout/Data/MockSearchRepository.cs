@@ -214,7 +214,7 @@ namespace Layout.Data
 
             //var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).Cast<T>().ToList(); //not supported
 
-            return Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).ToList();
+            return Analytics.AsQueryable().Where(a => a.Tags.ContainsAll(tags)).ToList();
   
             
         }

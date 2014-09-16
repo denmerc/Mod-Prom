@@ -6,10 +6,12 @@
 	xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:vm="clr-namespace:Layout.ViewModels"
     xmlns:dom="clr-namespace:Domain"
-	mc:Ignorable="d"
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    mc:Ignorable="d"
 	x:Class="Layout.HomeVerticalControl"
 	x:Name="UserControl"
 	d:DesignWidth="951" d:DesignHeight="1126" 
+    
     
     d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=vm:MainViewModel}">
 <UserControl.Resources>
@@ -372,14 +374,22 @@
                             <StackPanel x:Name="TagStack" Orientation="Vertical" Width="Auto" Height="Auto" Visibility="{Binding IsTagsDisplayed}" Margin="15 10 10 0">
                                 <TextBlock Text="Tag Search" FontSize="23" FontWeight="Normal"></TextBlock>
                                 <Separator ></Separator>
-                                <ListBox x:Name="TagListBox" Margin="0 10 0 0" ItemsSource="{Binding Tags, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+
+                                    <telerik:RadAutoCompleteBox x:Name="TagSearchBox" ItemsSource="{Binding Tags}" SelectionChanged="TagSearchBox_SelectionChanged"
+                                                            WatermarkContent="Enter Tags to Filter"
+                                                            AutoCompleteMode="Suggest"
+                                                            Width="200" Margin="0 5"
+                                                            Background="White" FontSize="16" Foreground="Black"
+                                                                />
+
+                                    <!--<ListBox x:Name="TagListBox" Margin="0 10 0 0" ItemsSource="{Binding Tags, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                          Height="250" Width="200" SelectionChanged="TagListBox_SelectionChanged">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
 
 
 
-                                            <!--<Button Content="{Binding}" 
+                                            --><!--<Button Content="{Binding}" 
                                                         Background="Transparent"
                                                         BorderThickness="0"
                                                         Foreground="{StaticResource Foreground}" 
@@ -397,7 +407,7 @@
                                                         <ContentPresenter Content="{TemplateBinding Content}"/>
                                                         </ControlTemplate>
                                                     </Button.Template>
-                                                </Button>-->
+                                                </Button>--><!--
 
 
                                             <TextBlock FontSize="16"
@@ -408,7 +418,7 @@
 
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
-                                </ListBox>
+                                </ListBox>-->
                                 <!--<Label Margin="15 10 10 0" FontSize="15" FontWeight="SemiBold">Group:</Label>-->
                                 <!--<ComboBox Width="200"
                                           Margin="0, 0, 0, 0"
@@ -458,7 +468,7 @@
                                 <!--<Separator></Separator>-->
                             </StackPanel>
                             </StackPanel>
-                            <StackPanel x:Name="FilterStackPanel" Orientation="Vertical" Visibility="{Binding IsTagsDisplayed}"  Margin="5">
+                            <StackPanel x:Name="FilterStackPanel" Orientation="Vertical"  Margin="5">
                                 <StackPanel.Resources>
                                     <Style x:Key="CustomMetroToggleSwitch"
                                        TargetType="{x:Type controls:ToggleSwitch}"

@@ -693,7 +693,7 @@ namespace Layout.ViewModels
                 .Subscribe(submodule =>
                 {
                     LoadFavoritesBySubModuleCommand.Execute(submodule);
-                    //LoadTagsBySubModuleCommand.Execute(submodule);
+                    LoadTagsBySubModuleCommand.Execute(submodule);
                     
                     switch (submodule)
                     {
@@ -890,9 +890,9 @@ namespace Layout.ViewModels
 
         public void ToggleResults(string type)
         {
-            if (type == "Pricing") { IsFiltersDisplayed = Visibility.Collapsed; IsFiltersPDisplayed = Visibility.Visible; }
-            else if (type == "Analytics") { IsFiltersDisplayed = Visibility.Visible; IsFiltersPDisplayed =  Visibility.Collapsed; }
-            else if (type == "All") { IsFiltersDisplayed = Visibility.Collapsed; IsFiltersPDisplayed = Visibility.Collapsed; IsDetailDisplayed = Visibility.Collapsed; }
+            if (type == "Pricing") { IsFiltersDisplayed = Visibility.Collapsed; IsFiltersPDisplayed = Visibility.Visible; IsDetailDisplayed = Visibility.Collapsed; IsPDetailDisplayed = Visibility.Collapsed; }
+            else if (type == "Analytics") { IsFiltersDisplayed = Visibility.Visible; IsFiltersPDisplayed = Visibility.Collapsed; IsDetailDisplayed = Visibility.Collapsed; IsPDetailDisplayed = Visibility.Collapsed; }
+            else if (type == "All") { IsFiltersDisplayed = Visibility.Collapsed; IsFiltersPDisplayed = Visibility.Collapsed; IsDetailDisplayed = Visibility.Collapsed; IsPDetailDisplayed = Visibility.Collapsed; }
         }
 
         private System.Windows.Visibility _IsFiltersDisplayed = System.Windows.Visibility.Hidden;
@@ -920,6 +920,13 @@ namespace Layout.ViewModels
         {
             get { return _IsPDetailDisplayed; }
             set { this.RaiseAndSetIfChanged(ref _IsPDetailDisplayed, value); }
+        }
+
+        private System.Windows.Visibility _IsActionBarOn = System.Windows.Visibility.Collapsed;
+        public System.Windows.Visibility IsActionBarOn
+        {
+            get { return _IsActionBarOn; }
+            set { this.RaiseAndSetIfChanged(ref _IsActionBarOn, value); }
         }
         protected ReactiveCommand<object> LoadTagsBySubModuleCommand;
         protected ReactiveCommand<object> LoadAnalyticsByTagCommand;
