@@ -292,6 +292,7 @@ namespace Layout
                                 EntityType = Domain.SubModuleType.Everyday,
                                 Entity = e.AddedItems[0] as Domain.PriceRoutine
                             });
+                        PricingTabDetail.Visibility = Visibility.Visible;
                         break;
                     case "Analytic" :
                         Publisher.Publish<SelectionEvent>(

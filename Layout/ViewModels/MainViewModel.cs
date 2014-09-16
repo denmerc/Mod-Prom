@@ -761,7 +761,7 @@ namespace Layout.ViewModels
                 {
                     case SubModuleType.Analytics:
                         SelectedAnalytic = selection.Entity as Domain.Analytic;
-                        IsDetailDisplayed = Visibility.Visible; this.RaisePropertyChanged("IsDetailDisplayed");
+                        //IsDetailDisplayed = Visibility.Visible; this.RaisePropertyChanged("IsDetailDisplayed");
                         IsActionBarOn = Visibility.Visible;
                         break;
                     case SubModuleType.Everyday:
