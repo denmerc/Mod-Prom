@@ -688,13 +688,17 @@ namespace Layout.ViewModels
             {
                 FavoriteTags = repo.FindFavoriteTagsByUserAndSubModule(Session.User.Login, (Domain.SubModuleType)x);
             });
-
+            LoadFavoritesBySubModuleCommand.Execute(Domain.SubModuleType.Analytics);
+            //LoadFavoritesBySubModuleCommand.Execute(Domain.SubModuleType.Everyday);
+            LoadTagsBySubModuleCommand.Execute(Domain.SubModuleType.Analytics);
+            //LoadTagsBySubModuleCommand.Execute(Domain.SubModuleType.Everyday);
             EventManager.GetEvent<Domain.SubModuleType>()
                 .Subscribe(submodule =>
                 {
-                    LoadFavoritesBySubModuleCommand.Execute(submodule);
-                    LoadTagsBySubModuleCommand.Execute(submodule);
-                    
+                    if(FavoriteTags == null)
+                        {LoadFavoritesBySubModuleCommand.Execute(submodule);}
+                    if(Analytics == null)
+                    { LoadTagsBySubModuleCommand.Execute(submodule); }                    
                     switch (submodule)
                     {
                         case SubModuleType.Analytics:

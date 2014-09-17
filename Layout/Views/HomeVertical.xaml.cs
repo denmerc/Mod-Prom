@@ -17,6 +17,7 @@ using Layout.ViewModels;
 using System.Linq;
 using System.Reactive.Linq;
 using Layout.ViewModels.Events;
+using System.Threading.Tasks;
 
 namespace Layout
 {
@@ -96,7 +97,23 @@ namespace Layout
             {
                 if (x != null && ModuleListBox.SelectedItem != null)
                 {
+                            
+                    ProgressBarA.Visibility = Visibility.Visible;
+                    ProgressBarP.Visibility = Visibility.Visible;
+
+
                     SearchByAllTags();
+
+                    //Task.Delay(1000)
+                    //    .ContinueWith(z =>
+                    //    {
+
+                            //FilterGrid.Visibility = Visibility.Visible;
+                            
+                            ProgressBarA.Visibility = Visibility.Hidden;
+                            ProgressBarP.Visibility = Visibility.Hidden;
+                        //}, TaskScheduler.FromCurrentSynchronizationContext());
+
                     ////Load entities by Tag selection
                     //var subModuleTag = ((ListBoxItem)ModuleListBox.SelectedItem).Tag.ToString();
 
@@ -278,7 +295,7 @@ namespace Layout
 
         private void Filters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
             if (e.AddedItems.Count > 0)
             {
                 var t = e.AddedItems[0].GetType();
@@ -342,12 +359,6 @@ namespace Layout
 
         private void RenameButton_Click(object sender, RoutedEventArgs e)
         {
-            //AnalyticStepsControl c = new AnalyticStepsControl();
-            //c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
-            //AnalyticIdentityStepControl i = new AnalyticIdentityStepControl();
-            //i.NameTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
-            //c.AnalyticStepContentControl.Content = i;
-            //this.Content = c;
             if(FilterListBox.SelectedItem != null)
             { 
                 Publisher.Publish<NavigateEvent>(new NavigateEvent { 
@@ -357,6 +368,12 @@ namespace Layout
                     Entity = FilterListBox.SelectedItem
                 });
             }
+            //AnalyticStepsControl c = new AnalyticStepsControl();
+            //c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
+            //AnalyticIdentityStepControl i = new AnalyticIdentityStepControl();
+            //i.NameTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
+            //c.AnalyticStepContentControl.Content = i;
+            //this.Content = c;
         }
 
         private void CopyAnalyticButton_Click(object sender, RoutedEventArgs e)
