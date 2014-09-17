@@ -680,33 +680,62 @@ namespace Layout.ViewModels
             LoadTagsBySubModuleCommand = ReactiveCommand.Create();
             LoadTagsBySubModuleCommand.Subscribe(x =>
             {
-                Tags = repo.AllTagsBySubModule(x.ToString());
+                switch((Domain.SubModuleType) x)
+                {
+                    case Domain.SubModuleType.Analytics:
+                        Tags = repo.AllTagsBySubModule(x.ToString());
+                        break;
+                    case Domain.SubModuleType.Everyday:
+                    case Domain.SubModuleType.Promotions:
+                    case Domain.SubModuleType.Kits:
+                        PricingTags = repo.AllTagsBySubModule(x.ToString());
+                        break;
+                }
             });
 
             LoadFavoritesBySubModuleCommand = ReactiveCommand.Create();
             LoadFavoritesBySubModuleCommand.Subscribe(x =>
             {
-                FavoriteTags = repo.FindFavoriteTagsByUserAndSubModule(Session.User.Login, (Domain.SubModuleType)x);
+                switch((Domain.SubModuleType) x)
+                {
+                    case Domain.SubModuleType.Analytics:
+                        FavoriteTags = repo.FindFavoriteTagsByUserAndSubModule(Session.User.Login, (Domain.SubModuleType)x);
+                        break;
+                    case Domain.SubModuleType.Everyday:
+                    case Domain.SubModuleType.Promotions:
+                    case Domain.SubModuleType.Kits:
+                        FavoritePricingTags = repo.FindFavoriteTagsByUserAndSubModule(Session.User.Login, (Domain.SubModuleType)x);
+                        break;
+                }
             });
+
+
             LoadFavoritesBySubModuleCommand.Execute(Domain.SubModuleType.Analytics);
-            //LoadFavoritesBySubModuleCommand.Execute(Domain.SubModuleType.Everyday);
+            LoadFavoritesBySubModuleCommand.Execute(Domain.SubModuleType.Everyday);
             LoadTagsBySubModuleCommand.Execute(Domain.SubModuleType.Analytics);
-            //LoadTagsBySubModuleCommand.Execute(Domain.SubModuleType.Everyday);
+            LoadTagsBySubModuleCommand.Execute(Domain.SubModuleType.Everyday);
+
             EventManager.GetEvent<Domain.SubModuleType>()
                 .Subscribe(submodule =>
                 {
-                    if(FavoriteTags == null)
-                        {LoadFavoritesBySubModuleCommand.Execute(submodule);}
-                    if(Analytics == null)
-                    { LoadTagsBySubModuleCommand.Execute(submodule); }                    
                     switch (submodule)
                     {
                         case SubModuleType.Analytics:
+                            if(FavoriteTags == null)
+                                {LoadFavoritesBySubModuleCommand.Execute(submodule);}
+                            if(Analytics == null)
+                                { LoadTagsBySubModuleCommand.Execute(submodule); }
+                            SelectedFavTags = FavoriteTags;
                             ToggleResults("All");
                             break;
                         case SubModuleType.Everyday:
                         case SubModuleType.Promotions:
                         case SubModuleType.Kits:
+                            if(FavoritePricingTags == null)
+                                {LoadFavoritesBySubModuleCommand.Execute(submodule);}
+                            if(PriceRoutines == null)
+                                { LoadTagsBySubModuleCommand.Execute(submodule); }
+                            SelectedFavTags = FavoritePricingTags;
                             ToggleResults("All");
                             break;
                         case SubModuleType.MySettings:
@@ -785,6 +814,45 @@ namespace Layout.ViewModels
                         break;
                 }
             });
+        }
+
+
+        private List<string> _favoritePricingTags;
+        public List<string> FavoritePricingTags
+        {
+            get
+            {
+                return _favoritePricingTags;
+            }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _favoritePricingTags, value.ToList());
+            }
+        }
+        private List<string> _pricingTags;
+        public List<string> PricingTags
+        {
+            get
+            {
+                return _pricingTags;
+            }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _pricingTags, value.ToList());
+            }
+        }
+
+        private List<string> _selectedFavTags;
+        public List<string> SelectedFavTags
+        {
+            get
+            {
+                return _selectedFavTags;
+            }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectedFavTags, value.ToList());
+            }
         }
 
         private List<string> _favoriteTags;
