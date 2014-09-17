@@ -100,19 +100,20 @@ namespace Layout
                             
                     ProgressBarA.Visibility = Visibility.Visible;
                     ProgressBarP.Visibility = Visibility.Visible;
-
-
+                    FilterListBox.Visibility = Visibility.Hidden;
+                    FilterPListBox.Visibility = Visibility.Hidden;
                     SearchByAllTags();
 
-                    //Task.Delay(1000)
-                    //    .ContinueWith(z =>
-                    //    {
+                    Task.Delay(1500)
+                        .ContinueWith(z =>
+                        {
 
                             //FilterGrid.Visibility = Visibility.Visible;
-                            
+                            FilterListBox.Visibility = Visibility.Visible;
+                            FilterPListBox.Visibility = Visibility.Visible;
                             ProgressBarA.Visibility = Visibility.Hidden;
                             ProgressBarP.Visibility = Visibility.Hidden;
-                        //}, TaskScheduler.FromCurrentSynchronizationContext());
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
 
                     ////Load entities by Tag selection
                     //var subModuleTag = ((ListBoxItem)ModuleListBox.SelectedItem).Tag.ToString();
@@ -506,7 +507,24 @@ namespace Layout
 
             AnalyticTabDetail.Visibility = Visibility.Hidden;
             PricingTabDetail.Visibility = Visibility.Hidden;
+
+            ProgressBarA.Visibility = Visibility.Visible;
+            ProgressBarP.Visibility = Visibility.Visible;
+            FilterListBox.Visibility = Visibility.Hidden;
+            FilterPListBox.Visibility = Visibility.Hidden;
             SearchByAllTags();
+
+            Task.Delay(1500)
+                .ContinueWith(z =>
+                {
+
+                    //FilterGrid.Visibility = Visibility.Visible;
+                    FilterListBox.Visibility = Visibility.Visible;
+                    FilterPListBox.Visibility = Visibility.Visible;
+                    ProgressBarA.Visibility = Visibility.Hidden;
+                    ProgressBarP.Visibility = Visibility.Hidden;
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            
             //var items = TagSearchBox.SelectedItems;
             //var list = new List<string>();
             //foreach (var item in items)

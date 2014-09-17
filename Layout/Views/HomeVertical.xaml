@@ -358,7 +358,7 @@
                             <StackPanel x:Name="FavTagStack" Orientation="Vertical" Width="Auto" Height="Auto" Visibility="{Binding IsTagsDisplayed}" Margin="15 40 10 0">
                                 <TextBlock Text="Favorites" FontSize="25"></TextBlock>
                                 <Separator ></Separator>
-                                <ListBox x:Name="FavTagListBox" Margin="0 10 0 0" ItemsSource="{Binding SelectedFavTags, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                <ListBox x:Name="FavTagListBox" Margin="0 15 0 0" ItemsSource="{Binding SelectedFavTags, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                          Height="Auto" Width="200" SelectionChanged="FavTagListBox_SelectionChanged">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
@@ -372,7 +372,8 @@
 
                                 <!--<Separator></Separator>-->
                             </StackPanel>
-                            <StackPanel x:Name="TagStack" Orientation="Vertical" Width="Auto" Height="Auto" Visibility="{Binding IsTagsDisplayed}" Margin="15 10 10 0">
+                            <StackPanel x:Name="TagStack" Orientation="Vertical" Width="Auto" Height="Auto" 
+                                        Visibility="{Binding IsTagsDisplayed}" Margin="15 10 10 0">
                                 <TextBlock Text="Tag Search" FontSize="23" FontWeight="Normal"></TextBlock>
                                 <Separator ></Separator>
 
@@ -564,7 +565,7 @@
                                        x:Name="ProgressBarA"
                                        Minimum="200"
                                        Maximum="800"
-                                       Width="80" 
+                                       Width="60" 
                                        Foreground="{StaticResource Foreground}"
                                        Margin="0, 0, 0, 0" />
                             <!--<telerik:RadProgressBar  IsIndeterminate="True" Orientation="Horizontal" Margin="5"></telerik:RadProgressBar>-->
@@ -587,9 +588,9 @@
                                     <Separator ></Separator>
                                     <controls:MetroProgressBar IsIndeterminate="True"
                                        x:Name="ProgressBarP"
-                                       Minimum="0"
-                                       Maximum="100"
-                                       Width="100" Height="5"
+                                       Minimum="200"
+                                       Maximum="800"
+                                       Width="60"
                                        Foreground="{StaticResource Foreground}"
                                        Margin="0, 0, 0, 0" />
                                     <ListBox x:Name="FilterPListBox" Margin="0 10 0 0" ItemsSource="{Binding PriceRoutines}" Height="Auto" Width="Auto" SelectionChanged="Filters_SelectionChanged"  SelectedItem="{Binding SelectedPriceRoutine}">
