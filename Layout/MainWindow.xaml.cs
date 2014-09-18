@@ -119,8 +119,8 @@ namespace Layout
 
         private void AdministrationModuleButton_Click(object sender, RoutedEventArgs e)
         {
-            AdminControl c = new AdminControl();
-            ModuleControl.Content = c;
+            //AdminControl c = new AdminControl(); //TODO: Disabled for demo
+            //ModuleControl.Content = c;
         }
 
 
