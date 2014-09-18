@@ -685,7 +685,7 @@ namespace Layout.ViewModels
                 switch((Domain.SubModuleType) x)
                 {
                     case Domain.SubModuleType.Analytics:
-                        Tags = repo.AllTagsBySubModule(x.ToString());
+                        AnalyticTags = repo.AllTagsBySubModule(x.ToString());
                         break;
                     case Domain.SubModuleType.Everyday:
                     case Domain.SubModuleType.Promotions:
@@ -730,6 +730,7 @@ namespace Layout.ViewModels
                             if(Analytics == null)
                                 { LoadTagsBySubModuleCommand.Execute(submodule); }
                             SelectedFavTags = FavoriteTags;
+                            Tags = AnalyticTags;
                             ToggleResults("All");
                             break;
                         case SubModuleType.Everyday:
@@ -740,6 +741,8 @@ namespace Layout.ViewModels
                             if(PriceRoutines == null)
                                 { LoadTagsBySubModuleCommand.Execute(submodule); }
                             SelectedFavTags = FavoritePricingTags;
+                            Tags = PricingTags;
+
                             ToggleResults("All");
                             break;
                         case SubModuleType.MySettings:
@@ -843,6 +846,19 @@ namespace Layout.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _pricingTags, value.ToList());
+            }
+        }
+
+        private List<string> _analyticTags;
+        public List<string> AnalyticTags
+        {
+            get
+            {
+                return _analyticTags;
+            }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _analyticTags, value.ToList());
             }
         }
 
