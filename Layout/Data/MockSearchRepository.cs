@@ -99,7 +99,7 @@ namespace Layout.Data
         public List<Domain.Analytic> FindByTag(List<string> tags)
         { 
             //var found = All<Domain.Analytic>().Where
-           return Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).ToList();
+           return Analytics.AsQueryable().Where(a => a.Tags.ContainsAll(tags)).ToList();
 
         }
 
@@ -201,7 +201,7 @@ namespace Layout.Data
             switch (name)
             {
                 case "Analytic":
-                    var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).Cast<T>().ToList();
+                    var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAll(tags)).Cast<T>().ToList();
                     return list;
                 default:
                     return null;
@@ -224,7 +224,7 @@ namespace Layout.Data
 
             //var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).Cast<T>().ToList(); //not supported
 
-            return PriceRoutines.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).ToList();
+            return PriceRoutines.AsQueryable().Where(a => a.Tags.ContainsAll(tags)).ToList();
 
 
         }
@@ -270,7 +270,7 @@ namespace Layout.Data
 
             //var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).Cast<T>().ToList(); //not supported
 
-            return PriceRoutines.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).ToList();
+            return PriceRoutines.AsQueryable().Where(a => a.Tags.ContainsAll(tags)).ToList();
 
 
         }
@@ -346,7 +346,7 @@ namespace Layout.Data
         public List<Domain.Analytic> FindByTag(List<string> tags)
         {
             //var found = All<Domain.Analytic>().Where
-            return Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).ToList();
+            return Analytics.AsQueryable().Where(a => a.Tags.ContainsAll(tags)).ToList();
 
         }
 
@@ -440,7 +440,7 @@ namespace Layout.Data
             switch (name)
             {
                 case "Analytic":
-                    var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).Cast<T>().ToList();
+                    var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAll(tags)).Cast<T>().ToList();
                     return list;
                 default:
                     return null;
@@ -453,7 +453,7 @@ namespace Layout.Data
 
             //var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).Cast<T>().ToList(); //not supported
 
-            return Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).ToList();
+            return Analytics.AsQueryable().Where(a => a.Tags.ContainsAll(tags)).ToList();
 
 
         }
@@ -484,7 +484,7 @@ namespace Layout.Data
         public List<Domain.Analytic> FindByTag(List<string> tags)
         {
             //var found = All<Domain.Analytic>().Where
-            return Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).ToList();
+            return Analytics.AsQueryable().Where(a => a.Tags.ContainsAll(tags)).ToList();
 
         }
 
@@ -577,7 +577,7 @@ namespace Layout.Data
 
             //var list = Analytics.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).Cast<T>().ToList(); //not supported
 
-            return PriceRoutines.AsQueryable().Where(a => a.Tags.ContainsAny(tags)).ToList();
+            return PriceRoutines.AsQueryable().Where(a => a.Tags.ContainsAll(tags)).ToList();
 
 
         }

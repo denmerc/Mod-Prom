@@ -952,7 +952,7 @@ namespace Layout.ViewModels
             set { this.RaiseAndSetIfChanged(ref _IsTagsDisplayed, value); }
         }
 
-        public void ToggleSearchPane(Domain.SubModuleType type)
+        public void ToggleSearchPane(Domain.SubModuleType type) //TODO: only tags needed
         {
             switch (type)
             {
@@ -970,34 +970,34 @@ namespace Layout.ViewModels
                     switch (SelectedSubModule)
 	                {
                         case SubModuleType.Analytics:
-                            IsFiltersDisplayed = Visibility.Visible;
-                            IsFiltersPDisplayed = Visibility.Collapsed;
+                            //IsFiltersDisplayed = Visibility.Visible;
+                            //IsFiltersPDisplayed = Visibility.Collapsed;
                             IsTagsDisplayed = Visibility.Visible;
-                            IsPDetailDisplayed = Visibility.Collapsed;this.RaisePropertyChanged("IsPDetailDisplayed");
-                            IsDetailDisplayed = Visibility.Visible;
-                            IsProgressBarAOn = Visibility.Hidden;
-                            IsProgressBarPOn = Visibility.Hidden;
+                            //IsPDetailDisplayed = Visibility.Collapsed;this.RaisePropertyChanged("IsPDetailDisplayed");
+                            //IsDetailDisplayed = Visibility.Visible;
+                            //IsProgressBarAOn = Visibility.Hidden;
+                            //IsProgressBarPOn = Visibility.Hidden;
                             break;
                         case SubModuleType.Everyday:
                         case SubModuleType.Promotions:
                         case SubModuleType.Kits:
-                            IsFiltersDisplayed = Visibility.Collapsed;
-                            IsFiltersPDisplayed = Visibility.Visible;
+                            //IsFiltersDisplayed = Visibility.Collapsed;
+                            //IsFiltersPDisplayed = Visibility.Visible;
                             IsTagsDisplayed = Visibility.Visible;
-                            IsDetailDisplayed = Visibility.Collapsed;
-                            IsPDetailDisplayed = Visibility.Visible;
-                            IsProgressBarAOn = Visibility.Hidden;
-                            IsProgressBarPOn = Visibility.Hidden;
+                            //IsDetailDisplayed = Visibility.Collapsed;
+                            //IsPDetailDisplayed = Visibility.Visible;
+                            //IsProgressBarAOn = Visibility.Hidden;
+                            //IsProgressBarPOn = Visibility.Hidden;
                             break;
                         
                         default:
-                            IsFiltersDisplayed = Visibility.Collapsed;
-                            IsFiltersPDisplayed = Visibility.Collapsed;   
+                            //IsFiltersDisplayed = Visibility.Collapsed;
+                            //IsFiltersPDisplayed = Visibility.Collapsed;   
                             IsTagsDisplayed = Visibility.Collapsed;
-                            IsDetailDisplayed = Visibility.Collapsed;
-                            IsPDetailDisplayed = Visibility.Collapsed;
-                            IsProgressBarAOn = Visibility.Collapsed;
-                            IsProgressBarPOn = Visibility.Collapsed;
+                            //IsDetailDisplayed = Visibility.Collapsed;
+                            //IsPDetailDisplayed = Visibility.Collapsed;
+                            //IsProgressBarAOn = Visibility.Collapsed;
+                            //IsProgressBarPOn = Visibility.Collapsed;
                             break;
 	                }
                     
