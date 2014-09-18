@@ -95,13 +95,22 @@ namespace Layout
 
             this.WhenAnyValue(x => x.FavTagListBox.SelectedItem).Subscribe(x =>
             {
+                flag = false;
                 if (x != null && ModuleListBox.SelectedItem != null)
                 {
                             
                     ProgressBarA.Visibility = Visibility.Visible;
                     ProgressBarP.Visibility = Visibility.Visible;
+                    //if((ModuleListBox.SelectedItem as ListBoxItem).Name == "AnalyticsListItem")
+                    //{
                     FilterListBox.Visibility = Visibility.Hidden;
+
+                    //}
+                    //else
+                    //{
                     FilterPListBox.Visibility = Visibility.Hidden;
+
+                    //}
                     SearchByAllTags();
 
                     Task.Delay(1500)
@@ -109,8 +118,15 @@ namespace Layout
                         {
 
                             //FilterGrid.Visibility = Visibility.Visible;
-                            FilterListBox.Visibility = Visibility.Visible;
-                            FilterPListBox.Visibility = Visibility.Visible;
+                            //if ((ModuleListBox.SelectedItem as ListBoxItem).Name == "AnalyticsListItem")
+                            //{ 
+                                FilterListBox.Visibility = Visibility.Visible; 
+                            //}
+                            //else
+                            //{
+                                FilterPListBox.Visibility = Visibility.Visible;
+
+                            //}
                             ProgressBarA.Visibility = Visibility.Hidden;
                             ProgressBarP.Visibility = Visibility.Hidden;
                         }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -294,6 +310,26 @@ namespace Layout
 
         }
 
+
+
+        private void FiltersP_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+            if (FilterPListBox.SelectedItems.Count != 0)
+            {
+
+                Publisher.Publish<SelectionEvent>(
+                    new SelectionEvent
+                    {
+                        EntityType = Domain.SubModuleType.Everyday,
+                        Entity = e.AddedItems[0] as Domain.PriceRoutine
+                    });
+            }
+            PricingTabDetail.Visibility = Visibility.Visible;
+            AnalyticTabDetail.Visibility = Visibility.Collapsed;
+        }
+
+        Boolean flag = false;
         private void Filters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
@@ -304,6 +340,9 @@ namespace Layout
                 switch (t.Name)
                 {
                     case "PriceRoutine" :
+                        if (flag == false)//FilterPListBox.SelectedItems.Count != 0)
+                        {
+
                         Publisher.Publish<SelectionEvent>(
                             new SelectionEvent
                             {
@@ -311,15 +350,24 @@ namespace Layout
                                 Entity = e.AddedItems[0] as Domain.PriceRoutine
                             });
                         PricingTabDetail.Visibility = Visibility.Visible;
+                        AnalyticTabDetail.Visibility = Visibility.Collapsed;
+                        }
+                        flag = true;
                         break;
                     case "Analytic" :
+                        if (flag == false)//FilterListBox.SelectedItems.Count !=0) //filtr list boxes always visible
+                        {
+
                         Publisher.Publish<SelectionEvent>(
                             new SelectionEvent
                             {
                                 EntityType = Domain.SubModuleType.Analytics,
                                 Entity = e.AddedItems[0] as Domain.Analytic
                             });
-                        AnalyticTabDetail.Visibility = Visibility.Visible;
+                            PricingTabDetail.Visibility = Visibility.Collapsed;
+                            AnalyticTabDetail.Visibility = Visibility.Visible;
+                        }
+                        flag = true;
                         break;
                     default:
                         break;
@@ -396,13 +444,14 @@ namespace Layout
 
         private void ModuleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            flag = false;
             //if (e.AddedItems.Count >= 1)
             //if (e.AddedItems.Contains(ModuleListBox.Items[0])) 
             //{
                 TagStack.Visibility = System.Windows.Visibility.Visible;
                 FavTagStack.Visibility = System.Windows.Visibility.Visible;
-                PricingTabDetail.Visibility = Visibility.Hidden;
-                AnalyticTabDetail.Visibility = Visibility.Hidden;
+                PricingTabDetail.Visibility = Visibility.Collapsed;
+                AnalyticTabDetail.Visibility = Visibility.Collapsed;
                 //FilterListBox.Visibility = Visibility.Collapsed;
             //}
             //else { FilterStackPanel.Visibility = Visibility.Collapsed; AnalyticTabDetail.Visibility = Visibility.Collapsed; }
@@ -436,16 +485,16 @@ namespace Layout
         {
             //if(AnalyticTabDetail.Visibility == Visibility.Visible)
             
-            AnalyticTabDetail.Visibility = Visibility.Hidden;
-            PricingTabDetail.Visibility = Visibility.Hidden;     
+            AnalyticTabDetail.Visibility = Visibility.Collapsed;
+            PricingTabDetail.Visibility = Visibility.Collapsed;     
         }
 
         private void FavTagListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
 
-            AnalyticTabDetail.Visibility = Visibility.Hidden;
-            PricingTabDetail.Visibility = Visibility.Hidden;
+            AnalyticTabDetail.Visibility = Visibility.Collapsed;
+            PricingTabDetail.Visibility = Visibility.Collapsed;
                
         }
         private void SearchByAllTags() 
@@ -505,8 +554,8 @@ namespace Layout
         private void TagSearchBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            AnalyticTabDetail.Visibility = Visibility.Hidden;
-            PricingTabDetail.Visibility = Visibility.Hidden;
+            AnalyticTabDetail.Visibility = Visibility.Collapsed;
+            PricingTabDetail.Visibility = Visibility.Collapsed;
 
             ProgressBarA.Visibility = Visibility.Visible;
             ProgressBarP.Visibility = Visibility.Visible;
@@ -551,6 +600,7 @@ namespace Layout
                
                 
         }
+
 
 
 

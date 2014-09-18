@@ -561,7 +561,7 @@
                                 <StackPanel Visibility="{Binding IsFiltersDisplayed}">                                    
                                     <TextBlock Text="Analytics" FontSize="25" Margin="5 35 0 0"></TextBlock>
                                     <Separator ></Separator>
-                                    <controls:MetroProgressBar IsIndeterminate="True"
+                                    <controls:MetroProgressBar IsIndeterminate="True" Visibility="{Binding IsProgressBarAOn}"
                                        x:Name="ProgressBarA"
                                        Minimum="200"
                                        Maximum="800"
@@ -586,7 +586,7 @@
                                 <StackPanel Visibility="{Binding IsFiltersPDisplayed}">
                                     <TextBlock Text="Price Routines" FontSize="25" Margin="5 35 0 0"></TextBlock>
                                     <Separator ></Separator>
-                                    <controls:MetroProgressBar IsIndeterminate="True"
+                                    <controls:MetroProgressBar IsIndeterminate="True" Visibility="{Binding IsProgressBarPOn}"
                                        x:Name="ProgressBarP"
                                        Minimum="200"
                                        Maximum="800"
@@ -607,9 +607,10 @@
                                 </ListBox>
                                 </StackPanel>
                             </StackPanel>
-                            <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
                                 
-                                <WrapPanel x:Name="AnalyticTabDetail" Background="Transparent" Visibility="{Binding IsDetailDisplayed, UpdateSourceTrigger=PropertyChanged}">
+                                <WrapPanel x:Name="AnalyticTabDetail" Background="Transparent"
+                                           Visibility="{Binding IsDetailDisplayed, UpdateSourceTrigger=Explicit}">
 
                                 <WrapPanel.Resources>
                                     <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />-->
@@ -636,117 +637,38 @@
                                         </TextBlock>
                                     
                                         <ListView ItemsSource="{Binding SelectedAnalytic.Tags}" Margin="0 10 10 10" Height="500" Width="Auto"/>
-                                        <!--<TabControl Margin="0, 50, 0, 0"
-                                        TabStripPlacement="Top"
-                                        Height="300" Width="850">
-                                    --><!--<TabItem Header="Identity" >
-                                        <StackPanel Margin="10">
-                                            <TextBlock x:Name="AnalyticTitle2" FontSize="30" Foreground="White" Text="{Binding Name}" />
-                                            <TextBlock FontSize="18" Foreground="White" Text="All OPGI Parts" />
-                                            <TextBlock FontSize="18" Foreground="White" Text="Status: Active"  />
-                                            <TextBlock FontSize="18" Foreground="White" Text="Comments:"  />
-                                            <TextBlock TextWrapping="WrapWithOverflow" FontSize="14" Foreground="White" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eget lectus mollis, faucibus nibh eget, rutrum sem. Ut sed sollicitudin tortor, nec tincidunt nunc. Duis venenatis sagittis elit, quis porta mi lacinia vel. Vivamus interdum, lectus sodales consequat volutpat, massa tortor faucibus nisl, eu bibendum risus urna in nisl. Donec consequat sed ante placerat pharetra. In sit amet felis posuere, lacinia risus ac, cursus felis. Maecenas consequat elit a enim aliquet fermentum. Vestibulum bibendum ipsum ut mauris condimentum sollicitudin. Nullam pharetra id eros nec accumsan. Ut laoreet a purus id placerat. Suspendisse mauris sapien, rhoncus quis auctor a, elementum in velit. Quisque id arcu pellentesque, pulvinar lorem id, ornare elit. Vivamus rutrum eu purus id placerat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egesta" />
-                                        </StackPanel>
-                                    </TabItem>--><!--
-                                    <TabItem Header="Filters"  >
-                                        <StackPanel Margin="10">
-                                            <TreeView x:Name="FilterTreeView" SelectedItemChanged="FilterTreeView_SelectedItemChanged">
-                                                <TreeViewItem Header="Filter 1">
-                                                    <TreeViewItem Header="Filter 1.1">
-                                                        <TreeViewItem Header="Filter 1.1.1" />
-                                                        <TreeViewItem Header="Filter 1.1.2" />
-                                                    </TreeViewItem>
-                                                    <TreeViewItem Header="Filter 1.2" />
-                                                    <TreeViewItem Header="Filter 1.3" />
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Filter 22" />
-                                                <TreeViewItem Header="Filter 3">
-                                                    <TreeViewItem Header="Filter 3.1">
-                                                        <TreeViewItem Header="Filter 3.1.1" />
-                                                        <TreeViewItem Header="Filter 3.1.2" />
-                                                    </TreeViewItem>
-                                                    <TreeViewItem Header="Filter 3.2" />
-                                                    <TreeViewItem Header="Filter 3.3" />
-                                                </TreeViewItem>
-                                            </TreeView>
-                                        </StackPanel>
-                                    </TabItem>
-                                    <TabItem Header="Price Lists">
-                                        <StackPanel Margin="10">
-                                            <TreeView>
-                                                <TreeViewItem Header="Price List 1">
-                                                    <TreeViewItem Header="Price List 1.1">
-                                                        <TreeViewItem Header="Price List 1.1.1" />
-                                                        <TreeViewItem Header="Price List 1.1.2" />
-                                                    </TreeViewItem>
-                                                    <TreeViewItem Header="Price List 1.2" />
-                                                    <TreeViewItem Header="Price List 1.3" />
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Price List 22" />
-                                                <TreeViewItem Header="Price List 3">
-                                                    <TreeViewItem Header="Price List 3.1">
-                                                        <TreeViewItem Header="Price List 3.1.1" />
-                                                        <TreeViewItem Header="Price List 3.1.2" />
-                                                    </TreeViewItem>
-                                                    <TreeViewItem Header="Price List 3.2" />
-                                                    <TreeViewItem Header="Price List 3.3" />
-                                                </TreeViewItem>
-                                            </TreeView>
-                                        </StackPanel>
-                                    </TabItem>
-                                    <TabItem Header="Value Drivers">
-                                        <StackPanel Margin="10">
-                                            <TreeView >
-                                                <TreeViewItem Header="Value Driver 1">
-                                                    <TreeViewItem Header="Value Driver 1.1">
-                                                        <TreeViewItem Header="Value Driver 1.1.1" />
-                                                        <TreeViewItem Header="Value Driver 1.1.2" />
-                                                    </TreeViewItem>
-                                                    <TreeViewItem Header="Value Driver 1.2" />
-                                                    <TreeViewItem Header="Value Driver 1.3" />
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Value Driver 22" />
-                                                <TreeViewItem Header="Value Driver 3">
-                                                    <TreeViewItem Header="Value Driver 3.1">
-                                                        <TreeViewItem Header="Value Driver 3.1.1" />
-                                                        <TreeViewItem Header="Value Driver 3.1.2" />
-                                                    </TreeViewItem>
-                                                    <TreeViewItem Header="Value Driver 3.2" />
-                                                    <TreeViewItem Header="Value Driver 3.3" />
-                                                </TreeViewItem>
-                                            </TreeView>
-                                        </StackPanel>
-                                    </TabItem>
-                                </TabControl>-->
+                                        
                                     </StackPanel>
                             </WrapPanel>
-                                <WrapPanel x:Name="PricingTabDetail" Background="Transparent" Visibility="{Binding IsPDetailDisplayed}">
+                                <WrapPanel x:Name="PricingTabDetail" Background="Transparent"
+                                           Visibility="{Binding IsPDetailDisplayed, UpdateSourceTrigger=PropertyChanged}">
 
                                     <WrapPanel.Resources>
                                         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />-->
                                     </WrapPanel.Resources>
                                     <!--<ContentControl x:Name="DetailControl" ></ContentControl>-->
                                     <StackPanel Margin="20 40 0 40" Width="600" HorizontalAlignment="Left">
-                                        <TextBlock x:Name="PricingTitle" FontSize="25" Foreground="White" Text="{Binding SelectedAnalytic.Name}" />
+                                        <TextBlock x:Name="PricingTitle" FontSize="25" Foreground="White" 
+                                                   Text="{Binding SelectedPriceRoutine.Name}" />
                                         <Separator Margin="0 2 0 15"></Separator>
                                         <!--<TextBlock FontSize="18" Foreground="White" Text="All OPGI Parts" />-->
                                         <!--<TextBlock FontSize="18" Foreground="White" Text="Status: "  />-->
+                                        <!--<TextBlock FontSize="18" Foreground="White">
+                                            <Run Text="Status: " /><Run Text="{Binding SelectedPriceRoutine.Status}"/>
+                                        </TextBlock>-->
                                         <TextBlock FontSize="18" Foreground="White">
-                                            <Run Text="Status: " /><Run Text="{Binding SelectedAnalytic.Status}"/>
-                                        </TextBlock>
-                                        <TextBlock FontSize="18" Foreground="White">
-                                            <Run Text="Description: "/><Run Text="{Binding SelectedAnalytic.Description}"/>
-                                        </TextBlock>
-
-                                        <TextBlock FontSize="18" Foreground="White">
-                                            <Run Text="Last Updated: "/><Run Text="{Binding SelectedAnalytic.LastUpdated}"/>
+                                            <Run Text="Description: "/><Run Text="{Binding SelectedPriceRoutine.Description}"/>
                                         </TextBlock>
 
                                         <TextBlock FontSize="18" Foreground="White">
-                                            <Run Text="Last User Updated: "/><Run Text="{Binding SelectedAnalytic.LastUserUpdated}"/>
+                                            <Run Text="Last Updated: "/><Run Text="{Binding SelectedPriceRoutine.LastUpdated}"/>
                                         </TextBlock>
 
-                                        <ListView ItemsSource="{Binding SelectedAnalytic.Tags}" Margin="0 10 10 10" Height="500" Width="Auto"/>
+                                        <TextBlock FontSize="18" Foreground="White">
+                                            <Run Text="Last User Updated: "/><Run Text="{Binding SelectedPriceRoutine.LastUserUpdated}"/>
+                                        </TextBlock>
+
+                                        <ListView ItemsSource="{Binding SelectedPriceRoutine.Tags}" Margin="0 10 10 10" Height="200" Width="Auto"/>
                                         <!--<TabControl Margin="0, 50, 0, 0"
                                         TabStripPlacement="Top"
                                         Height="300" Width="850">

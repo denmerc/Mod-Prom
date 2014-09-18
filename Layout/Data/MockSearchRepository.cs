@@ -251,7 +251,7 @@ namespace Layout.Data
                 }
 
             }
-            catch (Exception) //user does not exist
+            catch (Exception) //user does not exist - usually b/c cant make connection
             {
                 
                 throw;

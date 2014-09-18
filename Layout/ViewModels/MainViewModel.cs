@@ -327,8 +327,10 @@ namespace Layout.ViewModels
                             }
                             else
                             {
+                               
                                 SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Search]; this.RaisePropertyChanged("SelectedSubModuleViewModel");
-                                ((HomeSearchViewModel)SelectedSubModuleViewModel).ToggleSearchPane(true);
+                                ((HomeSearchViewModel)SelectedSubModuleViewModel).ToggleSearchPane(navigator.SubModule);
+
                             }
                             break;
                         case Domain.SubModuleType.MySettings:
@@ -718,9 +720,11 @@ namespace Layout.ViewModels
             EventManager.GetEvent<Domain.SubModuleType>()
                 .Subscribe(submodule =>
                 {
+                    SelectedSubModule = submodule;
                     switch (submodule)
                     {
                         case SubModuleType.Analytics:
+                            
                             if(FavoriteTags == null)
                                 {LoadFavoritesBySubModuleCommand.Execute(submodule);}
                             if(Analytics == null)
@@ -794,16 +798,16 @@ namespace Layout.ViewModels
                 {
                     case SubModuleType.Analytics:
                         SelectedAnalytic = selection.Entity as Domain.Analytic;
+                        //IsDetailDisplayed = Visibility.Hidden;this.RaisePropertyChanged("IsDetailDisplayed");
                         //IsDetailDisplayed = Visibility.Visible; this.RaisePropertyChanged("IsDetailDisplayed");
                         IsActionBarOn = Visibility.Visible;
                         break;
                     case SubModuleType.Everyday:
-                        SelectedPriceRoutine = selection.Entity as Domain.PriceRoutine;
-                        break;
                     case SubModuleType.Promotions:
-                        SelectedPriceRoutine = selection.Entity as Domain.PriceRoutine;
-                        break;
                     case SubModuleType.Kits:
+                        //IsPDetailDisplayed = Visibility.Hidden;this.RaisePropertyChanged("IsPDetailDisplayed");
+                        //IsPDetailDisplayed = Visibility.Visible; this.RaisePropertyChanged("IsPDetailDisplayed");
+
                         SelectedPriceRoutine = selection.Entity as Domain.PriceRoutine;
                         break;
                     case SubModuleType.MySettings:
@@ -936,7 +940,9 @@ namespace Layout.ViewModels
         public Reactive.EventAggregator EventManager { get; set; }
         public List<Domain.SubModuleType> SubModuleKeys { get; set; }
 
-        public string SelectedSubModuleItem { get; set; }
+        private Domain.SubModuleType _selectedSubModule = Domain.SubModuleType.Search;
+        public Domain.SubModuleType SelectedSubModule { get { return _selectedSubModule; } set {this.RaiseAndSetIfChanged(ref _selectedSubModule,value); } }
+
         public List<String> SelectedTagItems { get; set; }
 
         private System.Windows.Visibility _IsTagsDisplayed = System.Windows.Visibility.Hidden;
@@ -946,20 +952,73 @@ namespace Layout.ViewModels
             set { this.RaiseAndSetIfChanged(ref _IsTagsDisplayed, value); }
         }
 
-        public void ToggleSearchPane(bool on)
+        public void ToggleSearchPane(Domain.SubModuleType type)
         {
-            if (on)
+            switch (type)
             {
-                IsFiltersDisplayed = System.Windows.Visibility.Visible ;
-                IsDetailDisplayed = System.Windows.Visibility.Visible;
-                IsTagsDisplayed = System.Windows.Visibility.Visible;
+                case SubModuleType.Analytics:
+
+                    break;
+                case SubModuleType.Everyday:
+                case SubModuleType.Promotions:
+                case SubModuleType.Kits:
+                    break;
+                case SubModuleType.MySettings:
+                    break;
+                case SubModuleType.Search:
+                    IsTagsDisplayed = System.Windows.Visibility.Visible;
+                    switch (SelectedSubModule)
+	                {
+                        case SubModuleType.Analytics:
+                            IsFiltersDisplayed = Visibility.Visible;
+                            IsFiltersPDisplayed = Visibility.Collapsed;
+                            IsTagsDisplayed = Visibility.Visible;
+                            IsPDetailDisplayed = Visibility.Collapsed;this.RaisePropertyChanged("IsPDetailDisplayed");
+                            IsDetailDisplayed = Visibility.Visible;
+                            IsProgressBarAOn = Visibility.Hidden;
+                            IsProgressBarPOn = Visibility.Hidden;
+                            break;
+                        case SubModuleType.Everyday:
+                        case SubModuleType.Promotions:
+                        case SubModuleType.Kits:
+                            IsFiltersDisplayed = Visibility.Collapsed;
+                            IsFiltersPDisplayed = Visibility.Visible;
+                            IsTagsDisplayed = Visibility.Visible;
+                            IsDetailDisplayed = Visibility.Collapsed;
+                            IsPDetailDisplayed = Visibility.Visible;
+                            IsProgressBarAOn = Visibility.Hidden;
+                            IsProgressBarPOn = Visibility.Hidden;
+                            break;
+                        
+                        default:
+                            IsFiltersDisplayed = Visibility.Collapsed;
+                            IsFiltersPDisplayed = Visibility.Collapsed;   
+                            IsTagsDisplayed = Visibility.Collapsed;
+                            IsDetailDisplayed = Visibility.Collapsed;
+                            IsPDetailDisplayed = Visibility.Collapsed;
+                            IsProgressBarAOn = Visibility.Collapsed;
+                            IsProgressBarPOn = Visibility.Collapsed;
+                            break;
+	                }
+                    
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                IsFiltersDisplayed = System.Windows.Visibility.Hidden;
-                IsDetailDisplayed = System.Windows.Visibility.Hidden;
-                IsTagsDisplayed = System.Windows.Visibility.Hidden;
-            }
+            //if (on)
+            //{
+            //    IsFiltersDisplayed = System.Windows.Visibility.Visible ;
+            //    IsDetailDisplayed = System.Windows.Visibility.Visible;
+            //    IsTagsDisplayed = System.Windows.Visibility.Visible;
+            //}
+            //else
+            //{
+            //    IsFiltersDisplayed = System.Windows.Visibility.Hidden;
+            //    IsDetailDisplayed = System.Windows.Visibility.Collapsed;
+            //    IsPDetailDisplayed = System.Windows.Visibility.Collapsed;
+              
+            //    IsTagsDisplayed = System.Windows.Visibility.Hidden;
+            //}
         }
 
         public void ToggleResults(string type)
@@ -975,7 +1034,7 @@ namespace Layout.ViewModels
             
         }
 
-        private System.Windows.Visibility _IsFiltersDisplayed = System.Windows.Visibility.Hidden;
+        private System.Windows.Visibility _IsFiltersDisplayed = System.Windows.Visibility.Collapsed;
         public System.Windows.Visibility IsFiltersDisplayed
         {
             get { return _IsFiltersDisplayed; }
@@ -1007,6 +1066,20 @@ namespace Layout.ViewModels
         {
             get { return _IsActionBarOn; }
             set { this.RaiseAndSetIfChanged(ref _IsActionBarOn, value); }
+        }
+
+        private System.Windows.Visibility _IsProgressBarAOn = System.Windows.Visibility.Collapsed;
+        public System.Windows.Visibility IsProgressBarAOn
+        {
+            get { return _IsProgressBarAOn; }
+            set { this.RaiseAndSetIfChanged(ref _IsProgressBarAOn, value); }
+        }
+
+        private System.Windows.Visibility _IsProgressBarPOn = System.Windows.Visibility.Collapsed;
+        public System.Windows.Visibility IsProgressBarPOn
+        {
+            get { return _IsProgressBarAOn; }
+            set { this.RaiseAndSetIfChanged(ref _IsProgressBarAOn, value); }
         }
         protected ReactiveCommand<object> LoadTagsBySubModuleCommand;
         protected ReactiveCommand<object> LoadAnalyticsByTagCommand;
