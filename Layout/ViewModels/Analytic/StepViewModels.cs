@@ -15,12 +15,12 @@ namespace Layout.ViewModels.Analytic
         }
 
         //Selected Domain.Analytic
-        //private Domain.Analytic _SelectedAnalytic;
-        //public Domain.Analytic SelectedAnalytic
-        //{
-        //    get { return _SelectedAnalytic; }
-        //    set { this.RaiseAndSetIfChanged(ref _SelectedAnalytic, value); }
-        //}
+        private Domain.Analytic _SelectedAnalytic;
+        public Domain.Analytic SelectedAnalytic
+        {
+            get { return _SelectedAnalytic; }
+            set { this.RaiseAndSetIfChanged(ref _SelectedAnalytic, value); }
+        }
 
         //public void Load(object entity)
         //{
