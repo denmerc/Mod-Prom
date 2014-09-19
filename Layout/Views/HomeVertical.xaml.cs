@@ -349,9 +349,10 @@ namespace Layout
                                 EntityType = Domain.SubModuleType.Everyday,
                                 Entity = e.AddedItems[0] as Domain.PriceRoutine
                             });
+                        }
                         PricingTabDetail.Visibility = Visibility.Visible;
                         AnalyticTabDetail.Visibility = Visibility.Collapsed;
-                        }
+
                         flag = true;
                         break;
                     case "Analytic" :
@@ -364,9 +365,10 @@ namespace Layout
                                 EntityType = Domain.SubModuleType.Analytics,
                                 Entity = e.AddedItems[0] as Domain.Analytic
                             });
+                        }
                             PricingTabDetail.Visibility = Visibility.Collapsed;
                             AnalyticTabDetail.Visibility = Visibility.Visible;
-                        }
+                            
                         flag = true;
                         break;
                     default:
