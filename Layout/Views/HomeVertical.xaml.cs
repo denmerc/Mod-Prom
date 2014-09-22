@@ -324,9 +324,10 @@ namespace Layout
                         EntityType = Domain.SubModuleType.Everyday,
                         Entity = e.AddedItems[0] as Domain.PriceRoutine
                     });
+                PricingTabDetail.Visibility = Visibility.Visible;
+                AnalyticTabDetail.Visibility = Visibility.Collapsed;
             }
-            PricingTabDetail.Visibility = Visibility.Visible;
-            AnalyticTabDetail.Visibility = Visibility.Collapsed;
+            
         }
 
         Boolean flag = false;
@@ -350,20 +351,20 @@ namespace Layout
                                 Entity = e.AddedItems[0] as Domain.PriceRoutine
                             });
                         }
-                        if(FilterPListBox.SelectedItem != null)
-                        {
+                        //if (FilterPListBox.SelectedItem != null && FilterPListBox.Visibility == Visibility.Visible)
+                        //{
 
-                            PricingTabDetail.Visibility = Visibility.Visible;
-                            AnalyticTabDetail.Visibility = Visibility.Collapsed;
-                            MarginStackPanel.Visibility = Visibility.Visible;                            
-                        }
-                        else
-                        {
+                        //    PricingTabDetail.Visibility = Visibility.Visible;
+                        //    AnalyticTabDetail.Visibility = Visibility.Collapsed;
+                        //    //MarginStackPanel.Visibility = Visibility.Visible;                            
+                        //}
+                        //else
+                        //{
 
-                            PricingTabDetail.Visibility = Visibility.Collapsed;
-                            AnalyticTabDetail.Visibility = Visibility.Collapsed;
-                            MarginStackPanel.Visibility = Visibility.Collapsed;
-                        }
+                        //    PricingTabDetail.Visibility = Visibility.Collapsed;
+                        //    AnalyticTabDetail.Visibility = Visibility.Collapsed;
+                        //    MarginStackPanel.Visibility = Visibility.Collapsed;
+                        //}
                         flag = true;
                         break;
                     case "Analytic" :
@@ -377,7 +378,7 @@ namespace Layout
                                 Entity = e.AddedItems[0] as Domain.Analytic
                             });
                         }
-                        if(FilterListBox.SelectedItem != null)
+                        if(FilterListBox.SelectedItem != null && FilterListBox.Visibility == Visibility.Visible)
                         {
 
                             PricingTabDetail.Visibility = Visibility.Collapsed;
@@ -577,7 +578,8 @@ namespace Layout
         }
         private void TagSearchBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            FilterListBox.SelectedItem = null;
+            FilterPListBox.SelectedItem = null;
             AnalyticTabDetail.Visibility = Visibility.Collapsed;
             PricingTabDetail.Visibility = Visibility.Collapsed;
             MarginStackPanel.Visibility = Visibility.Collapsed;
