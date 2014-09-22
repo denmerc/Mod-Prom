@@ -113,7 +113,7 @@ namespace Layout
                         Module = Domain.ModuleType.Planning,
                         SubModule = Domain.SubModuleType.Analytics,
                         Section = Domain.SectionType.PlanningAnalyticsIdentity
-
+                        
                     });
                     break;
                 case "2" : //filters
@@ -169,6 +169,29 @@ namespace Layout
             subView.AnalyticTextBox.Text = this.TitleTextBox.Text;
             view.StepContentControl.Content = subView;
             this.Content = view;
+        }
+
+        private void SaveAnalytic_Click(object sender, RoutedEventArgs e)
+        {
+
+            switch (StepListBox.SelectedIndex)
+	        {
+                case 0:
+                    Publisher.Publish<SaveEvent>(
+                        new SaveEvent
+                        {
+                            Module = Domain.ModuleType.Planning,
+                            SubModule = Domain.SubModuleType.Analytics,
+                            Section = Domain.SectionType.PlanningAnalyticsIdentity
+
+                        });
+                    StepListBox.SelectedItem = StepListBox.Items[1];
+                    break;
+		        default:
+                    break;
+	        }
+            
+
         }
 	}
 }

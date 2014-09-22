@@ -75,22 +75,22 @@
                                                             Width="800" Margin="0 5" Height="Auto" ScrollViewer.CanContentScroll="True"
                                                             Background="White" FontSize="16" Foreground="Black"
                                                                 />
-                    <!--<ListView ItemsSource="{Binding SelectedAnalytic.Tags}" Margin="0 10 10 10" Height="200" Width="150"/>-->
+                    <!--<ListView ItemsSource="{Binding Se<lectedAnalytic.Tags}" Margin="0 10 10 10" Height="200" Width="150"/>-->
 
 
                 </StackPanel>
             </ListBoxItem>
-            <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
+            <!--<ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <!--<StackPanel.Resources>
+                    --><!--<StackPanel.Resources>
 														<Style TargetType="{x:Type Button}">
 															<Setter Property="Margin" Value="2"/>
 														</Style>
-													</StackPanel.Resources>-->
-                    <Button>Save</Button>
+													</StackPanel.Resources>--><!--
+                    <Button x:Name="SaveIdentity" Click="SaveIdentity_Click">Save</Button>
                     <Button>Cancel</Button>
                 </StackPanel>
-            </ListBoxItem>
+            </ListBoxItem>-->
         </ListBox>
     </Grid>
 </UserControl>

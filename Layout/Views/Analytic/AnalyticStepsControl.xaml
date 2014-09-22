@@ -451,10 +451,16 @@
                                         Margin="0,3,0,10"
                                         Content="Rename Anayltic..."
                                         Style="{StaticResource LinkButton}" />-->
+                    
                     <Button x:Name="RunAnalytic"  FontSize="14"
                                         Margin="0,3,0,10"
                                         Content="Run and review results..."
                                         Click="RunAnalytic_Click"
+                                        Style="{StaticResource LinkButton}" />
+                    <Button x:Name="SaveAnalytic"  FontSize="14"
+                                        Margin="0,3,0,10"
+                                        Content="Save..."
+                                        Click="SaveAnalytic_Click"
                                         Style="{StaticResource LinkButton}" />
                     <Button x:Name="CreatePriceRoutineButton" FontSize="14"
                                         Margin="0,3,0,10"

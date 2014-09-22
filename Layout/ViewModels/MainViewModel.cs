@@ -548,6 +548,14 @@ namespace Layout.ViewModels
             public Object Entity { get; set; }
         }
 
+        public class SaveEvent
+        {
+            public Domain.ModuleType Module { get; set; }
+            public Domain.SubModuleType SubModule { get; set; }
+            public Domain.SectionType Section { get; set; }
+            public Object Entity { get; set; }
+        }
+
         public class TagSearchEvent
         {
             public Domain.ModuleType Module { get; set; }
@@ -1154,6 +1162,7 @@ namespace Layout.ViewModels
         //{
 
         //}
+        Layout.ViewModels.Reactive.EventAggregator EventManager = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
 
         private Dictionary<Domain.SectionType, ViewModelBase> StepCache = new Dictionary<SectionType,ViewModelBase>();
         //private static Domain.Analytic SelectedAnalytic { get; set; }
@@ -1175,7 +1184,7 @@ namespace Layout.ViewModels
             
             if(!StepCache.ContainsKey(navigator.Section))
             {
-                switch (navigator.Section)
+                switch (navigator.Section)// switch action bar for each step
                 {
                     //case SectionType.StartupLoginInitialization:
                     //    break;
@@ -1195,6 +1204,7 @@ namespace Layout.ViewModels
                         break;
                     case SectionType.PlanningAnalyticsIdentity:
                         SelectedStepViewModel = new ViewModels.Analytic.IdentityViewModel(SelectedAnalytic);
+                       
                         break;
                     case SectionType.PlanningAnalyticsFilters:
                         SelectedStepViewModel = new ViewModels.Analytic.FilterViewModel(SelectedAnalytic);
@@ -1219,7 +1229,7 @@ namespace Layout.ViewModels
 	                {
                         case SectionType.PlanningAnalyticsIdentity:
                             SelectedStepViewModel = ((Analytic.IdentityViewModel)StepCache[navigator.Section]);
-                           
+                            //SelectedStepViewModel.Load(navigator.Entity);
                             break;
                         case SectionType.PlanningAnalyticsFilters:
                             SelectedStepViewModel = ((Analytic.FilterViewModel)StepCache[navigator.Section]);
@@ -1252,6 +1262,38 @@ namespace Layout.ViewModels
         public AnalyticViewModel(IAnalyticRepository repo, Session session, string name)
         {
             Name = name;
+
+            EventManager.GetEvent<SaveEvent>()
+                .Subscribe(evt =>
+                {
+                    switch (evt.Section)
+                    {
+                        case SectionType.PlanningHomeMyMarkuprules:
+                            break;
+                        case SectionType.PlanningHomeMyRoundingrules:
+                            break;
+                        case SectionType.PlanningAnalyticsMyAnalytics:
+                            break;
+                        case SectionType.PlanningAnalyticsIdentity:
+                            var vm = (ViewModels.Analytic.IdentityViewModel)(SelectedStepViewModel);
+                            var tagsToSave = vm.SelectedTags;
+                            var analyticToSave = vm.SelectedAnalytic;
+                            vm.SelectedAnalytic.Tags = tagsToSave.Select( y => y.Value).ToList<string>();
+                            repo.Save<Domain.Analytic>(analyticToSave);
+                            this.Navigate(new NavigateEvent { Module = Domain.ModuleType.Planning, SubModule = SubModuleType.Analytics, Section = SectionType.PlanningAnalyticsFilters });
+                            break;
+                        case SectionType.PlanningAnalyticsFilters:
+                            break;
+                        case SectionType.PlanningAnalyticsPriceLists:
+                            break;
+                        case SectionType.PlanningAnalyticsValueDrivers:
+                            break;
+                        case SectionType.PlanningAnalyticsResults:
+                            break;
+                        default:
+                            break;
+                    }
+                });
         }
 
         public string Name { get; set; }

@@ -104,7 +104,7 @@ namespace Layout
                     //if((ModuleListBox.SelectedItem as ListBoxItem).Name == "AnalyticsListItem")
                     //{
                     FilterListBox.Visibility = Visibility.Hidden;
-
+                    MarginStackPanel.Visibility = Visibility.Collapsed;
                     //}
                     //else
                     //{
@@ -179,7 +179,7 @@ namespace Layout
                     {
                         
                         //Do translation to SubmoduleType here - did not want to bind to data  b/c wanted to preserve styling
-                        if (x != null)
+                        if (x != null)  
                         {
                             Console.WriteLine((x as ListBoxItem).Tag);
 
@@ -350,9 +350,20 @@ namespace Layout
                                 Entity = e.AddedItems[0] as Domain.PriceRoutine
                             });
                         }
-                        PricingTabDetail.Visibility = Visibility.Visible;
-                        AnalyticTabDetail.Visibility = Visibility.Collapsed;
+                        if(FilterPListBox.SelectedItem != null)
+                        {
 
+                            PricingTabDetail.Visibility = Visibility.Visible;
+                            AnalyticTabDetail.Visibility = Visibility.Collapsed;
+                            MarginStackPanel.Visibility = Visibility.Visible;                            
+                        }
+                        else
+                        {
+
+                            PricingTabDetail.Visibility = Visibility.Collapsed;
+                            AnalyticTabDetail.Visibility = Visibility.Collapsed;
+                            MarginStackPanel.Visibility = Visibility.Collapsed;
+                        }
                         flag = true;
                         break;
                     case "Analytic" :
@@ -366,9 +377,20 @@ namespace Layout
                                 Entity = e.AddedItems[0] as Domain.Analytic
                             });
                         }
+                        if(FilterListBox.SelectedItem != null)
+                        {
+
                             PricingTabDetail.Visibility = Visibility.Collapsed;
                             AnalyticTabDetail.Visibility = Visibility.Visible;
-                            
+                            MarginStackPanel.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+
+                            PricingTabDetail.Visibility = Visibility.Collapsed;
+                            AnalyticTabDetail.Visibility = Visibility.Collapsed;
+                            MarginStackPanel.Visibility = Visibility.Collapsed;
+                        }
                         flag = true;
                         break;
                     default:
@@ -558,7 +580,7 @@ namespace Layout
 
             AnalyticTabDetail.Visibility = Visibility.Collapsed;
             PricingTabDetail.Visibility = Visibility.Collapsed;
-
+            MarginStackPanel.Visibility = Visibility.Collapsed;
             ProgressBarA.Visibility = Visibility.Visible;
             ProgressBarP.Visibility = Visibility.Visible;
             FilterListBox.Visibility = Visibility.Hidden;

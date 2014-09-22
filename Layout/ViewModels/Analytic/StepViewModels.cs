@@ -17,8 +17,13 @@ namespace Layout.ViewModels.Analytic
             Tags = new ReactiveList<Domain.Tag>(){
                 new Domain.Tag{Value="tag-ut"}
             };
-            TagsToSuggest = SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() }).ToList();
-            SelectedTags.AddRange( SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() })); 
+
+            this.WhenAny(x => x.SelectedAnalytic, x => x).Subscribe( a => {
+                    TagsToSuggest = SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() }).ToList();
+                    SelectedTags.AddRange( SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() })); 
+                });
+            //TagsToSuggest = SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() }).ToList();
+            //SelectedTags.AddRange( SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() })); 
             //SelectedTags = SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() }).ToList();
 
         }

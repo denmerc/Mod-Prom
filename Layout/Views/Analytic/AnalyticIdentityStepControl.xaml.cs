@@ -24,5 +24,11 @@ namespace Layout
         {
             InitializeComponent();
         }
+
+
+        private void SaveIdentity_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
