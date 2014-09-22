@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using ReactiveUI;
+
 
 namespace Domain
 {
@@ -225,7 +227,9 @@ namespace Domain
             //public string Group1 { get; set; }
             //public string Group2 { get; set; }
             //public string Folder { get; set; }
-            public List<string> Tags { get; set; }
+
+            private List<string> _Tags;
+            public List<string> Tags { get { return _Tags; } set { this.RaiseAndSetIfChanged(ref _Tags, value); } }
             public List<string> FavoriteTags { get; set; }
             //public IList<string> Drivers { get; set; }
             public bool Shared { get; set; }

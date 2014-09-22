@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,15 +13,30 @@ namespace Layout.ViewModels.Analytic
         public IdentityViewModel(object entity)
         {
             SelectedAnalytic = (Domain.Analytic)entity;
+            //Tags2 = SelectedAnalytic.Tags;
+            Tags = new ReactiveList<Domain.Tag>(){
+                new Domain.Tag{Value="tag-ut"}
+            };
+            TagsToSuggest = SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() }).ToList();
+            SelectedTags.AddRange( SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() })); 
+            //SelectedTags = SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() }).ToList();
+
         }
 
+        private ReactiveList<Domain.Tag> _SelectedTags = new ReactiveList<Domain.Tag>();
+        public ReactiveList<Domain.Tag> SelectedTags { get { return _SelectedTags; } set { this.RaiseAndSetIfChanged(ref _SelectedTags, value); } }
+        private ReactiveList<Domain.Tag> _Tags;
+        public ReactiveList<Domain.Tag> Tags { get { return _Tags; } set { this.RaiseAndSetIfChanged(ref _Tags, value); } }
+        private List<Domain.Tag> _TagsToSuggest;
+        public List<Domain.Tag> TagsToSuggest { get { return _TagsToSuggest; } set { this.RaiseAndSetIfChanged(ref _TagsToSuggest, value); } }
+
         //Selected Domain.Analytic
-        private Domain.Analytic _SelectedAnalytic;
-        public Domain.Analytic SelectedAnalytic
-        {
-            get { return _SelectedAnalytic; }
-            set { this.RaiseAndSetIfChanged(ref _SelectedAnalytic, value); }
-        }
+        //private Domain.Analytic _SelectedAnalytic;
+        //public Domain.Analytic SelectedAnalytic
+        //{
+        //    get { return _SelectedAnalytic; }
+        //    set { this.RaiseAndSetIfChanged(ref _SelectedAnalytic, value); }
+        //}
 
         //public void Load(object entity)
         //{

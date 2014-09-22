@@ -66,13 +66,16 @@
                     <!--<TextBox x:Name="CommentTextBox" FontSize="16" Foreground="{StaticResource Foreground}" 
                              Width="450" Height="150" Text="{Binding SelectedAnalytic.Tags}"
                              Style="{DynamicResource TextBoxStyle1}" ></TextBox>-->
-                    <!--<telerik:RadAutoCompleteBox x:Name="TagSearchBox" ItemsSource="{Binding SelectedAnalytic.Tags}"
-                                                            SelectedItems="{Binding SelectedAnalytic.Tags}" 
-                                                            AutoCompleteMode="Suggest"
-                                                            Width="200" Margin="0 5"
+                    <telerik:RadAutoCompleteBox x:Name="TagSearchBox" ItemsSource="{Binding TagsToSuggest}"
+                                                            DisplayMemberPath="Value"
+                                                            
+                                                            SelectionMode="Multiple"
+                                                            SelectedItems="{Binding SelectedTags, Mode=TwoWay}" 
+                                                            AutoCompleteMode="SuggestAppend"
+                                                            Width="800" Margin="0 5" Height="Auto" ScrollViewer.CanContentScroll="True"
                                                             Background="White" FontSize="16" Foreground="Black"
-                                                                />-->
-                    <ListView ItemsSource="{Binding SelectedAnalytic.Tags}" Margin="0 10 10 10" Height="200" Width="150"/>
+                                                                />
+                    <!--<ListView ItemsSource="{Binding SelectedAnalytic.Tags}" Margin="0 10 10 10" Height="200" Width="150"/>-->
 
 
                 </StackPanel>
