@@ -187,7 +187,18 @@ namespace Layout
                         });
                     StepListBox.SelectedItem = StepListBox.Items[1];
                     break;
-		        default:
+                case 1:
+                    Publisher.Publish<SaveEvent>(
+                        new SaveEvent
+                        {
+                            Module = Domain.ModuleType.Planning,
+                            SubModule = Domain.SubModuleType.Analytics,
+                            Section = Domain.SectionType.PlanningAnalyticsFilters
+
+                        });
+                    StepListBox.SelectedItem = StepListBox.Items[2];
+                    break;
+                default:
                     break;
 	        }
             

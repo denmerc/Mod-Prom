@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ReactiveUI;
 
 namespace Layout
 {
@@ -26,8 +27,10 @@ namespace Layout
         public FilterStepControl()
         {
             InitializeComponent();
-        }
 
+           
+        }
+        
         private void ListBoxItem_OnSelected(object sender, RoutedEventArgs e)
         {
             var selected = StepContentListBox.SelectedItem;

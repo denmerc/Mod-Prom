@@ -1,4 +1,6 @@
 ﻿using ReactiveUI;
+using System.Reactive;
+using System.Reactive.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -69,10 +71,86 @@ namespace Layout.ViewModels.Analytic
             EventManager.GetEvent<Domain.FilterType>()
                 .Subscribe(ftype =>
                 {
+                    var ttype = string.Empty;
+                    switch (ftype)
+                    {
+                        case Domain.FilterType.VendorCode:
+                            ttype = "VendorCode";
+                            break;
+                        case Domain.FilterType.IsKit:
+                            ttype = "IsKit";
+                            break;
+                        case Domain.FilterType.OnSale:
+                            ttype = "OnSale";
+                            break;
+                        case Domain.FilterType.Category:
+                            ttype = "Category";
+                            break;
+                        case Domain.FilterType.DiscountType:
+                            ttype = "DiscountType";
+                            break;
+                        case Domain.FilterType.StatusType:
+                            ttype = "StatusType";
+                            break;
+                        case Domain.FilterType.ProductType:
+                            ttype = "ProductType";
+                            break;
+                        case Domain.FilterType.StockClass:
+                            ttype = "StockClass";
+                            break;
+                        default:
+                            break;
+                    }
+                    //update selected analytic with changes for that type
+                    //var filterItems = SelectedAnalytic.Filters
+                    //    .Where(x => x.Type == ttype)
+                    //    .SelectMany(y => y.Items).ToList();
+                    //filterItems = FilterItems;
+
+
+
                     var type = Enum.GetName(typeof(Domain.FilterType), ftype);
-                    FilterItems = SelectedAnalytic.Filters.Where( fs => fs.Type == type).SelectMany(x => x.Items.Where(t => t.Type == SelectedType) )
-                                        .Select(f => new FilterItemViewModel { Code = f.Code, Description = f.Description, IsSelected = true}).ToList();
-                    
+                    var filterItems = SelectedAnalytic.Filters.Where(fs => fs.Type == type)
+                        .SelectMany(x => x.Items.Where(t => t.Type == SelectedType)).ToList();
+                    //FilterItems.SuppressChangeNotifications();
+                    FilterItems.Clear();
+                    for (int i = 0; i < filterItems.Count; i++)
+                    {
+                        FilterItems.Add(filterItems[i]);
+                        
+                    }
+
+                    var selectedObservable = this.WhenAnyObservable(x => x.FilterItems.ItemChanged)
+                         .Where(x => x.PropertyName == "IsSelected");
+                         //.Select(_ => FilterItems.Any(x => x.IsSelected));
+
+                    selectedObservable.Subscribe(x =>
+                    {
+                        Console.WriteLine("test");
+                    });
+                        //.ToProperty(this, x => x.SelectedFilterItems)
+
+
+                    SelectedFilterItems = FilterItems.CreateDerivedCollection(i => i, x => x.IsSelected);
+                        //.Select(f => new FilterItemViewModel { Code = f.Code, Description = f.Description, IsSelected = f.IsSelected}).ToList();
+
+                    //selectedItems.Changed.Subscribe(x => {
+                    //    Console.WriteLine("test");
+                    //});
+
+                    this.WhenAnyValue(vm => vm.SelectedFilterItems).Subscribe(selected => {
+                        Console.WriteLine("test");    
+                    });
+
+                    this.WhenAnyObservable(vm => vm.SelectedFilterItems.ItemChanged).Subscribe(selected =>
+                    {
+                        Console.WriteLine("test");
+                    });
+
+                    FilterItems.ItemChanged.Subscribe(x => {
+                        Console.WriteLine("t");
+                    });
+                   
                 });
 
             
@@ -90,8 +168,10 @@ namespace Layout.ViewModels.Analytic
         //    set { this.RaiseAndSetIfChanged(ref _SelectedAnalytic, value); }
         //}
 
-        private List<FilterItemViewModel> _FilterItems;
-        public List<FilterItemViewModel> FilterItems { get { return _FilterItems; } set { this.RaiseAndSetIfChanged(ref _FilterItems, value); } }
+        private ReactiveList<Domain.Filter> _FilterItems = new ReactiveList<Domain.Filter>() { ChangeTrackingEnabled = true };
+        public ReactiveList<Domain.Filter> FilterItems { get { return _FilterItems; } set { this.RaiseAndSetIfChanged(ref _FilterItems, value); } }
+
+        public IReactiveDerivedList<Domain.Filter> SelectedFilterItems { get; set; }
 
         private Domain.FilterType _SelectedType;
         public Domain.FilterType SelectedType { get { return _SelectedType; } set { this.RaiseAndSetIfChanged(ref _SelectedType, value); } }

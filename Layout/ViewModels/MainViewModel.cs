@@ -1266,6 +1266,8 @@ namespace Layout.ViewModels
             EventManager.GetEvent<SaveEvent>()
                 .Subscribe(evt =>
                 {
+                    Domain.Analytic analyticToSave = null;
+                    //ViewModelBase vm = null;
                     switch (evt.Section)
                     {
                         case SectionType.PlanningHomeMyMarkuprules:
@@ -1275,14 +1277,21 @@ namespace Layout.ViewModels
                         case SectionType.PlanningAnalyticsMyAnalytics:
                             break;
                         case SectionType.PlanningAnalyticsIdentity:
-                            var vm = (ViewModels.Analytic.IdentityViewModel)(SelectedStepViewModel);
-                            var tagsToSave = vm.SelectedTags;
-                            var analyticToSave = vm.SelectedAnalytic;
-                            vm.SelectedAnalytic.Tags = tagsToSave.Select( y => y.Value).ToList<string>();
+                            var vmi = (ViewModels.Analytic.IdentityViewModel)(SelectedStepViewModel);
+                            var tagsToSave = vmi.SelectedTags;
+                            analyticToSave = vmi.SelectedAnalytic;
+                            vmi.SelectedAnalytic.Tags = tagsToSave.Select( y => y.Value).ToList<string>();
                             repo.Save<Domain.Analytic>(analyticToSave);
                             this.Navigate(new NavigateEvent { Module = Domain.ModuleType.Planning, SubModule = SubModuleType.Analytics, Section = SectionType.PlanningAnalyticsFilters });
                             break;
                         case SectionType.PlanningAnalyticsFilters:
+                            var vmf = (ViewModels.Analytic.FilterViewModel)(SelectedStepViewModel);
+                            analyticToSave = vmf.SelectedAnalytic;
+                            
+                            
+                           
+                            repo.Save<Domain.Analytic>(analyticToSave);
+                            this.Navigate(new NavigateEvent { Module = Domain.ModuleType.Planning, SubModule = SubModuleType.Analytics, Section = SectionType.PlanningAnalyticsFilters });
                             break;
                         case SectionType.PlanningAnalyticsPriceLists:
                             break;

@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using ReactiveUI;
-
+using System.Reactive;
+using System.Reactive.Linq;
 
 namespace Domain
 {
@@ -377,16 +378,23 @@ namespace Domain
 
         
 
-        public class Filter
+        public class Filter : ReactiveObject
         {
             [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
             public string Id { get; set; }
-            //public Boolean IsSelected { get; set; } //TODO: should be in viewmodel
+
+            private Boolean _isSelected;
+            public Boolean IsSelected { get { return _isSelected; } set { this.RaiseAndSetIfChanged(ref _isSelected, value); } } //TODO: should be in viewmodel or in datastore?
+
+            private string _code;
             [BsonElement("code")]
-            public string Code { get; set; }
+            public string Code { get { return _code; } set { this.RaiseAndSetIfChanged(ref _code, value); } }
+            private string _description;
             [BsonElement("description")]
-            public string Description { get; set; }
-            public FilterType Type { get; set; }
+            public string Description { get { return _description; } set { this.RaiseAndSetIfChanged(ref _description, value); } }
+
+            private FilterType _filterType;
+            public FilterType Type { get { return _filterType; } set { this.RaiseAndSetIfChanged(ref _filterType, value); } }
         }
 
         public class FilterSet

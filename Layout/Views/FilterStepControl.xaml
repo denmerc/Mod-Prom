@@ -110,7 +110,7 @@
                 <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                         Header="Selected"
-                                        Binding="{Binding IsSelected}"
+                                        Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
                                         />
                                         <!--Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"-->
                 <DataGridTextColumn Header="Filter Value"
