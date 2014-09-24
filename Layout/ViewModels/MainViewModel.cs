@@ -762,36 +762,53 @@ namespace Layout.ViewModels
                     }
                 });
 
-            LoadAnalyticsByTagCommand = ReactiveCommand.Create();
-            LoadAnalyticsByTagCommand.Subscribe(x => 
-            {
-                var list = ((Events.TagSearchEvent)x).Tags.Select(y => y.Value).ToList();
+
+            LoadAnalyticsByTagCommand = ReactiveCommand.CreateAsyncTask( async evt =>
+                await Task.Run( () =>
+                {
+                    var list = ((Events.TagSearchEvent) evt).Tags.Select(y => y.Value).ToList();
+                     Analytics = repo.FindAnalyticsByTag(list);
+
+
+                }));
                 //Analytics = repo.FindByTag<Domain.Analytic>(new List<string> { ((Domain.Tag)x).Value });
-                Analytics = repo.FindAnalyticsByTag(list);
-            });
+
+            //loadAnalyticsByTagCommand.ToProperty(this, x => x.Analytics);
+
+            //LoadAnalyticsByTagCommand = ReactiveCommand.Create();
+            //LoadAnalyticsByTagCommand.Subscribe(x => 
+            //{
+            //    var list = ((Events.TagSearchEvent)x).Tags.Select(y => y.Value).ToList();
+            //    //Analytics = repo.FindByTag<Domain.Analytic>(new List<string> { ((Domain.Tag)x).Value });
+            //    Analytics = repo.FindAnalyticsByTag(list);
+            //});
 
 
-            LoadPricingByTagCommand = ReactiveCommand.Create();
-            LoadPricingByTagCommand.Subscribe(x =>
-            {
-                var list = ((Events.TagSearchEvent)x).Tags.Select(y => y.Value).ToList();
-                PriceRoutines = repo.FindPricingByTag(list);
-            });
+            LoadPricingByTagCommand = ReactiveCommand.CreateAsyncTask( async evt => 
+                await Task.Run( () => {
+                    var list = ((Events.TagSearchEvent) evt).Tags.Select(y => y.Value).ToList();
+                    PriceRoutines = repo.FindPricingByTag(list);
+            }));
+            //LoadPricingByTagCommand.Subscribe(x =>
+            //{
+            //    var list = ((Events.TagSearchEvent)x).Tags.Select(y => y.Value).ToList();
+            //    PriceRoutines = repo.FindPricingByTag(list);
+            //});
 
-            EventManager.GetEvent<ViewModels.Events.TagSearchEvent>().Subscribe(evt =>
+            EventManager.GetEvent<ViewModels.Events.TagSearchEvent>().Subscribe(async evt =>
             {
 
                 switch (evt.SubModule)
                 {
                     case Domain.SubModuleType.Analytics:
-                        LoadAnalyticsByTagCommand.Execute(evt);
                         ToggleResults("Analytics");
+                        await LoadAnalyticsByTagCommand.ExecuteAsync(evt);
                         break;
                     case Domain.SubModuleType.Everyday:
                     case Domain.SubModuleType.Promotions:
                     case Domain.SubModuleType.Kits:
-                        LoadPricingByTagCommand.Execute(evt);
                         ToggleResults("Pricing");
+                        await LoadPricingByTagCommand.ExecuteAsync(evt);
                         break;
                     case Domain.SubModuleType.MySettings:
                         break;
@@ -1106,8 +1123,9 @@ namespace Layout.ViewModels
             set { this.RaiseAndSetIfChanged(ref _IsProgressBarAOn, value); }
         }
         protected ReactiveCommand<object> LoadTagsBySubModuleCommand;
-        protected ReactiveCommand<object> LoadAnalyticsByTagCommand;
-        protected ReactiveCommand<object> LoadPricingByTagCommand;
+        protected ReactiveCommand<System.Reactive.Unit> LoadAnalyticsByTagCommand;
+        //protected ReactiveCommand<object> LoadAnalyticsByTagCommand;
+        protected ReactiveCommand<System.Reactive.Unit> LoadPricingByTagCommand;
         protected ReactiveCommand<object> LoadFavoritesBySubModuleCommand;
 
 
