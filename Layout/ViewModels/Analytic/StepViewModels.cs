@@ -21,7 +21,8 @@ namespace Layout.ViewModels.Analytic
             };
 
             this.WhenAny(x => x.SelectedAnalytic, x => x).Subscribe( a => {
-                    TagsToSuggest = SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() }).ToList();
+                TagsToSuggest = ((HomeSearchViewModel)MainViewModel.SubModuleCache[Domain.SubModuleType.Search]).Tags.Select(t => new Domain.Tag { Value = t.ToString() }).ToList();
+                    //TagsToSuggest = SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() }).ToList();
                     SelectedTags.Clear();
                     SelectedTags.AddRange( SelectedAnalytic.Tags.Select(t => new Domain.Tag { Value = t.ToString() })); 
                 });

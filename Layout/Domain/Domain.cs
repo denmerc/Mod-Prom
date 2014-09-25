@@ -53,7 +53,14 @@ namespace Domain
 
         public class Folder
         {
-            public string Name { get; set; }
+            [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+            public string Id { get; set; }
+            public List<string> Analytics { get; set; }
+            public List<string> Everyday { get; set; }
+            public List<string> Promotions { get; set; }
+
+            public List<string> Kits { get; set; }
+
         }
 
         //public enum Module

@@ -18,7 +18,7 @@ namespace Layout.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private static Dictionary<Domain.SubModuleType, ViewModelBase> SubModuleCache = new Dictionary<Domain.SubModuleType, ViewModelBase>();
+        public static Dictionary<Domain.SubModuleType, ViewModelBase> SubModuleCache = new Dictionary<Domain.SubModuleType, ViewModelBase>();
         //private static Dictionary<Domain.SubModuleType, List<ViewModelBase>> SubModuleCacheHistory = new Dictionary<Domain.SubModuleType, List<ViewModelBase>>();
 
         public MainViewModel()
@@ -306,7 +306,8 @@ namespace Layout.ViewModels
                             }
                             //if(navigator.Entity != null)
                                ((AnalyticViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator);
-                            
+                               //load tags from home search here todo:
+                                
                             break;
                         case Domain.SubModuleType.Everyday:
                         case Domain.SubModuleType.Promotions:
@@ -709,12 +710,15 @@ namespace Layout.ViewModels
                 switch((Domain.SubModuleType) x)
                 {
                     case Domain.SubModuleType.Analytics:
-                        FavoriteTags = repo.FindFavoriteTagsByUserAndSubModule(Session.User.Login, (Domain.SubModuleType)x);
+                        FavoriteTags = repo.AllFoldersBySubModule(x.ToString());
+
+                        //FavoriteTags = repo.FindFavoriteTagsByUserAndSubModule(Session.User.Login, (Domain.SubModuleType)x);
                         break;
                     case Domain.SubModuleType.Everyday:
                     case Domain.SubModuleType.Promotions:
                     case Domain.SubModuleType.Kits:
-                        FavoritePricingTags = repo.FindFavoriteTagsByUserAndSubModule(Session.User.Login, (Domain.SubModuleType)x);
+                        FavoritePricingTags = repo.AllFoldersBySubModule(x.ToString());
+                        //FavoritePricingTags = repo.FindFavoriteTagsByUserAndSubModule(Session.User.Login, (Domain.SubModuleType)x);
                         break;
                 }
             });
@@ -733,23 +737,30 @@ namespace Layout.ViewModels
                     {
                         case SubModuleType.Analytics:
                             
-                            if(FavoriteTags == null)
-                                {LoadFavoritesBySubModuleCommand.Execute(submodule);}
+                            //if(FavoriteTags == null)
+                            //{
+                            LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
+                                SelectedFavTags = FavoriteTags;
+                                Tags = AnalyticTags.Union(SelectedFavTags).ToList();
+                            });
+                            
+                            //}
                             if(Analytics == null)
                                 { LoadTagsBySubModuleCommand.Execute(submodule); }
-                            SelectedFavTags = FavoriteTags;
-                            Tags = AnalyticTags;
+
                             ToggleResults("All");
                             break;
                         case SubModuleType.Everyday:
                         case SubModuleType.Promotions:
                         case SubModuleType.Kits:
-                            if(FavoritePricingTags == null)
-                                {LoadFavoritesBySubModuleCommand.Execute(submodule);}
+                            
+                            LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
+                                SelectedFavTags = FavoritePricingTags;
+                                Tags = PricingTags.Union(SelectedFavTags).ToList();
+                            });
                             if(PriceRoutines == null)
                                 { LoadTagsBySubModuleCommand.Execute(submodule); }
-                            SelectedFavTags = FavoritePricingTags;
-                            Tags = PricingTags;
+                            
 
                             ToggleResults("All");
                             break;

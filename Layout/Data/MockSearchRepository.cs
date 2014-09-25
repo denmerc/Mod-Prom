@@ -56,7 +56,30 @@ namespace Layout.Data
             }
         }
 
+        public List<string> AllFoldersBySubModule(string subModule)
+        {
+            List<string> list = new List<string>();
+            //var query = from a in Analytics.AsQueryable<Domain.Analytic>()
+            //        select a.Tags.Distinct();
 
+            //return query.ToList();
+
+            switch (subModule)
+            {
+                case "Analytics":
+                    return Folders.AsQueryable().First().Analytics.ToList();
+                case "Everyday":
+                    return Folders.AsQueryable().First().Everyday.ToList();
+
+                case "Promotions":
+                    return Folders.AsQueryable().First().Promotions.ToList();
+
+                case "Kits":
+                    return Folders.AsQueryable().First().Kits.ToList();
+
+                default: return null;
+            }
+        }
         public List<Domain.Analytic> FindAnalyticsByTag(List<string> tags)
         {
 
@@ -168,6 +191,15 @@ namespace Layout.Data
             get
             {
                 return database.GetCollection<Domain.User>("Users");
+            }
+        }
+
+
+        public MongoCollection<Domain.Folder> Folders
+        {
+            get
+            {
+                return database.GetCollection<Domain.Folder>("Folders");
             }
         }
 
@@ -435,7 +467,7 @@ namespace Layout.Data
 
     public interface ISearchRepository : IDisposable
     {
-
+        List<string> AllFoldersBySubModule(string subModule);
         List<T> FindByTag<T>(List<string> tags) where T : class, new();
         List<Domain.Analytic> FindAnalyticsByTag(List<string> tags);
 
