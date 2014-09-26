@@ -133,6 +133,9 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Views\Admin\UserAdminControl.xaml.cs">
+      <DependentUpon>UserAdminControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\Analytic\AnalyticResultsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -140,6 +143,10 @@
     <Page Include="Views\Analytic\AnalyticValueDriversStepControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FolderSettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pricing\PricingIdentityStepControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +195,9 @@
     <Compile Include="Views\Analytic\AnalyticValueDriversStepControl.xaml.cs">
       <DependentUpon>AnalyticValueDriversStepControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\FolderSettingsControl.xaml.cs">
+      <DependentUpon>FolderSettingsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pricing\PricingIdentityStepControl.xaml.cs">
       <DependentUpon>PricingIdentityStepControl.xaml</DependentUpon>
     </Compile>
@@ -213,6 +223,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Admin\UserAdminControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

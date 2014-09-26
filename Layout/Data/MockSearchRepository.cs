@@ -14,7 +14,6 @@ namespace Layout.Data
 {
     public class MockSearchRepository : ISearchRepository
     {
-
         public List<string> AllTagsBySubModule(string subModule)
         {
             List<string> list = new List<string>();
@@ -56,6 +55,11 @@ namespace Layout.Data
             }
         }
 
+        public Domain.FolderSet AllFolderSets()
+        {
+            return Folders.AsQueryable().First();
+        }
+
         public List<string> AllFoldersBySubModule(string subModule)
         {
             List<string> list = new List<string>();
@@ -67,15 +71,15 @@ namespace Layout.Data
             switch (subModule)
             {
                 case "Analytics":
-                    return Folders.AsQueryable().First().Analytics.ToList();
+                    return Folders.AsQueryable().First().SelectedAnalyticFolders.ToList();
                 case "Everyday":
-                    return Folders.AsQueryable().First().Everyday.ToList();
+                    return Folders.AsQueryable().First().SelectedEverydayFolders.ToList();
 
                 case "Promotions":
-                    return Folders.AsQueryable().First().Promotions.ToList();
+                    return Folders.AsQueryable().First().SelectedPromotionFolders.ToList();
 
                 case "Kits":
-                    return Folders.AsQueryable().First().Kits.ToList();
+                    return Folders.AsQueryable().First().SelectedKitFolders.ToList();
 
                 default: return null;
             }
@@ -195,11 +199,11 @@ namespace Layout.Data
         }
 
 
-        public MongoCollection<Domain.Folder> Folders
+        public MongoCollection<Domain.FolderSet> Folders
         {
             get
             {
-                return database.GetCollection<Domain.Folder>("Folders");
+                return database.GetCollection<Domain.FolderSet>("Folders");
             }
         }
 
@@ -467,6 +471,8 @@ namespace Layout.Data
 
     public interface ISearchRepository : IDisposable
     {
+        Domain.FolderSet AllFolderSets();
+
         List<string> AllFoldersBySubModule(string subModule);
         List<T> FindByTag<T>(List<string> tags) where T : class, new();
         List<Domain.Analytic> FindAnalyticsByTag(List<string> tags);

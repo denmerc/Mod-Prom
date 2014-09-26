@@ -23,229 +23,6 @@ namespace Layout.ViewModels
 
         public MainViewModel()
         {
-
-            //Session = new Session<NullT>()
-                //{
-                                      //    AppOnline = true,
-                //    Authenticated = true,
-                //    ClientMessage = "",
-                //    Data = null,
-                //    ServerMessage = "",
-                //    SessionOk = true,
-                //    SqlAuthorization = true,
-                //    SqlKey = "45f2ae12-1428-481e-8a87-43566914b91a",
-                //    WinAuthorization = false,
-                //    UserIdentity = new User.Identity()
-                //    {
-                                          //                                Active = false,
-                //        Created = new DateTime(2012, 9, 10, 10, 31, 0),
-                //        CreatedText = "Sep 10, 2012",
-                //        Edited = new DateTime(0001, 1, 1, 12, 0, 0),
-                //        EditedText = "Apr  4 2014  8:50AM",
-                //        Editor = "APL Administrator",
-                //        Email = "dave.jinkerson@aplpromoter.com",
-                //        FirstName = "APL",
-                //        Id = 0,
-                //        LastLogin = new DateTime(0001, 1, 1, 12, 0, 0),
-                //        LastLoginText = "Oct 23 2013  3:46PM",
-                //        LastName = "Administrator",
-                //        Login = "Administrator",
-                //        Name = "APL Administrator",
-                //        sqlKey = "45f2ae12-1428-481e-8a87-43566914b91a",
-                //        Password = new User.Password() { New = null, Old = "password" },
-                //        Role = new User.Role()
-                //        {
-                //            Description = "APL Master (create all, edit all, view all, delete all, approve all, schedule all, manage users, manage defaults)",
-                //            Id = 24,
-                //            Name = "APL Administrator",
-                //            Planning = new  User.Role.Explorer
-                //            {
-                //                WorkflowGroup = WorkflowGroupType.Planning,
-                //                Workflows = new List<Client.Entity.Workflow>
-                //                {
-                //                    new Workflow
-                //                                                                    {
-                //                                    Title = "User login & authentication",
-                //                                    Steps = new List<Workflow.Step>()
-                //                                    {
-                //                                        new Workflow.Step()
-                //                                        {
-                //                                            Name = "1) Initialization",
-                //                                            Caption = "Initialize client application and services",
-                //                                            IsActive = false,
-                //                                            IsValid = true,
-                //                                            Advisors = new List<Workflow.Advisor>()
-                //                                            {
-                //                                                new Workflow.Advisor()
-                //                                                {
-                //                                                    Message = "Connect to APL services",
-                //                                                    SortId = 1
-                //                                                },
-                //                                                new Workflow.Advisor()
-                //                                                {
-                //                                                    Message = "Validate client security",
-                //                                                    SortId = 2
-                //                                                }
-                //                                            },
-                //                                            Errors = new List<Workflow.Error>()
-                //                                            {
-                                
-                //                                            }
-                //                                        },
-                //                                        new Workflow.Step()
-                //                                        {
-                //                                            Name = "2) Authentication",
-                //                                            Caption = "Authenticate user login and password",
-                //                                            IsActive = false,
-                //                                            IsValid = true,
-                //                                            Advisors = new List<Workflow.Advisor>()
-                //                                            {
-                //                                              new Workflow.Advisor()
-                //                                                {
-                //                                                    Message = "Connect to APL services",
-                //                                                    SortId = 1
-                //                                                },
-                //                                                new Workflow.Advisor()
-                //                                                {
-                //                                                    Message = "Validate client security",
-                //                                                    SortId = 2
-                //                                                }
-                //                                            },
-                //                                            Errors = new List<Workflow.Error>(){}
-                //                                        },
-                //                                        new Workflow.Step()
-                //                                        {
-                //                                            Name = "3) Change Password",
-                //                                            Caption = "Change your login password",
-                //                                            IsActive = false,
-                //                                            IsValid = true,
-                //                                            Advisors = new List<Workflow.Advisor>()
-                //                                            {
-                //                                                new Workflow.Advisor()
-                //                                                {
-                //                                                    Message = "Connect to APL services",
-                //                                                    SortId = 1
-                //                                                },
-                //                                                new Workflow.Advisor()
-                //                                                {
-                //                                                    Message = "Validate client security",
-                //                                                    SortId = 2
-                //                                                }
-                //                                            },
-                //                                            Errors = new List<Workflow.Error>(){}
-                //                                        }
-                //                                    }
-
-                //                                }  
-                //                },
-                //                Navigators = 
-                //                {
-
-                //                    new Navigator()
-                //                    {
-                //                        EntityId = 0,
-                //                        WorkflowReadonly = true,
-                //                        NodeTitle = "Home page",
-                //                        NodeCaption = "Promoter v4 user home page",
-                //                        WorkflowGroup = WorkflowGroupType.Planning,
-                //                        Workflow =  WorkflowType.PlanningHome,
-                //                        WorkflowStep = WorkflowStepType.PlanningHomeMyHomePage,
-                //                        Nodes = new List<Navigator>()
-                //                        {
-                                   
-                //                        }
-                //                    },
-                //                    new Navigator()
-                //                    {
-                //                        EntityId = 0,
-                //                        WorkflowReadonly = true,
-                //                        NodeCaption = "Aggregate routines by user explorer view security",
-                //                        NodeTitle = "Analytic routines",
-                //                        WorkflowGroup = WorkflowGroupType.Planning,
-                //                        Workflow =  WorkflowType.PlanningAnalytics,
-                //                        WorkflowStep = WorkflowStepType.PlanningAnalyticsMyAnalytics,
-                //                        Nodes = new List<Navigator>()
-                //                        {
-                //                            new Navigator() 
-                //                            {
-                //                                EntityId = 1,
-                //                                WorkflowReadonly = true,
-                //                                NodeCaption = "New edited description by admin...\n Refreshed on: Feb  3 2014  7:31PM",
-                //                                WorkflowGroup = WorkflowGroupType.Planning,
-                //                                Workflow =  WorkflowType.PlanningAnalytics,
-            
-                //                                WorkflowStep = WorkflowStepType.PlanningAnalyticsIdentity,
-                //                                Nodes = new List<Navigator>(){},
-                //                            }
-                //                        }
-                //                    },
-                //                    new Navigator()
-                //                    {
-                //                        EntityId = 0,
-                //                        WorkflowReadonly = true,
-                //                        NodeCaption = "Price routines by user explorer view security",
-                //                        NodeTitle = "Price Routines",
-                //                        WorkflowGroup = WorkflowGroupType.Planning,
-                //                        Workflow =  WorkflowType.PlanningPricing,
-                //                        WorkflowStep = WorkflowStepType.PlanningPricingMyPricing,
-                //                        Nodes = new List<Navigator>(){}
-                //                    },
-                //                    new Navigator()
-                //                    {
-                //                        EntityId = 0,
-                //                        WorkflowReadonly = true,
-                //                        NodeCaption = "Administration by user explorer view security",
-                //                        NodeTitle = "Administration",
-                //                        WorkflowGroup = WorkflowGroupType.Planning,
-                //                        Workflow =  WorkflowType.PlanningAdministration,
-                //                        WorkflowStep = WorkflowStepType.PlanningAdministrationUserMaintenance,
-                //                        Nodes = new List<Navigator>()
-                //                        {
-                //                            new Navigator() 
-                //                            {
-                //                                EntityId = 0,
-                //                                WorkflowReadonly = true,
-                //                                NodeCaption = "Manage users and security",
-                //                                NodeTitle = "Users",
-                //                                WorkflowGroup = WorkflowGroupType.Planning,
-                //                                Workflow =  WorkflowType.PlanningAdministration,
-                //                                WorkflowStep = WorkflowStepType.PlanningAdministrationUserMaintenance,
-                //                                Nodes = new List<Navigator>(){},
-                //                            },
-                //                            new Navigator() 
-                //                            {
-                //                                EntityId = 0,
-                //                                WorkflowReadonly = true,
-                //                                NodeCaption = "Manage rounding templates",
-                //                                Nodes = new List<Navigator>(){},
-                //                                NodeTitle = "Rounding",
-                //                                WorkflowGroup = WorkflowGroupType.Planning,
-                //                                Workflow =  WorkflowType.PlanningAdministration,
-                //                                WorkflowStep = WorkflowStepType.PlanningAdministrationUserMaintenance,
-                //                            },
-                //                            new Navigator() 
-                //                            {
-                //                                EntityId = 0,
-                //                                WorkflowReadonly = true,
-                //                                NodeCaption = "Manage price change rollback",
-                //                                Nodes = new List<Navigator>(){},
-                //                                NodeTitle = "Rounding",
-                //                                WorkflowGroup = WorkflowGroupType.Planning,
-                //                                Workflow =  WorkflowType.PlanningAdministration,
-                //                                WorkflowStep = WorkflowStepType.PlanningAdministrationUserMaintenance,
-                //                            }                                
-                //                        }
-                //                    }
-                //             }
-                //            }
-
-                //        }
-
-
-                //    },
-                //    Workflow = null
-
-                //};
             //Seed();
             EventManager = ((Reactive.EventAggregator)App.Current.Resources["EventManager"]);
             SearchRepo = new Data.MockSearchRepository();
@@ -287,54 +64,98 @@ namespace Layout.ViewModels
             EventManager.GetEvent<NavigateEvent>()
                 .Subscribe(navigator =>
                 {
-                    switch (navigator.SubModule)
+                    switch (navigator.Module)
                     {
-                        case Domain.SubModuleType.Analytics: //static-singleton SubModuleVM with proxies with sections reloaded
-                            //add if it doesnt exist otherwise navigate 
-                            if(!SubModuleCache.ContainsKey(navigator.SubModule))
+                        case ModuleType.Planning:
+                            switch (navigator.SubModule)
                             {
-                                //populate name for header
-                                var analytic = (Domain.Analytic)navigator.Entity;
+                                case Domain.SubModuleType.Analytics: //static-singleton SubModuleVM with proxies with sections reloaded
+                                    //add if it doesnt exist otherwise navigate 
+                                    if(!SubModuleCache.ContainsKey(navigator.SubModule))
+                                    {
+                                        //populate name for header
+                                        var analytic = (Domain.Analytic)navigator.Entity;
 
-                                SelectedSubModuleViewModel = new AnalyticViewModel(AnalyticRepo, Session, analytic.Name);
-                                SubModuleCache.Add(navigator.SubModule, SelectedSubModuleViewModel);
-                            }
-                            else
-                            {
-                                SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Analytics];
+                                        SelectedSubModuleViewModel = new AnalyticViewModel(AnalyticRepo, Session, analytic.Name);
+                                        SubModuleCache.Add(navigator.SubModule, SelectedSubModuleViewModel);
+                                    }
+                                    else
+                                    {
+                                        SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Analytics];
                                 
-                            }
-                            //if(navigator.Entity != null)
-                               ((AnalyticViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator);
-                               //load tags from home search here todo:
+                                    }
+                                    //if(navigator.Entity != null)
+                                       ((AnalyticViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator);
+                                       //load tags from home search here todo:
                                 
+                                    break;
+                                case Domain.SubModuleType.Everyday:
+                                case Domain.SubModuleType.Promotions:
+                                case Domain.SubModuleType.Kits:
+                                    if (!SubModuleCache.ContainsKey(navigator.SubModule))
+                                    {
+                                        SelectedSubModuleViewModel = new PricingViewModel(PricingRepo, Session);
+                                    }
+                                    else
+                                    {
+                                        ((PricingViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator.Section);
+                                    }
+                                    break;
+                                case Domain.SubModuleType.Search:
+                                    if(!SubModuleCache.ContainsKey(navigator.SubModule))
+                                    {
+                                        SelectedSubModuleViewModel = new HomeSearchViewModel(SearchRepo, Session, EventManager); 
+                                    }
+                                    else
+                                    {
+                               
+                                        SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Search]; this.RaisePropertyChanged("SelectedSubModuleViewModel");
+                                        ((HomeSearchViewModel)SelectedSubModuleViewModel).ToggleSearchPane(navigator.SubModule);
+
+                                    }
+                                    break;
+                                case Domain.SubModuleType.MySettings:
+                                    if(!SubModuleCache.ContainsKey(navigator.SubModule))
+                                    {
+                                        SelectedSubModuleViewModel = new FolderSettingsViewModel(this); 
+                                    }
+                                    else
+                                    {
+                               
+                                        SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Search];
+                               
+
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
-                        case Domain.SubModuleType.Everyday:
-                        case Domain.SubModuleType.Promotions:
-                        case Domain.SubModuleType.Kits:
+                        case ModuleType.Tracking:
+                            break;
+                        case ModuleType.Reporting:
+                            break;
+                        case ModuleType.Administration:
+
+
                             if (!SubModuleCache.ContainsKey(navigator.SubModule))
                             {
-                                SelectedSubModuleViewModel = new PricingViewModel(PricingRepo, Session);
+                                SelectedSubModuleViewModel = new AdminViewModel(this);
                             }
                             else
                             {
-                                ((PricingViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator.Section);
+                                ((AdminViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator.Section);
                             }
-                            break;
-                        case Domain.SubModuleType.Search:
-                            if(!SubModuleCache.ContainsKey(navigator.SubModule))
+                            switch (navigator.SubModule)
                             {
-                                SelectedSubModuleViewModel = new HomeSearchViewModel(SearchRepo, Session, EventManager); 
-                            }
-                            else
-                            {
-                               
-                                SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Search]; this.RaisePropertyChanged("SelectedSubModuleViewModel");
-                                ((HomeSearchViewModel)SelectedSubModuleViewModel).ToggleSearchPane(navigator.SubModule);
 
+                                case Domain.SubModuleType.Search: //change SelectedSectionViewModel to FolderSettingsViewModel
+                                    ((AdminViewModel)SelectedSubModuleViewModel).Navigate(navigator.Section);
+                                    break;
+                                
+                                default:
+                                    break;
                             }
-                            break;
-                        case Domain.SubModuleType.MySettings:
                             break;
                         default:
                             break;
@@ -571,6 +392,11 @@ namespace Layout.ViewModels
             public Object Entity { get; set; }
         }
 
+        public class SectionSelectionEvent
+        {
+            public Domain.SectionType Section{get;set;}
+        }
+
         public class DriverSelectedEvent
         {
             public Domain.Mode Mode { get; set; }
@@ -687,6 +513,17 @@ namespace Layout.ViewModels
             //SubModuleKeys = new[] { Domain.SubModuleTypke.Analytics, Domain.SubModuleType.Everyday, Domain.SubModuleType.Promotions, Domain.SubModuleType.Kits, Domain.SubModuleType.MySettings }.ToList();
             SubModuleKeys = Enum.GetValues(typeof(Domain.SubModuleType)).Cast<Domain.SubModuleType>().ToList();
 
+            LoadFolderSetCommand = ReactiveCommand.CreateAsyncTask(async _ =>
+                await Task.Run(() =>
+                {
+
+                    FolderSet = repo.AllFolderSets();
+
+
+                }));
+
+            
+
 
             LoadTagsBySubModuleCommand = ReactiveCommand.Create();
             LoadTagsBySubModuleCommand.Subscribe(x =>
@@ -694,7 +531,8 @@ namespace Layout.ViewModels
                 switch((Domain.SubModuleType) x)
                 {
                     case Domain.SubModuleType.Analytics:
-                        AnalyticTags = repo.AllTagsBySubModule(x.ToString());
+                        AnalyticTags = FolderSet.SelectedAnalyticFolders;
+                        //AnalyticTags = repo.AllTagsBySubModule(x.ToString());
                         break;
                     case Domain.SubModuleType.Everyday:
                     case Domain.SubModuleType.Promotions:
@@ -724,10 +562,16 @@ namespace Layout.ViewModels
             });
 
 
-            LoadFavoritesBySubModuleCommand.Execute(Domain.SubModuleType.Analytics);
-            LoadFavoritesBySubModuleCommand.Execute(Domain.SubModuleType.Everyday);
-            LoadTagsBySubModuleCommand.Execute(Domain.SubModuleType.Analytics);
-            LoadTagsBySubModuleCommand.Execute(Domain.SubModuleType.Everyday);
+            LoadFolderSetCommand.ExecuteAsync().Subscribe(x =>
+            {
+                Console.WriteLine("test");
+
+            });
+            ;
+            //LoadFavoritesBySubModuleCommand.Execute(Domain.SubModuleType.Analytics);
+            //LoadFavoritesBySubModuleCommand.Execute(Domain.SubModuleType.Everyday);
+            //LoadTagsBySubModuleCommand.Execute(Domain.SubModuleType.Analytics);
+            //LoadTagsBySubModuleCommand.Execute(Domain.SubModuleType.Everyday);
 
             EventManager.GetEvent<Domain.SubModuleType>()
                 .Subscribe(submodule =>
@@ -737,29 +581,42 @@ namespace Layout.ViewModels
                     {
                         case SubModuleType.Analytics:
                             
+                            SelectedFavTags = FolderSet.SelectedAnalyticFolders;
+                            Tags = FolderSet.MasterAnalyticFolderList;
+                            //Tags = AnalyticTags.Union(SelectedFavTags).ToList();
                             //if(FavoriteTags == null)
                             //{
-                            LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
-                                SelectedFavTags = FavoriteTags;
-                                Tags = AnalyticTags.Union(SelectedFavTags).ToList();
-                            });
+                            //LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
+                            //    SelectedFavTags = FavoriteTags;
+                            //    Tags = AnalyticTags.Union(SelectedFavTags).ToList();
+                            //});
                             
                             //}
-                            if(Analytics == null)
-                                { LoadTagsBySubModuleCommand.Execute(submodule); }
+                            //if(Analytics == null)
+                            //    { LoadTagsBySubModuleCommand.Execute(submodule); }
 
                             ToggleResults("All");
                             break;
                         case SubModuleType.Everyday:
+                            SelectedFavTags = FolderSet.SelectedEverydayFolders;
+                            Tags = FolderSet.MasterEverydayFolderList;
+                            ToggleResults("All");
+                            break;
                         case SubModuleType.Promotions:
+                            SelectedFavTags = FolderSet.SelectedPromotionFolders;
+                            Tags = FolderSet.MasterPromotionFolderList;
+                            ToggleResults("All");
+                            break;
                         case SubModuleType.Kits:
-                            
-                            LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
-                                SelectedFavTags = FavoritePricingTags;
-                                Tags = PricingTags.Union(SelectedFavTags).ToList();
-                            });
-                            if(PriceRoutines == null)
-                                { LoadTagsBySubModuleCommand.Execute(submodule); }
+                            SelectedFavTags = FolderSet.SelectedKitFolders;
+                            Tags = FolderSet.MasterKitFolderList;
+                            //Tags = AnalyticTags.Union(SelectedFavTags).ToList();
+                            //LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
+                            //    SelectedFavTags = FavoritePricingTags;
+                            //    Tags = PricingTags.Union(SelectedFavTags).ToList();
+                            //});
+                            //if(PriceRoutines == null)
+                            //    { LoadTagsBySubModuleCommand.Execute(submodule); }
                             
 
                             ToggleResults("All");
@@ -773,6 +630,8 @@ namespace Layout.ViewModels
                     }
                 });
 
+
+            
 
             LoadAnalyticsByTagCommand = ReactiveCommand.CreateAsyncTask( async evt =>
                 await Task.Run( () =>
@@ -859,6 +718,55 @@ namespace Layout.ViewModels
             });
         }
 
+
+        public void LoadFolders(SubModuleType submodule)
+        {
+            switch (submodule)
+            {
+                case SubModuleType.Analytics:
+
+                    SelectedFavTags = FolderSet.SelectedAnalyticFolders;
+                    Tags = FolderSet.MasterAnalyticFolderList;
+                    //Tags = AnalyticTags.Union(SelectedFavTags).ToList();
+                    //if(FavoriteTags == null)
+                    //{
+                    //LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
+                    //    SelectedFavTags = FavoriteTags;
+                    //    Tags = AnalyticTags.Union(SelectedFavTags).ToList();
+                    //});
+
+                    //}
+                    if (Analytics == null)
+                    { LoadTagsBySubModuleCommand.Execute(submodule); }
+
+                    ToggleResults("All");
+                    break;
+                case SubModuleType.Everyday:
+                case SubModuleType.Promotions:
+                case SubModuleType.Kits:
+                    SelectedFavTags = FolderSet.SelectedEverydayFolders;
+                    Tags = FolderSet.MasterEverydayFolderList;
+                    //Tags = AnalyticTags.Union(SelectedFavTags).ToList();
+                    //LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
+                    //    SelectedFavTags = FavoritePricingTags;
+                    //    Tags = PricingTags.Union(SelectedFavTags).ToList();
+                    //});
+                    if (PriceRoutines == null)
+                    { LoadTagsBySubModuleCommand.Execute(submodule); }
+
+
+                    ToggleResults("All");
+                    break;
+                case SubModuleType.MySettings:
+                    break;
+                case SubModuleType.Search:
+                    break;
+                default:
+                    break;
+            }
+        }
+        private FolderSet _FolderSet;
+        public FolderSet FolderSet { get { return _FolderSet; } set { this.RaiseAndSetIfChanged(ref _FolderSet, value); } }
 
         private List<string> _favoritePricingTags;
         public List<string> FavoritePricingTags
@@ -1138,6 +1046,8 @@ namespace Layout.ViewModels
         //protected ReactiveCommand<object> LoadAnalyticsByTagCommand;
         protected ReactiveCommand<System.Reactive.Unit> LoadPricingByTagCommand;
         protected ReactiveCommand<object> LoadFavoritesBySubModuleCommand;
+        protected ReactiveCommand<System.Reactive.Unit> LoadFolderSetCommand;
+
 
 
 
@@ -1156,7 +1066,10 @@ namespace Layout.ViewModels
     }
 
 
-
+    public class FolderSettingsViewModel : ViewModelBase
+    {
+        public FolderSettingsViewModel(MainViewModel shell) { }
+    }
 
     
     public class AdministrationModuleViewModel
@@ -1206,6 +1119,7 @@ namespace Layout.ViewModels
             }
         }
 
+
         public void Navigate(NavigateEvent navigator)
         {
             if (navigator.Entity != null) SelectedAnalytic = (Domain.Analytic)navigator.Entity;
@@ -1215,21 +1129,7 @@ namespace Layout.ViewModels
             {
                 switch (navigator.Section)// switch action bar for each step
                 {
-                    //case SectionType.StartupLoginInitialization:
-                    //    break;
-                    //case SectionType.StartupLoginAuthentication:
-                    //    break;
-                    //case SectionType.StartupLoginChangePassword:
-                    //    break;
-                    //case SectionType.PlanningHomeMyHomePage:
-                    //    break;
-                    //case SectionType.PlanningHomeMyOptimization:
-                    //    break;
-                    //case SectionType.PlanningHomeMyMarkuprules:
-                    //    break;
-                    //case SectionType.PlanningHomeMyRoundingrules:
-                    //    break;
-                    case SectionType.PlanningAnalyticsMyAnalytics:
+                                        case SectionType.PlanningAnalyticsMyAnalytics:
                         break;
                     case SectionType.PlanningAnalyticsIdentity:
                         SelectedStepViewModel = new ViewModels.Analytic.IdentityViewModel(SelectedAnalytic);
@@ -1248,7 +1148,6 @@ namespace Layout.ViewModels
                         break;
                     default:
                         break;
-
                 }
                 StepCache.Add(navigator.Section, _SelectedStepViewModel);
             }
@@ -1388,26 +1287,88 @@ namespace Layout.ViewModels
 
     public class AdminViewModel : ViewModelBase
     {
+        Layout.ViewModels.Reactive.EventAggregator EventManager = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
 
-        public  void Navigate(NavigateEvent navigator)
+        private Dictionary<Domain.SectionType, ViewModelBase> SectionCache = new Dictionary<SectionType, ViewModelBase>();
+        //private static Domain.Analytic SelectedAnalytic { get; set; }
+        private MainViewModel _parent;
+        
+        public AdminViewModel(MainViewModel parent) {
+            _parent = parent ;
+
+            EventManager.GetEvent<SectionSelectionEvent>()
+                .Subscribe(evt =>
+                {
+                    this.Navigate(evt.Section);
+
+                });
+
+        }
+
+
+        private ViewModelBase _SelectedSectionViewModel;
+        public ViewModelBase SelectedSectionViewModel
         {
-            switch(navigator.Section)
+            get { return _SelectedSectionViewModel; }
+            set
             {
+                this.RaiseAndSetIfChanged(ref _SelectedSectionViewModel, value);
+            }
+        }
 
-                case SectionType.PlanningAdministrationUserMaintenance:
-                    break;
-                case SectionType.PlanningAdministrationPricelists:
-                    break;
-                case SectionType.PlanningAdministrationOptimization:
-                    break;
-                case SectionType.PlanningAdministrationMarkuprules:
-                    break;
-                case SectionType.PlanningAdministrationRoundingrules:
-                    break;
-                case SectionType.PlanningAdministrationRollback:
-                    break;
-                case SectionType.PlanningAdministrationProcesses:
-                    break;
+
+
+        public  void Navigate(Domain.SectionType section)
+        {
+            if( !SectionCache.ContainsKey(section))
+            {
+                switch(section)
+                {
+
+                    case SectionType.AdministrationFolders:
+                        SelectedSectionViewModel = new FolderSettingsViewModel(_parent);
+                        break;
+                    case SectionType.AdministrationUserMaintenance:
+
+                        break;
+                    case SectionType.AdministrationPricelists:
+                        break;
+                    case SectionType.AdministrationOptimization:
+                        break;
+                    case SectionType.AdministrationMarkuprules:
+                        break;
+                    case SectionType.AdministrationRoundingrules:
+                        break;
+                    case SectionType.AdministrationRollback:
+                        break;
+                    case SectionType.AdministrationProcesses:
+                        break;
+                }
+            }
+            else //in cache
+            {
+                switch (section)
+                {
+
+                    case SectionType.AdministrationFolders:
+                        SelectedSectionViewModel = ((FolderSettingsViewModel)SectionCache[section]);
+                        break;
+                    case SectionType.AdministrationUserMaintenance:
+
+                        break;
+                    case SectionType.AdministrationPricelists:
+                        break;
+                    case SectionType.AdministrationOptimization:
+                        break;
+                    case SectionType.AdministrationMarkuprules:
+                        break;
+                    case SectionType.AdministrationRoundingrules:
+                        break;
+                    case SectionType.AdministrationRollback:
+                        break;
+                    case SectionType.AdministrationProcesses:
+                        break;
+                }
             }
         }
 

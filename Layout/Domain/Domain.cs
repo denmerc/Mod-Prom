@@ -51,15 +51,19 @@ namespace Domain
             
         }
 
-        public class Folder
+        public class FolderSet
         {
             [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
             public string Id { get; set; }
-            public List<string> Analytics { get; set; }
-            public List<string> Everyday { get; set; }
-            public List<string> Promotions { get; set; }
+            public List<string> SelectedAnalyticFolders { get; set; }
+            public List<string> SelectedEverydayFolders { get; set; }
+            public List<string> SelectedPromotionFolders { get; set; }
+            public List<string> SelectedKitFolders { get; set; }
 
-            public List<string> Kits { get; set; }
+            public List<string> MasterAnalyticFolderList { get; set; }
+            public List<string> MasterEverydayFolderList { get; set; }
+            public List<string> MasterPromotionFolderList { get; set; }
+            public List<string> MasterKitFolderList { get; set; }
 
         }
 
@@ -79,7 +83,9 @@ namespace Domain
             Promotions,
             Kits,
             MySettings,
-            Search
+            Search,
+            AdminDefault
+            
         }
 
         public enum SectionType
@@ -137,19 +143,22 @@ namespace Domain
             PlanningPricingApproval = 135, // Step 9) Approval
 
             [EnumMember]
-            PlanningAdministrationUserMaintenance = 114, // Step 1) User Maintenance
+            AdministrationUserMaintenance = 114, // Step 1) User Maintenance
             [EnumMember]
-            PlanningAdministrationPricelists = 118, // Step 2) Price lists
+            AdministrationPricelists = 118, // Step 2) Price lists
             [EnumMember]
-            PlanningAdministrationOptimization = 128, // Step 3) Optimization
+            AdministrationOptimization = 128, // Step 3) Optimization
             [EnumMember]
-            PlanningAdministrationMarkuprules = 122, // Step 4) Markup rules
+            AdministrationMarkuprules = 122, // Step 4) Markup rules
             [EnumMember]
-            PlanningAdministrationRoundingrules = 125, // Step 5) Rounding rules
+            AdministrationRoundingrules = 125, // Step 5) Rounding rules
             [EnumMember]
-            PlanningAdministrationRollback = 133, // Step 6) Rollback
+            AdministrationRollback = 133, // Step 6) Rollback
             [EnumMember]
-            PlanningAdministrationProcesses = 131, // Step 7) Processes
+            AdministrationProcesses = 131, // Step 7) Processes
+            [EnumMember]
+            AdministrationFolders = 139, // Step 7) Processes
+
         }
 
 

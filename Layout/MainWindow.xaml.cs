@@ -119,6 +119,15 @@ namespace Layout
 
         private void AdministrationModuleButton_Click(object sender, RoutedEventArgs e)
         {
+
+            Publisher.Publish<NavigateEvent>(
+                new NavigateEvent
+                {
+                    Module = Domain.ModuleType.Administration,
+                    SubModule = Domain.SubModuleType.AdminDefault
+                }
+
+            );
             //AdminControl c = new AdminControl(); //TODO: Disabled for demo
             //ModuleControl.Content = c;
         }

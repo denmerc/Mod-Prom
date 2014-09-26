@@ -13,7 +13,7 @@
 	d:DesignWidth="951" d:DesignHeight="1126" 
     
     
-    d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type=vm:MainViewModel}">
+    >
 <UserControl.Resources>
     <ResourceDictionary>
         <ResourceDictionary.MergedDictionaries>
@@ -356,7 +356,7 @@
                             </ListBox>
                             <StackPanel Orientation="Vertical">
                             <StackPanel x:Name="FavTagStack" Orientation="Vertical" Width="Auto" Height="Auto" Visibility="{Binding IsTagsDisplayed}" Margin="15 40 10 0">
-                                <TextBlock Text="Categories" FontSize="25"></TextBlock>
+                                <TextBlock Text="Folders" FontSize="25"></TextBlock>
                                 <Separator ></Separator>
                                 <ListBox x:Name="FavTagListBox" Margin="0 15 0 0" ItemsSource="{Binding SelectedFavTags, UpdateSourceTrigger=PropertyChanged}"
                                          Height="Auto" Width="200" SelectionChanged="FavTagListBox_SelectionChanged">
@@ -374,14 +374,16 @@
                             </StackPanel>
                             <StackPanel x:Name="TagStack" Orientation="Vertical" Width="Auto" Height="Auto" 
                                         Visibility="{Binding IsTagsDisplayed}" Margin="15 10 10 0">
-                                <TextBlock Text="Tag Search" FontSize="23" FontWeight="Normal"></TextBlock>
+                                <TextBlock Text="Folder Search" FontSize="23" FontWeight="Normal"></TextBlock>
                                 <Separator ></Separator>
 
                                     <telerik:RadAutoCompleteBox x:Name="TagSearchBox" ItemsSource="{Binding Tags}" SelectionChanged="TagSearchBox_SelectionChanged"
-                                                            WatermarkContent="Enter Tags to Filter"
+                                                            WatermarkContent="Enter Folder to Filter"
                                                             AutoCompleteMode="Suggest"
                                                             Width="200" Margin="0 5"
                                                             Background="White" FontSize="16" Foreground="Black"
+                                                                
+                                                                TextSearchMode="Contains"
                                                                 />
 
                                     <!--<ListBox x:Name="TagListBox" Margin="0 10 0 0" ItemsSource="{Binding Tags, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"

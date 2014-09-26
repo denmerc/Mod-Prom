@@ -62,16 +62,16 @@
             </ListBoxItem>
             <ListBoxItem Style="{DynamicResource ListBoxItemStyle1}">
                 <StackPanel Orientation="Horizontal">
-                    <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Tags:</Label>
+                    <Label FontSize="16" Foreground="{StaticResource Foreground}" Width="150" HorizontalContentAlignment="Right">Folders:</Label>
                     <!--<TextBox x:Name="CommentTextBox" FontSize="16" Foreground="{StaticResource Foreground}" 
                              Width="450" Height="150" Text="{Binding SelectedAnalytic.Tags}"
                              Style="{DynamicResource TextBoxStyle1}" ></TextBox>-->
                     <telerik:RadAutoCompleteBox x:Name="TagSearchBox" ItemsSource="{Binding TagsToSuggest}"
                                                             DisplayMemberPath="Value"
-                                                            
+                                                            TextSearchMode="Contains"
                                                             SelectionMode="Multiple"
                                                             SelectedItems="{Binding SelectedTags, Mode=TwoWay}" 
-                                                            AutoCompleteMode="SuggestAppend"
+                                                            AutoCompleteMode="Suggest"
                                                             Width="800" Margin="0 5" Height="Auto" ScrollViewer.CanContentScroll="True"
                                                             Background="White" FontSize="16" Foreground="Black"
                                                                 />
