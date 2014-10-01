@@ -64,8 +64,12 @@ namespace Layout
             {
                 case 7:
                     section = Domain.SectionType.AdministrationFolders;
+                    MarginStackPanel.Visibility = Visibility.Visible;
+                    AdminContentControl.Visibility = Visibility.Visible;
                     break;
                 default:
+                    MarginStackPanel.Visibility = Visibility.Collapsed;
+                    AdminContentControl.Visibility = Visibility.Collapsed;
                     break;
             }
 

@@ -29,7 +29,9 @@ namespace Layout.Views
         private void SubModuleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Publisher.Publish<FolderModuleSelectedEvent>(new FolderModuleSelectedEvent { SelectedIndex = SubModuleListBox.SelectedIndex });
+                   
         }
+
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {

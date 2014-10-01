@@ -87,7 +87,17 @@ namespace Layout.ViewModels
                 this.RaiseAndSetIfChanged(ref _SelectedSectionViewModel, value);
             }
         }
-
+        
+        
+        private int _SelectedSectionIndex=100;
+        public int SelectedSectionIndex
+        {
+            get { return _SelectedSectionIndex; }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _SelectedSectionIndex, value);
+            }
+        }
 
 
         public void Navigate(Domain.SectionType section)
@@ -99,6 +109,7 @@ namespace Layout.ViewModels
 
                     case SectionType.AdministrationFolders:
                         SelectedSectionViewModel = new FolderSettingsViewModel();
+                        SelectedSectionIndex = 7;
                         break;
                     case SectionType.AdministrationUserMaintenance:
 
