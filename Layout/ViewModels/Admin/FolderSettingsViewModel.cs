@@ -163,24 +163,24 @@ namespace Layout.ViewModels
                     selectedVMs = AnalyticFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
                     masterVMs = MasterAnalyticFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
                     //masterVMs = MasterFolderSet.MasterAnalyticFolderList.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
-                    Title = "Analytics";
+                    Title = "Folders";
                     SelectedModuleIndex = 0;
                     break;
                 case Domain.SubModuleType.Everyday:
                     selectedVMs = EverydayFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
                     masterVMs = MasterEverydayFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
-                    Title = "Everyday";
+                    Title = "Folders";
                     SelectedModuleIndex = 1;
                     break;
                 case Domain.SubModuleType.Promotions:
                     selectedVMs = PromoFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
                     masterVMs = MasterPromoFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
-                    Title = "Promotions";
+                    Title = "Folders";
                     SelectedModuleIndex = 2;break;
                 case Domain.SubModuleType.Kits:
                     selectedVMs = KitFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
                     masterVMs = MasterKitFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
-                    Title = "Kits";                  
+                    Title = "Folders";                  
                     SelectedModuleIndex = 3;
                     break;
 
@@ -238,28 +238,6 @@ namespace Layout.ViewModels
 
         private ReactiveList<FoldersSelectedVM> _FolderList = new ReactiveList<FoldersSelectedVM>(){ChangeTrackingEnabled = true};
         public ReactiveList<FoldersSelectedVM> SelectedFolderList { get { return _FolderList; } set { this.RaiseAndSetIfChanged(ref _FolderList, value); } }
-
-
-        //private List<FoldersSelectedVM> _MasterA;
-        //public List<FoldersSelectedVM> MasterAnalyticFolders { get { return _MasterA; } set { this.RaiseAndSetIfChanged(ref _MasterA, value); } }
-
-        //private List<FoldersSelectedVM> _MasterAVM;
-        //public List<FoldersSelectedVM> MasterAnalyticFoldersVM { get { return _MasterAVM; } set { this.RaiseAndSetIfChanged(ref _MasterAVM, value); } }
-
-        //private List<FoldersSelectedVM> _SelectedA;
-        //public List<FoldersSelectedVM> SelectedAnalyticFolders { get { return _SelectedA; } set { this.RaiseAndSetIfChanged(ref _SelectedA, value); } }
-
-        //private List<string> _MasterE;
-        //public List<string> MasterEveryDayFolders { get { return _MasterE; } set { this.RaiseAndSetIfChanged(ref _MasterE, value); } }
-
-        //private List<string> _SelectedE;
-        //public List<string> SelecedEveryDayFolders { get { return _SelectedE; } set { this.RaiseAndSetIfChanged(ref _SelectedE, value); } }
-
-
-        //private List<string> _MasterP;
-        //public List<string> MasterPromotionFolders { get { return _MasterP; } set { this.RaiseAndSetIfChanged(ref _MasterP, value); } }
-        //private List<string> _MasterK;
-        //public List<string> MasterKitFolders { get { return _MasterK; } set { this.RaiseAndSetIfChanged(ref _MasterK, value); } }
 
     }   
 
