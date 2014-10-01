@@ -294,7 +294,7 @@
             <DataTemplate DataType="{x:Type vm:HomeSearchViewModel}">
                 <local:HomeVerticalControl />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:AnalyticViewModel}">
+            <DataTemplate DataType="{x:Type vm:AnalyticModuleViewModel}">
                 <local:AnalyticStepsControl />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vma:IdentityViewModel}">
@@ -312,7 +312,7 @@
             <DataTemplate DataType="{x:Type vm:FolderSettingsViewModel}">
                 <views:FolderSettingsControl />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:AdminViewModel}">
+            <DataTemplate DataType="{x:Type vm:AdminModuleViewModel}">
                 <local:AdminControl />
             </DataTemplate>
         </ResourceDictionary>

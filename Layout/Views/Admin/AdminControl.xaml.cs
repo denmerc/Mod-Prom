@@ -91,6 +91,6 @@ namespace Layout
 
     public class FolderSettingsViewModelEvent
     {
-        public FolderSettingsViewModel vm { get; set; }
+        //public FolderSettingsViewModel vm { get; set; }
     }
 }

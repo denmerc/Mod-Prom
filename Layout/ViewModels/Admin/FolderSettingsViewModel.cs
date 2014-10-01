@@ -23,48 +23,50 @@ namespace Layout.ViewModels
 
             .Subscribe(x =>
             {
-                    switch (SelectedModuleIndex)
+                    switch (SelectedModuleIndex) //TODO:
 	                {
                         case 0:
                             if (x.Sender.IsSelected)
 	                        {
-                                MasterFolderSet.SelectedAnalyticFolders.Add(x.Sender.Name);      
+                                AnalyticFolderSet.Add(x.Sender.Name);
+                                //MasterFolderSet.SelectedAnalyticFolders.Add(x.Sender.Name);
 	                        }
                             else
                             {
-                                MasterFolderSet.SelectedAnalyticFolders.Remove(x.Sender.Name);
+                                AnalyticFolderSet.Remove(x.Sender.Name);
+                                //MasterFolderSet.SelectedAnalyticFolders.Remove(x.Sender.Name);
                             }
                             break;
                         case 1:
                             if (x.Sender.IsSelected)
                             {
-                                MasterFolderSet.SelectedEverydayFolders.Add(x.Sender.Name);
+                                EverydayFolderSet.Add(x.Sender.Name);
                             }
                             else
                             {
-                                MasterFolderSet.SelectedEverydayFolders.Remove(x.Sender.Name);
+                                EverydayFolderSet.Remove(x.Sender.Name);
                             }
                             break;
 
                         case 2:
                             if (x.Sender.IsSelected)
                             {
-                                MasterFolderSet.SelectedPromotionFolders.Add(x.Sender.Name);
+                                PromoFolderSet.Add(x.Sender.Name);
                             }
                             else
                             {
-                                MasterFolderSet.SelectedPromotionFolders.Remove(x.Sender.Name);
+                                PromoFolderSet.Remove(x.Sender.Name);
                             }
                             break;
 
                         case 3:
                             if (x.Sender.IsSelected)
                             {
-                                MasterFolderSet.SelectedKitFolders.Add(x.Sender.Name);
+                                KitFolderSet.Add(x.Sender.Name);
                             }
                             else
                             {
-                                MasterFolderSet.SelectedKitFolders.Remove(x.Sender.Name);
+                                KitFolderSet.Remove(x.Sender.Name);
                             }
                             break;
 
@@ -138,33 +140,46 @@ namespace Layout.ViewModels
         public void Reload(Domain.SubModuleType submodule)
         {
             //save to in memory if folderList != null until flushed to db when user clicks save link
-            
+            var master = ((HomeSearchViewModel)MainViewModel.SubModuleCache[Domain.SubModuleType.Search]);
 
-            MasterFolderSet = ((HomeSearchViewModel)MainViewModel.SubModuleCache[Domain.SubModuleType.Search]).FolderSet;
+            //MasterFolderSet = ((HomeSearchViewModel)MainViewModel.SubModuleCache[Domain.SubModuleType.Search]).FolderSet;
+            AnalyticFolderSet = master.FolderSet.SelectedAnalyticFolders.ToList();
+            MasterAnalyticFolderSet = master.FolderSet.MasterAnalyticFolderList.ToList();
+
+            EverydayFolderSet = master.FolderSet.SelectedEverydayFolders.ToList();
+            MasterEverydayFolderSet = master.FolderSet.MasterEverydayFolderList.ToList();
+
+            PromoFolderSet = master.FolderSet.SelectedPromotionFolders.ToList();
+            MasterPromoFolderSet = master.FolderSet.MasterPromotionFolderList.ToList();
+
+            KitFolderSet = master.FolderSet.SelectedKitFolders.ToList();
+            MasterKitFolderSet = master.FolderSet.MasterKitFolderList.ToList();
+
                  List<FoldersSelectedVM> selectedVMs = null; List<FoldersSelectedVM> masterVMs = null; 
             switch (submodule)
             {
                 case Domain.SubModuleType.Analytics:
 
-                    selectedVMs = MasterFolderSet.SelectedAnalyticFolders.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
-                    masterVMs = MasterFolderSet.MasterAnalyticFolderList.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
+                    selectedVMs = AnalyticFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
+                    masterVMs = MasterAnalyticFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
+                    //masterVMs = MasterFolderSet.MasterAnalyticFolderList.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
                     Title = "Analytics";
                     SelectedModuleIndex = 0;
                     break;
                 case Domain.SubModuleType.Everyday:
-                    selectedVMs = MasterFolderSet.SelectedEverydayFolders.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
-                    masterVMs = MasterFolderSet.MasterEverydayFolderList.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
+                    selectedVMs = EverydayFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
+                    masterVMs = MasterEverydayFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
                     Title = "Everyday";
                     SelectedModuleIndex = 1;
                     break;
                 case Domain.SubModuleType.Promotions:
-                    selectedVMs = MasterFolderSet.SelectedPromotionFolders.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
-                    masterVMs = MasterFolderSet.MasterPromotionFolderList.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
+                    selectedVMs = PromoFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
+                    masterVMs = MasterPromoFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
                     Title = "Promotions";
                     SelectedModuleIndex = 2;break;
                 case Domain.SubModuleType.Kits:
-                    selectedVMs = MasterFolderSet.SelectedKitFolders.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
-                    masterVMs = MasterFolderSet.MasterKitFolderList.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
+                    selectedVMs = KitFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
+                    masterVMs = MasterKitFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
                     Title = "Kits";                  
                     SelectedModuleIndex = 3;
                     break;
@@ -190,8 +205,29 @@ namespace Layout.ViewModels
         private List<Domain.SubModuleType> _subModuleKeys;
         public List<Domain.SubModuleType> SubModuleKeys { get { return _subModuleKeys; } set { this.RaiseAndSetIfChanged(ref _subModuleKeys, value); } }
 
-        private Domain.FolderSet _masterFolderSet;
-        public Domain.FolderSet MasterFolderSet { get { return _masterFolderSet; } set { this.RaiseAndSetIfChanged(ref _masterFolderSet, value); } }
+
+        private List<string> _kitFolderSet;
+        public List<string> KitFolderSet { get { return _kitFolderSet; } set { this.RaiseAndSetIfChanged(ref _kitFolderSet, value); } }
+        private List<string> _masterKitFolderSet;
+        public List<string> MasterKitFolderSet { get { return _masterKitFolderSet; } set { this.RaiseAndSetIfChanged(ref _masterKitFolderSet, value); } }
+
+        private List<string> _promoFolderSet;
+        public List<string> PromoFolderSet { get { return _promoFolderSet; } set { this.RaiseAndSetIfChanged(ref _promoFolderSet, value); } }
+        private List<string> _masterPromoFolderSet;
+        public List<string> MasterPromoFolderSet { get { return _masterPromoFolderSet; } set { this.RaiseAndSetIfChanged(ref _masterPromoFolderSet, value); } }
+
+        private List<string> _everydayFolderSet;
+        public List<string> EverydayFolderSet { get { return _everydayFolderSet; } set { this.RaiseAndSetIfChanged(ref _everydayFolderSet, value); } }
+        private List<string> _masterEverydayFolderSet;
+        public List<string> MasterEverydayFolderSet { get { return _masterEverydayFolderSet; } set { this.RaiseAndSetIfChanged(ref _masterEverydayFolderSet, value); } }
+
+        private List<string> _analyticFolderSet;
+        public List<string> AnalyticFolderSet { get { return _analyticFolderSet; } set { this.RaiseAndSetIfChanged(ref _analyticFolderSet, value); } }
+        private List<string> _masterAnalyticFolderSet;
+        public List<string> MasterAnalyticFolderSet { get { return _masterAnalyticFolderSet; } set { this.RaiseAndSetIfChanged(ref _masterAnalyticFolderSet, value); } }
+
+        //private Domain.FolderSet _masterFolderSet;
+        //public Domain.FolderSet MasterFolderSet { get { return _masterFolderSet; } set { this.RaiseAndSetIfChanged(ref _masterFolderSet, value); } }
 
 
         private int _SelectedModuleIndex;

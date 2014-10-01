@@ -76,7 +76,7 @@ namespace Layout.ViewModels
                                         //populate name for header
                                         var analytic = (Domain.Analytic)navigator.Entity;
 
-                                        SelectedSubModuleViewModel = new AnalyticViewModel(AnalyticRepo, Session, analytic.Name);
+                                        SelectedSubModuleViewModel = new AnalyticModuleViewModel(AnalyticRepo, Session, analytic.Name);
                                         SubModuleCache.Add(navigator.SubModule, SelectedSubModuleViewModel);
                                     }
                                     else
@@ -85,7 +85,7 @@ namespace Layout.ViewModels
                                 
                                     }
                                     //if(navigator.Entity != null)
-                                       ((AnalyticViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator);
+                                       ((AnalyticModuleViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator);
                                        //load tags from home search here todo:
                                 
                                     break;
@@ -94,11 +94,11 @@ namespace Layout.ViewModels
                                 case Domain.SubModuleType.Kits:
                                     if (!SubModuleCache.ContainsKey(navigator.SubModule))
                                     {
-                                        SelectedSubModuleViewModel = new PricingViewModel(PricingRepo, Session);
+                                        SelectedSubModuleViewModel = new PricingModuleViewModel(PricingRepo, Session);
                                     }
                                     else
                                     {
-                                        ((PricingViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator.Section);
+                                        ((PricingModuleViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator.Section);
                                     }
                                     break;
                                 case Domain.SubModuleType.Search:
@@ -141,12 +141,12 @@ namespace Layout.ViewModels
 
                             if (!SubModuleCache.ContainsKey(navigator.SubModule))
                             {
-                                SelectedSubModuleViewModel = new AdminViewModel();
+                                SelectedSubModuleViewModel = new AdminModuleViewModel();
                                 SubModuleCache.Add(navigator.SubModule, SelectedSubModuleViewModel);
                             }
                             else
                             {
-                                SelectedSubModuleViewModel = ((AdminViewModel)SubModuleCache[navigator.SubModule]);
+                                SelectedSubModuleViewModel = ((AdminModuleViewModel)SubModuleCache[navigator.SubModule]);
                             }
 
 
@@ -200,7 +200,7 @@ namespace Layout.ViewModels
        }
         private FolderSet _FolderSet;
         public FolderSet FolderSet { get { return _FolderSet; } set { this.RaiseAndSetIfChanged(ref _FolderSet, value); } }
-        public ViewModels.Navigator Navigator { get; set; }
+        //public ViewModels.Navigator Navigator { get; set; }
         public Reactive.EventAggregator EventManager { get; set; }
 
         public static Data.ISearchRepository SearchRepo { get; set; }
@@ -610,21 +610,30 @@ namespace Layout.ViewModels
                             ToggleResults("All");
                             break;
                         case SubModuleType.Everyday:
+                            if(FolderSet != null)
+                            {
+                                SelectedFavTags = FolderSet.SelectedEverydayFolders;
+                                Tags = FolderSet.MasterEverydayFolderList;
+                            }
                             SelectedSubModuleIndex = 1;
-                            SelectedFavTags = FolderSet.SelectedEverydayFolders;
-                            Tags = FolderSet.MasterEverydayFolderList;
                             ToggleResults("All");
                             break;
                         case SubModuleType.Promotions:
+                            if (FolderSet != null)
+                            {
+                                SelectedFavTags = FolderSet.SelectedPromotionFolders;
+                                Tags = FolderSet.MasterPromotionFolderList;
+                            }
                             SelectedSubModuleIndex = 2;
-                            SelectedFavTags = FolderSet.SelectedPromotionFolders;
-                            Tags = FolderSet.MasterPromotionFolderList;
                             ToggleResults("All");
                             break;
                         case SubModuleType.Kits:
+                            if (FolderSet != null)
+                            {
+                                SelectedFavTags = FolderSet.SelectedKitFolders;
+                                Tags = FolderSet.MasterKitFolderList;
+                            }
                             SelectedSubModuleIndex = 3;
-                            SelectedFavTags = FolderSet.SelectedKitFolders;
-                            Tags = FolderSet.MasterKitFolderList;
                             //Tags = AnalyticTags.Union(SelectedFavTags).ToList();
                             //LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
                             //    SelectedFavTags = FavoritePricingTags;
@@ -1075,7 +1084,7 @@ namespace Layout.ViewModels
         public Data.ISearchRepository SearchRepository { get; set; }
         public Domain.Session Session { get; set; }
 
-        public Navigator Navigator { get; set; } //TODO: needs to be handled globally on mainviewmodel but can be passed as ref
+        //public Navigator Navigator { get; set; } //TODO: needs to be handled globally on mainviewmodel but can be passed as ref
 
         //public AnalyticViewModel SelectedAnalyticViewModel { get; set; }
         //public PricingViewModel SelectedPricingViewModel { get; set; }
@@ -1088,25 +1097,11 @@ namespace Layout.ViewModels
 
 
 
-    
-    public class AdministrationModuleViewModel
-    {
-        /**
-         * User mgmt
-         * Global Defaults - PriceLists, Optimizations, Markup Rules, Rounding
-         * Global functions, processes, alerts
-         * 
-         * */
-        public AdministrationModuleViewModel()
-        {
-        
-        }
-
-    }
+  
 
 
     //Planning sections
-    public class AnalyticViewModel : ViewModelBase
+    public class AnalyticModuleViewModel : ViewModelBase
     {
         /**
          * SelectedAnalytic - contains selected filters, pricelists, valuedrivers
@@ -1204,7 +1199,7 @@ namespace Layout.ViewModels
         //{
             
         //}
-        public AnalyticViewModel(IAnalyticRepository repo, Session session, string name)
+        public AnalyticModuleViewModel(IAnalyticRepository repo, Session session, string name)
         {
             Name = name;
 
@@ -1254,7 +1249,7 @@ namespace Layout.ViewModels
         void Save(){}
     }
 
-    public class PricingViewModel : ViewModelBase
+    public class PricingModuleViewModel : ViewModelBase
     {
         /**
          * SelectedPriceRoutine - contains selected filters, pricelists, valuedrivers
@@ -1262,7 +1257,7 @@ namespace Layout.ViewModels
          * SelectedStepViewModel to bind to content control
          * 
          * */
-        public PricingViewModel(IPricingRepository pricingRepo, Session session)
+        public PricingModuleViewModel(IPricingRepository pricingRepo, Session session)
         {
         
         }
@@ -1302,7 +1297,7 @@ namespace Layout.ViewModels
 
 
 
-    public class AdminViewModel : ViewModelBase
+    public class AdminModuleViewModel : ViewModelBase
     {
         Layout.ViewModels.Reactive.EventAggregator EventManager = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
 
@@ -1310,7 +1305,7 @@ namespace Layout.ViewModels
         //private static Domain.Analytic SelectedAnalytic { get; set; }
         private MainViewModel _parent;
         private ISearchRepository _repo;
-        public AdminViewModel() {
+        public AdminModuleViewModel() {
              
             _repo = MainViewModel.SearchRepo;
 
@@ -1332,8 +1327,14 @@ namespace Layout.ViewModels
                     var vm = ((FolderSettingsViewModel)(SelectedSectionViewModel));
                     try
                     {
-                        
-                        _repo.SaveFolders(vm.MasterFolderSet);
+                        var folderSet = new FolderSet
+                        {
+                            SelectedAnalyticFolders = vm.AnalyticFolderSet,
+                            SelectedEverydayFolders = vm.EverydayFolderSet,
+                            SelectedPromotionFolders = vm.PromoFolderSet,
+                            SelectedKitFolders = vm.KitFolderSet
+                        };
+                        _repo.SaveFolders(folderSet);
                     }
                     catch (Exception)
                     {
@@ -1343,7 +1344,13 @@ namespace Layout.ViewModels
                     
                     //if saved update in memory so search screen is updated
                     var mainFolderSet = ((HomeSearchViewModel)MainViewModel.SubModuleCache[Domain.SubModuleType.Search]);
-                    mainFolderSet.SelectedFavTags = vm.MasterFolderSet.SelectedAnalyticFolders; 
+
+                    mainFolderSet.FolderSet.SelectedAnalyticFolders = vm.AnalyticFolderSet;
+                    mainFolderSet.FolderSet.SelectedEverydayFolders = vm.EverydayFolderSet;
+                    mainFolderSet.FolderSet.SelectedPromotionFolders = vm.PromoFolderSet;
+                    mainFolderSet.FolderSet.SelectedKitFolders = vm.KitFolderSet;
+                    
+                    //mainFolderSet.SelectedFavTags = vm.AnalyticFolderSet; 
                     //((HomeSearchViewModel)MainViewModel
                     //    .SubModuleCache[Domain.SubModuleType.Search]).RaisePropertyChanged("FolderSet");
                     //mainFolderSet.SelectedEverydayFolders = vm.MasterFolderSet.SelectedEverydayFolders;
