@@ -378,7 +378,7 @@
                                 <Separator ></Separator>
 
                                     <telerik:RadAutoCompleteBox x:Name="TagSearchBox" ItemsSource="{Binding Tags}" SelectionChanged="TagSearchBox_SelectionChanged"
-                                                            WatermarkContent="--Enter Keyword to Find Folder--"
+                                                            WatermarkContent="--Enter Keyword Here--"
                                                             AutoCompleteMode="Suggest"
                                                             Width="200" Margin="0 5"
                                                             Background="White" FontSize="16" Foreground="Black"

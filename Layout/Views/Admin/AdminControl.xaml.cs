@@ -83,13 +83,13 @@ namespace Layout
 
 
             //Publisher.Publish<FolderSettingsViewModelEvent>(new FolderSettingsViewModelEvent{vm=(FolderSettingsViewModel)((AdminViewModel)this.DataContext).SelectedSectionViewModel});
-            Publisher.Publish<FolderSettingsViewModelEvent>(new FolderSettingsViewModelEvent());
+            Publisher.Publish<FolderSettingsUpdatedEvent>(new FolderSettingsUpdatedEvent());
 
 
         }
 	}
 
-    public class FolderSettingsViewModelEvent
+    public class FolderSettingsUpdatedEvent
     {
         //public FolderSettingsViewModel vm { get; set; }
     }

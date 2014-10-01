@@ -133,7 +133,12 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\Admin\AdminModuleViewModel.cs" />
     <Compile Include="ViewModels\Admin\FolderSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Analytic\AnalyticModuleViewModel.cs" />
+    <Compile Include="ViewModels\Events.cs" />
+    <Compile Include="ViewModels\PlanningModuleViewModel.cs" />
+    <Compile Include="ViewModels\Pricing\PricingModuleViewModel.cs" />
     <Compile Include="Views\Admin\UserAdminControl.xaml.cs">
       <DependentUpon>UserAdminControl.xaml</DependentUpon>
     </Compile>
@@ -161,7 +166,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\FilterStepControl.xaml">
+    <Page Include="Views\Common\FilterStepControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -208,7 +213,7 @@
     <Compile Include="Views\Admin\AdminControl.xaml.cs">
       <DependentUpon>AdminControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FilterStepControl.xaml.cs">
+    <Compile Include="Views\Common\FilterStepControl.xaml.cs">
       <DependentUpon>FilterStepControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pricing\PricingStepsControl.xaml.cs">
@@ -283,6 +288,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
