@@ -265,7 +265,7 @@
                             
                         <WrapPanel x:Name="TabContentStackPanel" Orientation="Horizontal">
                             <ListBox x:Name="ModuleListBox"  Margin="20 40 0 10" Height="Auto" Width="Auto" SelectionChanged="ModuleListBox_SelectionChanged"
-                          
+                          SelectedIndex="{Binding SelectedSubModuleIndex}"
 				                    VerticalAlignment="Top">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -378,7 +378,7 @@
                                 <Separator ></Separator>
 
                                     <telerik:RadAutoCompleteBox x:Name="TagSearchBox" ItemsSource="{Binding Tags}" SelectionChanged="TagSearchBox_SelectionChanged"
-                                                            WatermarkContent="Enter Folder to Filter"
+                                                            WatermarkContent="--Spacebar to List All--"
                                                             AutoCompleteMode="Suggest"
                                                             Width="200" Margin="0 5"
                                                             Background="White" FontSize="16" Foreground="Black"

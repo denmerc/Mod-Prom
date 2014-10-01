@@ -9,6 +9,7 @@ using MongoDB.Bson;
 using MongoDB.Driver.Linq;
 using System.Configuration;
 using MongoDB.Driver.Builders;
+using Domain;
 
 namespace Layout.Data
 {
@@ -53,6 +54,18 @@ namespace Layout.Data
                        return list;
                 default: return null;
             }
+        }
+
+
+        public void SaveFolders(FolderSet folderSet)
+        {
+            var all = Folders.AsQueryable().First();
+
+            all.SelectedAnalyticFolders = folderSet.SelectedAnalyticFolders;
+            all.SelectedEverydayFolders = folderSet.SelectedEverydayFolders;
+            all.SelectedKitFolders = all.SelectedKitFolders;
+            all.SelectedPromotionFolders = all.SelectedPromotionFolders;
+            Folders.Save(all);
         }
 
         public Domain.FolderSet AllFolderSets()
@@ -471,6 +484,7 @@ namespace Layout.Data
 
     public interface ISearchRepository : IDisposable
     {
+        void SaveFolders(FolderSet folderSet);
         Domain.FolderSet AllFolderSets();
 
         List<string> AllFoldersBySubModule(string subModule);

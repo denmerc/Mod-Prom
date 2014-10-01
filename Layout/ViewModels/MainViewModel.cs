@@ -109,23 +109,24 @@ namespace Layout.ViewModels
                                     else
                                     {
                                
-                                        SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Search]; this.RaisePropertyChanged("SelectedSubModuleViewModel");
+                                        SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Search];
+                                        this.RaisePropertyChanged("SelectedSubModuleViewModel");
                                         ((HomeSearchViewModel)SelectedSubModuleViewModel).ToggleSearchPane(navigator.SubModule);
 
                                     }
                                     break;
                                 case Domain.SubModuleType.MySettings:
-                                    if(!SubModuleCache.ContainsKey(navigator.SubModule))
-                                    {
-                                        SelectedSubModuleViewModel = new FolderSettingsViewModel(this); 
-                                    }
-                                    else
-                                    {
+                                    //if(!SubModuleCache.ContainsKey(navigator.SubModule))
+                                    //{
+                                    //    SelectedSubModuleViewModel = new FolderSettingsViewModel(); 
+                                    //}
+                                    //else
+                                    //{
                                
-                                        SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Search];
+                                    //    SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Search];
                                
 
-                                    }
+                                    //}
                                     break;
                                 default:
                                     break;
@@ -140,22 +141,28 @@ namespace Layout.ViewModels
 
                             if (!SubModuleCache.ContainsKey(navigator.SubModule))
                             {
-                                SelectedSubModuleViewModel = new AdminViewModel(this);
+                                SelectedSubModuleViewModel = new AdminViewModel();
+                                SubModuleCache.Add(navigator.SubModule, SelectedSubModuleViewModel);
                             }
                             else
                             {
-                                ((AdminViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator.Section);
+                                SelectedSubModuleViewModel = ((AdminViewModel)SubModuleCache[navigator.SubModule]);
                             }
-                            switch (navigator.SubModule)
-                            {
 
-                                case Domain.SubModuleType.Search: //change SelectedSectionViewModel to FolderSettingsViewModel
-                                    ((AdminViewModel)SelectedSubModuleViewModel).Navigate(navigator.Section);
-                                    break;
+
+                            //((AdminViewModel)SelectedSubModuleViewModel).Navigate(navigator.Section);
+
+                            //switch (navigator.SubModule)
+                            //{
+
+                            //    case Domain.SubModuleType.AdminDefault: //change SelectedSectionViewModel to FolderSettingsViewModel
+                            //        ((AdminViewModel)SelectedSubModuleViewModel).Navigate(navigator.Section);
+                            //        break;
                                 
-                                default:
-                                    break;
-                            }
+                            //    default:
+                            //        break;
+                                
+                            //}
                             break;
                         default:
                             break;
@@ -191,11 +198,12 @@ namespace Layout.ViewModels
             
             
        }
-
+        private FolderSet _FolderSet;
+        public FolderSet FolderSet { get { return _FolderSet; } set { this.RaiseAndSetIfChanged(ref _FolderSet, value); } }
         public ViewModels.Navigator Navigator { get; set; }
         public Reactive.EventAggregator EventManager { get; set; }
 
-        public Data.ISearchRepository SearchRepo { get; set; }
+        public static Data.ISearchRepository SearchRepo { get; set; }
         public Data.IAnalyticRepository AnalyticRepo { get; set; }
         public Data.IPricingRepository PricingRepo { get; set; }
 
@@ -577,12 +585,16 @@ namespace Layout.ViewModels
                 .Subscribe(submodule =>
                 {
                     SelectedSubModule = submodule;
+                    
                     switch (submodule)
                     {
                         case SubModuleType.Analytics:
-                            
-                            SelectedFavTags = FolderSet.SelectedAnalyticFolders;
-                            Tags = FolderSet.MasterAnalyticFolderList;
+                            SelectedSubModuleIndex = 0;
+                            if (FolderSet != null)
+                            {
+                                SelectedFavTags = FolderSet.SelectedAnalyticFolders; //TODO: move to main
+                                Tags = FolderSet.MasterAnalyticFolderList;
+                            }
                             //Tags = AnalyticTags.Union(SelectedFavTags).ToList();
                             //if(FavoriteTags == null)
                             //{
@@ -598,16 +610,19 @@ namespace Layout.ViewModels
                             ToggleResults("All");
                             break;
                         case SubModuleType.Everyday:
+                            SelectedSubModuleIndex = 1;
                             SelectedFavTags = FolderSet.SelectedEverydayFolders;
                             Tags = FolderSet.MasterEverydayFolderList;
                             ToggleResults("All");
                             break;
                         case SubModuleType.Promotions:
+                            SelectedSubModuleIndex = 2;
                             SelectedFavTags = FolderSet.SelectedPromotionFolders;
                             Tags = FolderSet.MasterPromotionFolderList;
                             ToggleResults("All");
                             break;
                         case SubModuleType.Kits:
+                            SelectedSubModuleIndex = 3;
                             SelectedFavTags = FolderSet.SelectedKitFolders;
                             Tags = FolderSet.MasterKitFolderList;
                             //Tags = AnalyticTags.Union(SelectedFavTags).ToList();
@@ -903,6 +918,11 @@ namespace Layout.ViewModels
         private Domain.SubModuleType _selectedSubModule = Domain.SubModuleType.Search;
         public Domain.SubModuleType SelectedSubModule { get { return _selectedSubModule; } set {this.RaiseAndSetIfChanged(ref _selectedSubModule,value); } }
 
+        private int _selectedSubModuleIndex = 100;
+        public int SelectedSubModuleIndex { get { return _selectedSubModuleIndex; } set { this.RaiseAndSetIfChanged(ref _selectedSubModuleIndex, value); } }
+
+
+
         public List<String> SelectedTagItems { get; set; }
 
         private System.Windows.Visibility _IsTagsDisplayed = System.Windows.Visibility.Hidden;
@@ -1066,10 +1086,7 @@ namespace Layout.ViewModels
     }
 
 
-    public class FolderSettingsViewModel : ViewModelBase
-    {
-        public FolderSettingsViewModel(MainViewModel shell) { }
-    }
+
 
     
     public class AdministrationModuleViewModel
@@ -1292,15 +1309,61 @@ namespace Layout.ViewModels
         private Dictionary<Domain.SectionType, ViewModelBase> SectionCache = new Dictionary<SectionType, ViewModelBase>();
         //private static Domain.Analytic SelectedAnalytic { get; set; }
         private MainViewModel _parent;
-        
-        public AdminViewModel(MainViewModel parent) {
-            _parent = parent ;
+        private ISearchRepository _repo;
+        public AdminViewModel() {
+             
+            _repo = MainViewModel.SearchRepo;
 
             EventManager.GetEvent<SectionSelectionEvent>()
                 .Subscribe(evt =>
                 {
                     this.Navigate(evt.Section);
 
+                });
+            //EventManager.GetEvent<FoldersSelectedVM>()
+            //    .Subscribe(vm =>
+            //    { 
+                    
+            //    });
+
+            EventManager.GetEvent<FolderSettingsViewModelEvent>()
+                .Subscribe(evt =>
+                {
+                    var vm = ((FolderSettingsViewModel)(SelectedSectionViewModel));
+                    try
+                    {
+                        
+                        _repo.SaveFolders(vm.MasterFolderSet);
+                    }
+                    catch (Exception)
+                    {
+                        
+                        throw;
+                    }
+                    
+                    //if saved update in memory so search screen is updated
+                    var mainFolderSet = ((HomeSearchViewModel)MainViewModel.SubModuleCache[Domain.SubModuleType.Search]);
+                    mainFolderSet.SelectedFavTags = vm.MasterFolderSet.SelectedAnalyticFolders; 
+                    //((HomeSearchViewModel)MainViewModel
+                    //    .SubModuleCache[Domain.SubModuleType.Search]).RaisePropertyChanged("FolderSet");
+                    //mainFolderSet.SelectedEverydayFolders = vm.MasterFolderSet.SelectedEverydayFolders;
+                    //mainFolderSet.SelectedPromotionFolders = vm.MasterFolderSet.SelectedPromotionFolders;
+                    //mainFolderSet.SelectedKitFolders = vm.MasterFolderSet.SelectedKitFolders;
+                    
+
+                            
+                            
+                         
+
+                    EventManager.Publish<NavigateEvent>(
+                        new NavigateEvent
+                        {
+                            Module = Domain.ModuleType.Planning,
+                            SubModule = Domain.SubModuleType.Search,
+                            Section = Domain.SectionType.PlanningHomeMyHomePage
+
+                        });
+                    
                 });
 
         }
@@ -1318,7 +1381,7 @@ namespace Layout.ViewModels
 
 
 
-        public  void Navigate(Domain.SectionType section)
+        public void Navigate(Domain.SectionType section)
         {
             if( !SectionCache.ContainsKey(section))
             {
@@ -1326,7 +1389,7 @@ namespace Layout.ViewModels
                 {
 
                     case SectionType.AdministrationFolders:
-                        SelectedSectionViewModel = new FolderSettingsViewModel(_parent);
+                        SelectedSectionViewModel = new FolderSettingsViewModel();
                         break;
                     case SectionType.AdministrationUserMaintenance:
 
@@ -1344,6 +1407,7 @@ namespace Layout.ViewModels
                     case SectionType.AdministrationProcesses:
                         break;
                 }
+                SectionCache.Add(section, SelectedSectionViewModel);
             }
             else //in cache
             {
@@ -1352,6 +1416,7 @@ namespace Layout.ViewModels
 
                     case SectionType.AdministrationFolders:
                         SelectedSectionViewModel = ((FolderSettingsViewModel)SectionCache[section]);
+
                         break;
                     case SectionType.AdministrationUserMaintenance:
 

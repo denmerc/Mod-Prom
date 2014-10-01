@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Linq;
 using Layout.ViewModels.Events;
+using Layout.ViewModels;
 
 namespace Layout
 {
@@ -58,12 +59,38 @@ namespace Layout
 
         private void SectionListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Domain.SectionType section = Domain.SectionType.Null;
+            switch (SectionListBox.SelectedIndex)
+            {
+                case 7:
+                    section = Domain.SectionType.AdministrationFolders;
+                    break;
+                default:
+                    break;
+            }
+
             Publisher.Publish<SectionSelectionEvent>(
                 new SectionSelectionEvent
                 {
-                    Section = Domain.SectionType.AdministrationFolders 
+                    Section = section
 
                 });
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Publisher.Publish<FolderSettingsViewModelEvent>((FolderSettingsViewModel)((AdminViewModel)this.DataContext).SelectedSectionViewModel);
+
+
+            //Publisher.Publish<FolderSettingsViewModelEvent>(new FolderSettingsViewModelEvent{vm=(FolderSettingsViewModel)((AdminViewModel)this.DataContext).SelectedSectionViewModel});
+            Publisher.Publish<FolderSettingsViewModelEvent>(new FolderSettingsViewModelEvent());
+
+
+        }
 	}
+
+    public class FolderSettingsViewModelEvent
+    {
+        public FolderSettingsViewModel vm { get; set; }
+    }
 }

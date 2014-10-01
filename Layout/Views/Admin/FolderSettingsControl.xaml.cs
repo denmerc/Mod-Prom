@@ -20,9 +20,27 @@ namespace Layout.Views
     /// </summary>
     public partial class FolderSettingsControl : UserControl
     {
+        Layout.ViewModels.Reactive.EventAggregator Publisher = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
         public FolderSettingsControl()
         {
             InitializeComponent();
         }
+
+        private void SubModuleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Publisher.Publish<FolderModuleSelectedEvent>(new FolderModuleSelectedEvent { SelectedIndex = SubModuleListBox.SelectedIndex });
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        
+    }
+
+    public class FolderModuleSelectedEvent
+    {
+        public int SelectedIndex { get; set; }
     }
 }

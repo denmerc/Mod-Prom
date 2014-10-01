@@ -51,11 +51,13 @@ namespace Domain
             
         }
 
-        public class FolderSet
+        public class FolderSet : ReactiveObject
         {
             [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
             public string Id { get; set; }
-            public List<string> SelectedAnalyticFolders { get; set; }
+
+            private List<string> _SelectedAnalyticFolders;
+            public List<string> SelectedAnalyticFolders { get{ return _SelectedAnalyticFolders;} set{ this.RaiseAndSetIfChanged(ref _SelectedAnalyticFolders, value); } }
             public List<string> SelectedEverydayFolders { get; set; }
             public List<string> SelectedPromotionFolders { get; set; }
             public List<string> SelectedKitFolders { get; set; }
@@ -157,7 +159,9 @@ namespace Domain
             [EnumMember]
             AdministrationProcesses = 131, // Step 7) Processes
             [EnumMember]
-            AdministrationFolders = 139, // Step 7) Processes
+            AdministrationFolders = 139, // Step 7) Processes,
+            [EnumMember]
+            Null = 0, // Step 7) Processes
 
         }
 

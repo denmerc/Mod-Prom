@@ -175,6 +175,7 @@ namespace Layout
             }
             );
 
+            
             this.WhenAnyValue(x => x.ModuleListBox.SelectedItem).Subscribe( x =>
                     {
                         
@@ -185,18 +186,20 @@ namespace Layout
 
                             TagSearchBox.SelectedItems = null;
                             FavTagListBox.SelectedItem = null;
-                            switch ((x as ListBoxItem).Tag.ToString())
+                            //switch ((x as ListBoxItem).Tag.ToString())
+                            switch (ModuleListBox.SelectedIndex)
+
                             {
-                                case "Analytics":
+                                case 0:
                                     Publisher.Publish<Domain.SubModuleType>(Domain.SubModuleType.Analytics);
                                     break;
-                                case "Everyday" :
+                                case 1:
                                     Publisher.Publish<Domain.SubModuleType>(Domain.SubModuleType.Everyday);
                                     break;
-                                case "Promotions" :
+                                case 2 :
                                     Publisher.Publish<Domain.SubModuleType>(Domain.SubModuleType.Promotions);
                                     break;
-                                case "Kits" :
+                                case 3:
                                     Publisher.Publish<Domain.SubModuleType>(Domain.SubModuleType.Kits);
                                     break;
                                 default:
