@@ -16,14 +16,15 @@
     >
 <UserControl.Resources>
     <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- for design-time support, already in app.xml-->
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colors.xaml" />
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />
             <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
             <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />-->
-        </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>
 
-        <!-- Application Brushes -->
+        <!-- Application Brushes --><!--
         <SolidColorBrush x:Key="ApplicationBackground" Color="LightGray"/>
         <SolidColorBrush x:Key="ApplicationForeground" Color="DarkGray"/>
         <SolidColorBrush x:Key="ApplicationTextForeground" Color="DarkSlateGray"/>
@@ -84,7 +85,7 @@
             </Setter>
         </Style>
 
-        <!-- Application Styles -->
+        --><!-- Application Styles --><!--
         <Style TargetType="{x:Type TextBlock}" x:Key="ApplicationText">
             <Setter Property="Foreground" Value="{StaticResource ApplicationTextForeground}"/>
             <Setter Property="FontSize" Value="16"/>
@@ -246,7 +247,7 @@
                     <Setter Property="Control.FontWeight" Value="Bold" />
                 </Trigger>
             </Style.Triggers>
-        </Style>
+        </Style>-->
     </ResourceDictionary>
 </UserControl.Resources>
 <Grid x:Name="LayoutRoot">

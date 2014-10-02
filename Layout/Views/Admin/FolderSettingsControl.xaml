@@ -138,67 +138,6 @@
                 </ListBox>
             </StackPanel>
 
-            <!--<StackPanel>
-                <TextBlock Text="Everyday" FontSize="25" Margin="5 35 0 0" Foreground="White" ></TextBlock>
-                <Separator ></Separator>
-
-
-                <ListBox x:Name="PromoListBox" Margin="0 10 0 0" ItemsSource="{Binding MasterEveryDayFolders}" SelectionMode="Multiple" Height="Auto" Width="Auto"  >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-
-                            <StackPanel>
-                                <TextBlock FontSize="16"
-								                            Foreground="{StaticResource Foreground}"><Run Text="{Binding Mode=OneWay}"/></TextBlock>
-                            </StackPanel>
-
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
-
-            <StackPanel Margin="20 0">
-                <TextBlock Text="Promo" FontSize="25" Margin="5 35 0 0" Foreground="White"></TextBlock>
-                <Separator ></Separator>
-
-
-                <ListBox x:Name="EveryListBox" Margin="0 10 0 0" ItemsSource="{Binding MasterPromotionFolders}" SelectionMode="Multiple" Height="Auto" Width="Auto"  >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-
-                            <StackPanel>
-                                <TextBlock FontSize="16"
-								                            Foreground="{StaticResource Foreground}"><Run Text="{Binding Mode=OneWay}"/></TextBlock>
-                            </StackPanel>
-
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
-
-            <StackPanel Margin="0">
-                <TextBlock Text="Kits" FontSize="25" Margin="5 35 0 0" Foreground="White"></TextBlock>
-                <Separator ></Separator>
-
-
-                <ListBox x:Name="KitsListBox" Margin="0 10 0 0" ItemsSource="{Binding MasterKitFolders}" SelectionMode="Multiple"  Height="Auto" Width="Auto">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-
-                            <StackPanel>
-                                <TextBlock FontSize="16"
-								                            Foreground="{StaticResource Foreground}"><Run Text="{Binding Mode=OneWay}"/></TextBlock>
-                            </StackPanel>
-
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    --><!--<ListBoxItem Foreground="White">Filter1</ListBoxItem>
-                    <ListBoxItem >Filter2</ListBoxItem>
-                    <ListBoxItem >Filter3</ListBoxItem>
-                    <ListBoxItem >Filter4</ListBoxItem>
-                    <ListBoxItem  >Filter5</ListBoxItem>--><!--
-                </ListBox>
-            </StackPanel>-->
 
         </StackPanel>
     </Grid>
