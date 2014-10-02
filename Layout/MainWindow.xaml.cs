@@ -109,6 +109,9 @@ namespace Layout
                     }
                 
                 );
+            PlanningModuleTitle.Foreground = Brushes.White;
+            AdminModuleTitle.Foreground = Brushes.Black;
+
         }
 
         private void RelatedPriceRoutineButton_Click(object sender, RoutedEventArgs e)
@@ -128,6 +131,9 @@ namespace Layout
                 }
 
             );
+
+            AdminModuleTitle.Foreground = Brushes.White;
+            PlanningModuleTitle.Foreground = Brushes.Black;
             //AdminControl c = new AdminControl(); //TODO: Disabled for demo
             //ModuleControl.Content = c;
         }

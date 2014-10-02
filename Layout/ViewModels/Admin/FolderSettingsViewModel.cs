@@ -139,67 +139,76 @@ namespace Layout.ViewModels
 
         public void Reload(Domain.SubModuleType submodule)
         {
-            //save to in memory if folderList != null until flushed to db when user clicks save link
-            var master = ((HomeSearchViewModel)MainViewModel.SubModuleCache[Domain.SubModuleType.Search]);
-
-            //MasterFolderSet = ((HomeSearchViewModel)MainViewModel.SubModuleCache[Domain.SubModuleType.Search]).FolderSet;
-            AnalyticFolderSet = master.FolderSet.SelectedAnalyticFolders.ToList();
-            MasterAnalyticFolderSet = master.FolderSet.MasterAnalyticFolderList.ToList();
-
-            EverydayFolderSet = master.FolderSet.SelectedEverydayFolders.ToList();
-            MasterEverydayFolderSet = master.FolderSet.MasterEverydayFolderList.ToList();
-
-            PromoFolderSet = master.FolderSet.SelectedPromotionFolders.ToList();
-            MasterPromoFolderSet = master.FolderSet.MasterPromotionFolderList.ToList();
-
-            KitFolderSet = master.FolderSet.SelectedKitFolders.ToList();
-            MasterKitFolderSet = master.FolderSet.MasterKitFolderList.ToList();
-
-                 List<FoldersSelectedVM> selectedVMs = null; List<FoldersSelectedVM> masterVMs = null; 
-            switch (submodule)
+            try
             {
-                case Domain.SubModuleType.Analytics:
 
-                    selectedVMs = AnalyticFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
-                    masterVMs = MasterAnalyticFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
-                    //masterVMs = MasterFolderSet.MasterAnalyticFolderList.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
-                    Title = "Folders";
-                    SelectedModuleIndex = 0;
-                    break;
-                case Domain.SubModuleType.Everyday:
-                    selectedVMs = EverydayFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
-                    masterVMs = MasterEverydayFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
-                    Title = "Folders";
-                    SelectedModuleIndex = 1;
-                    break;
-                case Domain.SubModuleType.Promotions:
-                    selectedVMs = PromoFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
-                    masterVMs = MasterPromoFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
-                    Title = "Folders";
-                    SelectedModuleIndex = 2;break;
-                case Domain.SubModuleType.Kits:
-                    selectedVMs = KitFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
-                    masterVMs = MasterKitFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
-                    Title = "Folders";                  
-                    SelectedModuleIndex = 3;
-                    break;
+                //save to in memory if folderList != null until flushed to db when user clicks save link
+                var master = ((HomeSearchViewModel)MainViewModel.SubModuleCache[Domain.SubModuleType.Search]);
 
-                default:
-                    break;
+                //MasterFolderSet = ((HomeSearchViewModel)MainViewModel.SubModuleCache[Domain.SubModuleType.Search]).FolderSet;
+                AnalyticFolderSet = master.FolderSet.SelectedAnalyticFolders.ToList();
+                MasterAnalyticFolderSet = master.FolderSet.MasterAnalyticFolderList.ToList();
+
+                EverydayFolderSet = master.FolderSet.SelectedEverydayFolders.ToList();
+                MasterEverydayFolderSet = master.FolderSet.MasterEverydayFolderList.ToList();
+
+                PromoFolderSet = master.FolderSet.SelectedPromotionFolders.ToList();
+                MasterPromoFolderSet = master.FolderSet.MasterPromotionFolderList.ToList();
+
+                KitFolderSet = master.FolderSet.SelectedKitFolders.ToList();
+                MasterKitFolderSet = master.FolderSet.MasterKitFolderList.ToList();
+
+                List<FoldersSelectedVM> selectedVMs = null; List<FoldersSelectedVM> masterVMs = null; 
+                switch (submodule)
+                {
+                    case Domain.SubModuleType.Analytics:
+
+                        selectedVMs = AnalyticFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
+                        masterVMs = MasterAnalyticFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
+                        //masterVMs = MasterFolderSet.MasterAnalyticFolderList.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
+                        Title = "Folders";
+                        SelectedModuleIndex = 0;
+                        break;
+                    case Domain.SubModuleType.Everyday:
+                        selectedVMs = EverydayFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
+                        masterVMs = MasterEverydayFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
+                        Title = "Folders";
+                        SelectedModuleIndex = 1;
+                        break;
+                    case Domain.SubModuleType.Promotions:
+                        selectedVMs = PromoFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
+                        masterVMs = MasterPromoFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
+                        Title = "Folders";
+                        SelectedModuleIndex = 2;break;
+                    case Domain.SubModuleType.Kits:
+                        selectedVMs = KitFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = true }).ToList();
+                        masterVMs = MasterKitFolderSet.Select(x => new FoldersSelectedVM { Name = x, IsSelected = false }).ToList();
+                        Title = "Folders";                  
+                        SelectedModuleIndex = 3;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                var folderList = selectedVMs
+                            .Concat(masterVMs)
+                            .GroupBy(item => item.Name)
+                            .Select(group => group.First()).ToList() ;
+
+                SelectedFolderList.Clear();
+                foreach (var item in folderList)
+                {
+                    SelectedFolderList.Add(item);
+                }
+
+                //SelectedFolderList.AddRange(folderList);
             }
-
-            var folderList = selectedVMs
-                        .Concat(masterVMs)
-                        .GroupBy(item => item.Name)
-                        .Select(group => group.First()).ToList() ;
-
-            SelectedFolderList.Clear();
-            foreach (var item in folderList)
+            catch (Exception)
             {
-                SelectedFolderList.Add(item);
+                
+                //throw;
             }
-
-            //SelectedFolderList.AddRange(folderList);
         }
 
         private List<Domain.SubModuleType> _subModuleKeys;

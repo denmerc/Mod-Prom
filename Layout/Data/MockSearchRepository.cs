@@ -70,7 +70,19 @@ namespace Layout.Data
 
         public Domain.FolderSet AllFolderSets()
         {
-            return Folders.AsQueryable().First();
+            try
+            {
+              
+              return Folders.AsQueryable().First();
+
+            }
+            catch (Exception)
+            {
+                
+                //throw;
+            }
+            return null;
+            
         }
 
         public List<string> AllFoldersBySubModule(string subModule)
