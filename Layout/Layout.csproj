@@ -137,7 +137,7 @@
     <Compile Include="ViewModels\Admin\FolderSettingsViewModel.cs" />
     <Compile Include="ViewModels\Analytic\AnalyticModuleViewModel.cs" />
     <Compile Include="ViewModels\Events.cs" />
-    <Compile Include="ViewModels\PlanningModuleViewModel.cs" />
+    <Compile Include="ViewModels\HomeSearchViewModel.cs" />
     <Compile Include="ViewModels\Pricing\PricingModuleViewModel.cs" />
     <Compile Include="Views\Admin\UserAdminControl.xaml.cs">
       <DependentUpon>UserAdminControl.xaml</DependentUpon>
