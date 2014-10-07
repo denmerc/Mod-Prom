@@ -95,7 +95,7 @@ namespace Layout
 
             this.WhenAnyValue(x => x.FavTagListBox.SelectedItem).Subscribe(x =>
             {
-                flag = false;
+                //flag = false;
                 if (x != null && ModuleListBox.SelectedItem != null)
                 {
                             
@@ -333,10 +333,10 @@ namespace Layout
             
         }
 
-        Boolean flag = false;
+        //Boolean flag = false;
         private void Filters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
             if (e.AddedItems.Count > 0)
             {
                 var t = e.AddedItems[0].GetType();
@@ -344,8 +344,8 @@ namespace Layout
                 switch (t.Name)
                 {
                     case "PriceRoutine" :
-                        if (flag == false)//FilterPListBox.SelectedItems.Count != 0)
-                        {
+                        //if (flag == false)//FilterPListBox.SelectedItems.Count != 0)
+                        //{
 
                         Publisher.Publish<SelectionEvent>(
                             new SelectionEvent
@@ -353,26 +353,26 @@ namespace Layout
                                 EntityType = Domain.SubModuleType.Everyday,
                                 Entity = e.AddedItems[0] as Domain.PriceRoutine
                             });
+                        //}
+                        if (FilterPListBox.SelectedItem != null && FilterPListBox.Visibility == Visibility.Visible)
+                        {
+
+                            PricingTabDetail.Visibility = Visibility.Visible;
+                            AnalyticTabDetail.Visibility = Visibility.Collapsed;
+                            MarginStackPanel.Visibility = Visibility.Visible;                            
                         }
-                        //if (FilterPListBox.SelectedItem != null && FilterPListBox.Visibility == Visibility.Visible)
-                        //{
+                        else
+                        {
 
-                        //    PricingTabDetail.Visibility = Visibility.Visible;
-                        //    AnalyticTabDetail.Visibility = Visibility.Collapsed;
-                        //    //MarginStackPanel.Visibility = Visibility.Visible;                            
-                        //}
-                        //else
-                        //{
-
-                        //    PricingTabDetail.Visibility = Visibility.Collapsed;
-                        //    AnalyticTabDetail.Visibility = Visibility.Collapsed;
-                        //    MarginStackPanel.Visibility = Visibility.Collapsed;
-                        //}
-                        flag = true;
+                            PricingTabDetail.Visibility = Visibility.Collapsed;
+                            AnalyticTabDetail.Visibility = Visibility.Collapsed;
+                            MarginStackPanel.Visibility = Visibility.Collapsed;
+                        }
+                        //flag = true;
                         break;
                     case "Analytic" :
-                        if (flag == false)//FilterListBox.SelectedItems.Count !=0) //filtr list boxes always visible
-                        {
+                        //if (flag == false)//FilterListBox.SelectedItems.Count !=0) //filtr list boxes always visible
+                        //{
 
                         Publisher.Publish<SelectionEvent>(
                             new SelectionEvent
@@ -380,7 +380,7 @@ namespace Layout
                                 EntityType = Domain.SubModuleType.Analytics,
                                 Entity = e.AddedItems[0] as Domain.Analytic
                             });
-                        }
+                        //}
                         if(FilterListBox.SelectedItem != null && FilterListBox.Visibility == Visibility.Visible)
                         {
 
@@ -395,7 +395,7 @@ namespace Layout
                             AnalyticTabDetail.Visibility = Visibility.Collapsed;
                             MarginStackPanel.Visibility = Visibility.Collapsed;
                         }
-                        flag = true;
+                        //flag = true;
                         break;
                     default:
                         break;
@@ -436,15 +436,41 @@ namespace Layout
 
         private void RenameButton_Click(object sender, RoutedEventArgs e)
         {
-            if(FilterListBox.SelectedItem != null)
-            { 
-                Publisher.Publish<NavigateEvent>(new NavigateEvent { 
-                    Module = Domain.ModuleType.Planning,
-                    SubModule = Domain.SubModuleType.Analytics,
-                    Section = Domain.SectionType.PlanningAnalyticsIdentity,
-                    Entity = FilterListBox.SelectedItem
-                });
+            switch (ModuleListBox.SelectedIndex)
+            {
+                case 0:
+                    if (FilterListBox.SelectedItem != null)
+                    {
+                        Publisher.Publish<NavigateEvent>(new NavigateEvent
+                        {
+                            Module = Domain.ModuleType.Planning,
+                            SubModule = Domain.SubModuleType.Analytics,
+                            Section = Domain.SectionType.PlanningAnalyticsIdentity,
+                            Entity = FilterListBox.SelectedItem
+                        });
+                    }
+                    break;
+                case 1:
+                case 2:
+                case 3:
+
+                    if (FilterPListBox.SelectedItem != null)
+                    {
+                        Publisher.Publish<NavigateEvent>(new NavigateEvent
+                        {
+                            Module = Domain.ModuleType.Planning,
+                            SubModule = Domain.SubModuleType.Everyday,
+                            Section = Domain.SectionType.PlanningPricingIdentity,
+                            Entity = FilterPListBox.SelectedItem
+                        });
+                    }
+                    break;
+                default:
+                    break;
             }
+
+
+
             //AnalyticStepsControl c = new AnalyticStepsControl();
             //c.TitleTextBox.Text = (FilterListBox.SelectedItem as Domain.Analytic).Name;
             //AnalyticIdentityStepControl i = new AnalyticIdentityStepControl();
@@ -472,7 +498,7 @@ namespace Layout
 
         private void ModuleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            flag = false;
+            //flag = false;
             //if (e.AddedItems.Count >= 1)
             //if (e.AddedItems.Contains(ModuleListBox.Items[0])) 
             //{

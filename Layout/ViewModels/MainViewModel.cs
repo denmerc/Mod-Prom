@@ -94,12 +94,15 @@ namespace Layout.ViewModels
                                 case Domain.SubModuleType.Kits:
                                     if (!SubModuleCache.ContainsKey(navigator.SubModule))
                                     {
-                                        SelectedSubModuleViewModel = new PricingModuleViewModel(PricingRepo, Session);
+                                        var priceRoutine = (Domain.PriceRoutine)navigator.Entity;
+                                        SelectedSubModuleViewModel = new PricingModuleViewModel(PricingRepo, Session, priceRoutine.Name);
+                                        SubModuleCache.Add(navigator.SubModule, SelectedSubModuleViewModel);
                                     }
                                     else
                                     {
-                                        ((PricingModuleViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator.Section);
+                                        SelectedSubModuleViewModel = SubModuleCache[Domain.SubModuleType.Everyday];
                                     }
+                                    ((PricingModuleViewModel)SubModuleCache[navigator.SubModule]).Navigate(navigator);
                                     break;
                                 case Domain.SubModuleType.Search:
                                     if(!SubModuleCache.ContainsKey(navigator.SubModule))

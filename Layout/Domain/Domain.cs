@@ -276,7 +276,7 @@ namespace Domain
             public string Owner { get; set; }
 
             public Domain.Analytic Analytic { get; set; }
-            public List<Domain.Filter> Filters { get; set; }
+            public List<Domain.FilterSet> Filters { get; set; }
 
             public List<Domain.PriceScheme> PriceSchemes { get; set; }
             public List<Domain.ValueDriver> Drivers { get; set; }

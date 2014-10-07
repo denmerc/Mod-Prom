@@ -12,9 +12,15 @@ namespace Layout.ViewModels
 
         private Domain.Analytic _SelectedAnalytic;
         public Domain.Analytic SelectedAnalytic { get { return _SelectedAnalytic; } set { this.RaiseAndSetIfChanged(ref _SelectedAnalytic, value); } }
-        public void Load(object entity)
+        private Domain.PriceRoutine _SelectedPriceRoutine;
+        public Domain.PriceRoutine SelectedPriceRoutine { get { return _SelectedPriceRoutine; } set { this.RaiseAndSetIfChanged(ref _SelectedPriceRoutine, value); } }
+        public void LoadAnalytic(object entity)
         {
             SelectedAnalytic = (Domain.Analytic)entity;
+        }
+        public void LoadPriceRoutine(object entity)
+        {
+            SelectedPriceRoutine = (Domain.PriceRoutine)entity;
         }
     }
 }

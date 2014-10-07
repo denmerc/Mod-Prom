@@ -51,14 +51,14 @@
 
                             
                         </ListBoxItem>
-                                <TextBlock FontSize="25" MinWidth="150" TextAlignment="Left" VerticalAlignment="Center"
-                                    				Foreground="{StaticResource Foreground}" Text="Price Routine - XXX"/>
+                                <TextBlock Text="{Binding Name}" FontSize="25" MinWidth="150" TextAlignment="Left" VerticalAlignment="Center"
+                                    				Foreground="{StaticResource Foreground}"/>
                             
 
                     </ListBox>
                     <StackPanel x:Name="BodyStackPanel" Orientation="Horizontal">
-                        <ListBox x:Name="StepListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
-                            <ListBoxItem x:Name="IdentityListBoxItem" IsSelected="True" Selected="IdentityListBoxItem_Selected" >
+                        <ListBox x:Name="StepListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto" SelectionChanged="StepListBox_SelectionChanged">
+                            <ListBoxItem x:Name="IdentityListBoxItem" Tag="0" IsSelected="True" Selected="IdentityListBoxItem_Selected" >
                                 <StackPanel >
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 1  " FontSize="25" FontWeight="Bold"/><Run Text="Identity "/></TextBlock>
@@ -70,7 +70,7 @@
                                            Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem x:Name="FilterStepListBoxItem" Selected="FilterStepListBoxItem_Selected" >
+                            <ListBoxItem x:Name="FilterStepListBoxItem" Tag="1" Selected="FilterStepListBoxItem_Selected" >
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 2  " FontSize="25" FontWeight="Bold"/><Run Text="Filters "/></TextBlock>
@@ -82,42 +82,42 @@
                                            Foreground="#AAAAAA"><Run Text="Current action: Sleeping"/></TextBlock>-->
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem x:Name="PriceListItem" Selected="PriceListItem_Selected">
+                            <ListBoxItem x:Name="PriceListItem" Tag="2" Selected="PriceListItem_Selected">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 3  " FontSize="25" FontWeight="Bold"/><Run Text="Price Lists  "/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Selected="ListBoxItem_Selected">
+                            <ListBoxItem Selected="ListBoxItem_Selected" Tag="3">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 4  " FontSize="25" FontWeight="Bold"/><Run Text="Rounding "/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Selected="ListBoxItem_Selected">
+                            <ListBoxItem Selected="ListBoxItem_Selected" Tag="4">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 5  " FontSize="25" FontWeight="Bold"/><Run Text="Strategy"/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
-                            <ListBoxItem Selected="ListBoxItem_Selected">
+                            <ListBoxItem Selected="ListBoxItem_Selected" Tag="5">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 6  " FontSize="25" FontWeight="Bold"/><Run Text="Results "/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
-                                    <ListBoxItem Selected="ListBoxItem_Selected">
+                                    <ListBoxItem Selected="ListBoxItem_Selected" Tag="6">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 7  " FontSize="25" FontWeight="Bold"/><Run Text="Forecast"/></TextBlock>
 
                                 </StackPanel>
                             </ListBoxItem>
-                                    <ListBoxItem Selected="ListBoxItem_Selected">
+                                    <ListBoxItem Selected="ListBoxItem_Selected" Tag="7">
                                 <StackPanel>
                                     <TextBlock FontSize="20" VerticalAlignment="Center"
                                            Foreground="{StaticResource Foreground}"><Run Text=" 8  " FontSize="25" FontWeight="Bold"/><Run Text="Approval" /></TextBlock>
@@ -126,9 +126,10 @@
                             </ListBoxItem>
 
                         </ListBox>
-                                <ContentControl x:Name="StepContentControl">
-                                    <local:PricingIdentityStepControl></local:PricingIdentityStepControl>
-                                </ContentControl>
+                                
+                                    <ContentControl x:Name="StepContentControl" Content="{Binding SelectedStepViewModel}"></ContentControl>
+
+                              
                         <!--<ListBox x:Name="StepContentListBox"  Margin="50 0 0 0" Height="Auto" Width="Auto">
                             --><!--<ListBox.ItemContainerStyle>
                                                 <Style TargetType="{x:Type ListBoxItem}">

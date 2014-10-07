@@ -104,19 +104,11 @@ namespace Layout.ViewModels
                                 SelectedFavTags = FolderSet.SelectedAnalyticFolders; //TODO: move to main
                                 Tags = FolderSet.MasterAnalyticFolderList;
                             }
-                            //Tags = AnalyticTags.Union(SelectedFavTags).ToList();
-                            //if(FavoriteTags == null)
-                            //{
-                            //LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
-                            //    SelectedFavTags = FavoriteTags;
-                            //    Tags = AnalyticTags.Union(SelectedFavTags).ToList();
-                            //});
-                            
-                            //}
-                            //if(Analytics == null)
-                            //    { LoadTagsBySubModuleCommand.Execute(submodule); }
-
-                            ToggleResults("All");
+                            if (SelectedAnalytic != null) { ToggleResults("Analytics"); }
+                            else
+                            {
+                                ToggleResults("All");
+                            }
                             break;
                         case SubModuleType.Everyday:
                             if(FolderSet != null)
@@ -125,7 +117,11 @@ namespace Layout.ViewModels
                                 Tags = FolderSet.MasterEverydayFolderList;
                             }
                             SelectedSubModuleIndex = 1;
-                            ToggleResults("All");
+                            if (SelectedPriceRoutine != null) { ToggleResults("Pricing"); }
+                            else
+                            {
+                                ToggleResults("All");
+                            }
                             break;
                         case SubModuleType.Promotions:
                             if (FolderSet != null)
@@ -134,8 +130,13 @@ namespace Layout.ViewModels
                                 Tags = FolderSet.MasterPromotionFolderList;
                             }
                             SelectedSubModuleIndex = 2;
-                            ToggleResults("All");
+                            if(SelectedPriceRoutine != null){ToggleResults("Pricing");}
+                            else
+                            {
+                                ToggleResults("All");
+                            }
                             break;
+                            
                         case SubModuleType.Kits:
                             if (FolderSet != null)
                             {
@@ -143,16 +144,11 @@ namespace Layout.ViewModels
                                 Tags = FolderSet.MasterKitFolderList;
                             }
                             SelectedSubModuleIndex = 3;
-                            //Tags = AnalyticTags.Union(SelectedFavTags).ToList();
-                            //LoadFavoritesBySubModuleCommand.ExecuteAsync(submodule).Subscribe( x => {
-                            //    SelectedFavTags = FavoritePricingTags;
-                            //    Tags = PricingTags.Union(SelectedFavTags).ToList();
-                            //});
-                            //if(PriceRoutines == null)
-                            //    { LoadTagsBySubModuleCommand.Execute(submodule); }
-                            
-
-                            ToggleResults("All");
+                            if(SelectedPriceRoutine != null){ToggleResults("Pricing");}
+                            else
+                            {
+                                ToggleResults("All");
+                            }
                             break;
                         case SubModuleType.MySettings:
                             break;
@@ -240,6 +236,7 @@ namespace Layout.ViewModels
                         //IsPDetailDisplayed = Visibility.Visible; this.RaisePropertyChanged("IsPDetailDisplayed");
 
                         SelectedPriceRoutine = selection.Entity as Domain.PriceRoutine;
+                        IsActionBarOn = Visibility.Visible;
                         break;
                     case SubModuleType.MySettings:
                         break;
@@ -468,7 +465,7 @@ namespace Layout.ViewModels
                     switch (SelectedSubModule)
 	                {
                         case SubModuleType.Analytics:
-                            //IsFiltersDisplayed = Visibility.Visible;
+                            IsFiltersDisplayed = Visibility.Visible;
                             //IsFiltersPDisplayed = Visibility.Collapsed;
                             IsTagsDisplayed = Visibility.Visible;
                             //IsPDetailDisplayed = Visibility.Collapsed;this.RaisePropertyChanged("IsPDetailDisplayed");

@@ -387,7 +387,7 @@ namespace Layout.Data
 
         public void Save<T>(T item) where T : class, new()
         {
-            throw new NotImplementedException();
+            Analytics.Save(item);
         }
 
         public void Add<T>(T item) where T : class, new()

@@ -5,6 +5,7 @@
     xmlns:views ="clr-namespace:Layout.Views"
     xmlns:vm ="clr-namespace:Layout.ViewModels"
      xmlns:vma ="clr-namespace:Layout.ViewModels.Analytic"
+    xmlns:vmp ="clr-namespace:Layout.ViewModels.Pricing"
 	x:Class="Layout.App"
 	StartupUri="MainWindow.xaml">
 	<Application.Resources>
@@ -307,8 +308,18 @@
             <DataTemplate DataType="{x:Type vm:AnalyticModuleViewModel}">
                 <local:AnalyticStepsControl />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PricingModuleViewModel}">
+                <local:PricingStepsControl />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmp:IdentityViewModel}">
+                <local:PricingIdentityStepControl />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vma:IdentityViewModel}">
                 <local:AnalyticIdentityStepControl />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmp:FilterViewModel}">
+                <local:FilterStepControl />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vma:FilterViewModel}">
                 <local:FilterStepControl />

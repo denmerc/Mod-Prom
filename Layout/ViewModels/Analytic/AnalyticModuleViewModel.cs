@@ -21,10 +21,7 @@ namespace Layout.ViewModels
          * SelectedStepViewModel to bind to content control with analytic state , actions
          * Services needed for analytic 
          * */
-        //AnalyticViewModel(Domain.Analytic analytic)
-        //{
 
-        //}
         Layout.ViewModels.Reactive.EventAggregator EventManager = ((Layout.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
 
         private Dictionary<Domain.SectionType, ViewModelBase> StepCache = new Dictionary<SectionType, ViewModelBase>();
@@ -92,22 +89,11 @@ namespace Layout.ViewModels
                     default:
                         break;
                 }
-                SelectedStepViewModel.Load(SelectedAnalytic);
+                SelectedStepViewModel.LoadAnalytic(SelectedAnalytic);
 
             }
         }
-        //public AnalyticViewModel()
-        //{
 
-        //}
-        //public AnalyticViewModel(NavigateEvent navigator)
-        //{
-
-        //}
-        //public AnalyticViewModel(Domain.Analytic analytic, Domain.SectionType step)
-        //{
-
-        //}
         public AnalyticModuleViewModel(IAnalyticRepository repo, Session session, string name)
         {
             Name = name;
