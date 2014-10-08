@@ -12,6 +12,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using APLPX.UI.WPF.ViewModels.Events;
+using Domain = APLPX.Client.Entity;
+
 
 namespace APLPX.UI.WPF
 {

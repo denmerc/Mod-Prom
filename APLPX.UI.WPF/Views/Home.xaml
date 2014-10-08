@@ -5,7 +5,6 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:vm="clr-namespace:APLPX.UI.WPF.ViewModels"
-    xmlns:dom="clr-namespace:Domain"
 	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     mc:Ignorable="d"
 	x:Class="APLPX.UI.WPF.HomeVerticalControl"

@@ -10,7 +10,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using APLPX.UI.WPF.ViewModels.Events;
 using APLPX.Server.Data;
-using Domain;
+using Domain = APLPX.Client.Entity;
 using System.Windows;
 
 
@@ -23,6 +23,7 @@ namespace APLPX.UI.WPF.ViewModels
 
         public MainViewModel()
         {
+            
             //Seed();
             EventManager = ((Reactive.EventAggregator)App.Current.Resources["EventManager"]);
             SearchRepo = new MockSearchRepository();
@@ -66,7 +67,7 @@ namespace APLPX.UI.WPF.ViewModels
                 {
                     switch (navigator.Module)
                     {
-                        case ModuleType.Planning:
+                        case Domain.ModuleType.Planning:
                             switch (navigator.SubModule)
                             {
                                 case Domain.SubModuleType.Analytics: //static-singleton SubModuleVM with proxies with sections reloaded
@@ -135,11 +136,11 @@ namespace APLPX.UI.WPF.ViewModels
                                     break;
                             }
                             break;
-                        case ModuleType.Tracking:
+                        case Domain.ModuleType.Tracking:
                             break;
-                        case ModuleType.Reporting:
+                        case Domain.ModuleType.Reporting:
                             break;
-                        case ModuleType.Administration:
+                        case Domain.ModuleType.Administration:
 
 
                             if (!SubModuleCache.ContainsKey(navigator.SubModule))
@@ -201,8 +202,8 @@ namespace APLPX.UI.WPF.ViewModels
             
             
        }
-        private FolderSet _FolderSet;
-        public FolderSet FolderSet { get { return _FolderSet; } set { this.RaiseAndSetIfChanged(ref _FolderSet, value); } }
+        private Domain.FolderSet _FolderSet;
+        public Domain.FolderSet FolderSet{ get { return _FolderSet; } set { this.RaiseAndSetIfChanged(ref _FolderSet, value); } }
         //public ViewModels.Navigator Navigator { get; set; }
         public Reactive.EventAggregator EventManager { get; set; }
 

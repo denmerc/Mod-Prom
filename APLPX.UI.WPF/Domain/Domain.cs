@@ -9,7 +9,7 @@ using ReactiveUI;
 using System.Reactive;
 using System.Reactive.Linq;
 
-namespace Domain
+namespace APLPX.Client.Entity
 {
 
 
@@ -275,11 +275,11 @@ namespace Domain
             public string LastUserUpdated { get; set; }
             public string Owner { get; set; }
 
-            public Domain.Analytic Analytic { get; set; }
-            public List<Domain.FilterSet> Filters { get; set; }
+            public Analytic Analytic { get; set; }
+            public List<FilterSet> Filters { get; set; }
 
-            public List<Domain.PriceScheme> PriceSchemes { get; set; }
-            public List<Domain.ValueDriver> Drivers { get; set; }
+            public List<PriceScheme> PriceSchemes { get; set; }
+            public List<ValueDriver> Drivers { get; set; }
 
             //public List<string> AssignedAnalytics { get; set; }
             //public List<Action> Actions { get; set; }

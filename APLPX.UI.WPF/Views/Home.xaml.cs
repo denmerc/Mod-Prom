@@ -18,6 +18,8 @@ using System.Linq;
 using System.Reactive.Linq;
 using APLPX.UI.WPF.ViewModels.Events;
 using System.Threading.Tasks;
+using Domain = APLPX.Client.Entity;
+
 
 namespace APLPX.UI.WPF
 {

@@ -13,6 +13,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Domain = APLPX.Client.Entity;
+
 
 namespace APLPX.UI.WPF
 {

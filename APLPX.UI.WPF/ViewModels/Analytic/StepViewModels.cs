@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using APLPX.UI.WPF.ViewModels.Reactive;
+using Domain = APLPX.Client.Entity;
 
 namespace APLPX.UI.WPF.ViewModels.Analytic
 {

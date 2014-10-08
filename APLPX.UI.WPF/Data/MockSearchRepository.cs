@@ -9,7 +9,7 @@ using MongoDB.Bson;
 using MongoDB.Driver.Linq;
 using System.Configuration;
 using MongoDB.Driver.Builders;
-using Domain;
+using Domain = APLPX.Client.Entity;
 
 namespace APLPX.Server.Data
 {
@@ -57,7 +57,7 @@ namespace APLPX.Server.Data
         }
 
 
-        public void SaveFolders(FolderSet folderSet)
+        public void SaveFolders(Domain.FolderSet folderSet)
         {
             var all = Folders.AsQueryable().First();
 
@@ -496,7 +496,7 @@ namespace APLPX.Server.Data
 
     public interface ISearchRepository : IDisposable
     {
-        void SaveFolders(FolderSet folderSet);
+        void SaveFolders(Domain.FolderSet folderSet);
         Domain.FolderSet AllFolderSets();
 
         List<string> AllFoldersBySubModule(string subModule);

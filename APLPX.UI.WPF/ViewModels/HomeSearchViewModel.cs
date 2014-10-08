@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 using ReactiveUI;
 using System.Reactive.Linq;
 using APLPX.UI.WPF.ViewModels.Events;
-using Domain;
+using Domain = APLPX.Client.Entity;
 using System.Windows;
 using APLPX.Server.Data;
+
 
 
 namespace APLPX.UI.WPF.ViewModels
@@ -99,7 +100,7 @@ namespace APLPX.UI.WPF.ViewModels
                     
                     switch (submodule)
                     {
-                        case SubModuleType.Analytics:
+                        case Domain.SubModuleType.Analytics:
                             SelectedSubModuleIndex = 0;
                             if (FolderSet != null)
                             {
@@ -112,7 +113,7 @@ namespace APLPX.UI.WPF.ViewModels
                                 ToggleResults("All");
                             }
                             break;
-                        case SubModuleType.Everyday:
+                        case Domain.SubModuleType.Everyday:
                             if(FolderSet != null)
                             {
                                 SelectedFavTags = FolderSet.SelectedEverydayFolders;
@@ -125,7 +126,7 @@ namespace APLPX.UI.WPF.ViewModels
                                 ToggleResults("All");
                             }
                             break;
-                        case SubModuleType.Promotions:
+                        case Domain.SubModuleType.Promotions:
                             if (FolderSet != null)
                             {
                                 SelectedFavTags = FolderSet.SelectedPromotionFolders;
@@ -138,8 +139,8 @@ namespace APLPX.UI.WPF.ViewModels
                                 ToggleResults("All");
                             }
                             break;
-                            
-                        case SubModuleType.Kits:
+
+                        case Domain.SubModuleType.Kits:
                             if (FolderSet != null)
                             {
                                 SelectedFavTags = FolderSet.SelectedKitFolders;
@@ -152,9 +153,9 @@ namespace APLPX.UI.WPF.ViewModels
                                 ToggleResults("All");
                             }
                             break;
-                        case SubModuleType.MySettings:
+                        case Domain.SubModuleType.MySettings:
                             break;
-                        case SubModuleType.Search:
+                        case Domain.SubModuleType.Search:
                             break;
                         default:
                             break;
@@ -225,24 +226,24 @@ namespace APLPX.UI.WPF.ViewModels
             {
                 switch (selection.EntityType)
                 {
-                    case SubModuleType.Analytics:
+                    case Domain.SubModuleType.Analytics:
                         SelectedAnalytic = selection.Entity as Domain.Analytic;
                         //IsDetailDisplayed = Visibility.Hidden;this.RaisePropertyChanged("IsDetailDisplayed");
                         //IsDetailDisplayed = Visibility.Visible; this.RaisePropertyChanged("IsDetailDisplayed");
                         IsActionBarOn = Visibility.Visible;
                         break;
-                    case SubModuleType.Everyday:
-                    case SubModuleType.Promotions:
-                    case SubModuleType.Kits:
+                    case Domain.SubModuleType.Everyday:
+                    case Domain.SubModuleType.Promotions:
+                    case Domain.SubModuleType.Kits:
                         //IsPDetailDisplayed = Visibility.Hidden;this.RaisePropertyChanged("IsPDetailDisplayed");
                         //IsPDetailDisplayed = Visibility.Visible; this.RaisePropertyChanged("IsPDetailDisplayed");
 
                         SelectedPriceRoutine = selection.Entity as Domain.PriceRoutine;
                         IsActionBarOn = Visibility.Visible;
                         break;
-                    case SubModuleType.MySettings:
+                    case Domain.SubModuleType.MySettings:
                         break;
-                    case SubModuleType.Search:
+                    case Domain.SubModuleType.Search:
                         break;
                     default:
                         break;
@@ -251,11 +252,11 @@ namespace APLPX.UI.WPF.ViewModels
         }
 
 
-        public void LoadFolders(SubModuleType submodule)
+        public void LoadFolders(Domain.SubModuleType submodule)
         {
             switch (submodule)
             {
-                case SubModuleType.Analytics:
+                case Domain.SubModuleType.Analytics:
 
                     SelectedFavTags = FolderSet.SelectedAnalyticFolders;
                     Tags = FolderSet.MasterAnalyticFolderList;
@@ -273,9 +274,9 @@ namespace APLPX.UI.WPF.ViewModels
 
                     ToggleResults("All");
                     break;
-                case SubModuleType.Everyday:
-                case SubModuleType.Promotions:
-                case SubModuleType.Kits:
+                case Domain.SubModuleType.Everyday:
+                case Domain.SubModuleType.Promotions:
+                case Domain.SubModuleType.Kits:
                     SelectedFavTags = FolderSet.SelectedEverydayFolders;
                     Tags = FolderSet.MasterEverydayFolderList;
                     //Tags = AnalyticTags.Union(SelectedFavTags).ToList();
@@ -289,16 +290,16 @@ namespace APLPX.UI.WPF.ViewModels
 
                     ToggleResults("All");
                     break;
-                case SubModuleType.MySettings:
+                case Domain.SubModuleType.MySettings:
                     break;
-                case SubModuleType.Search:
+                case Domain.SubModuleType.Search:
                     break;
                 default:
                     break;
             }
         }
-        private FolderSet _FolderSet;
-        public FolderSet FolderSet { get { return _FolderSet; } set { this.RaiseAndSetIfChanged(ref _FolderSet, value); } }
+        private Domain.FolderSet _FolderSet;
+        public Domain.FolderSet FolderSet { get { return _FolderSet; } set { this.RaiseAndSetIfChanged(ref _FolderSet, value); } }
 
         private List<string> _favoritePricingTags;
         public List<string> FavoritePricingTags
@@ -453,20 +454,20 @@ namespace APLPX.UI.WPF.ViewModels
         {
             switch (type)
             {
-                case SubModuleType.Analytics:
+                case Domain.SubModuleType.Analytics:
 
                     break;
-                case SubModuleType.Everyday:
-                case SubModuleType.Promotions:
-                case SubModuleType.Kits:
+                case Domain.SubModuleType.Everyday:
+                case Domain.SubModuleType.Promotions:
+                case Domain.SubModuleType.Kits:
                     break;
-                case SubModuleType.MySettings:
+                case Domain.SubModuleType.MySettings:
                     break;
-                case SubModuleType.Search:
+                case Domain.SubModuleType.Search:
                     IsTagsDisplayed = System.Windows.Visibility.Visible;
                     switch (SelectedSubModule)
 	                {
-                        case SubModuleType.Analytics:
+                        case Domain.SubModuleType.Analytics:
                             IsFiltersDisplayed = Visibility.Visible;
                             //IsFiltersPDisplayed = Visibility.Collapsed;
                             IsTagsDisplayed = Visibility.Visible;
@@ -475,9 +476,9 @@ namespace APLPX.UI.WPF.ViewModels
                             //IsProgressBarAOn = Visibility.Hidden;
                             //IsProgressBarPOn = Visibility.Hidden;
                             break;
-                        case SubModuleType.Everyday:
-                        case SubModuleType.Promotions:
-                        case SubModuleType.Kits:
+                        case Domain.SubModuleType.Everyday:
+                        case Domain.SubModuleType.Promotions:
+                        case Domain.SubModuleType.Kits:
                             //IsFiltersDisplayed = Visibility.Collapsed;
                             //IsFiltersPDisplayed = Visibility.Visible;
                             IsTagsDisplayed = Visibility.Visible;

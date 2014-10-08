@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ReactiveUI;
 using System.Reactive.Linq;
 using System.Reactive;
+using Domain = APLPX.Client.Entity;
 
 namespace APLPX.UI.WPF.ViewModels
 {

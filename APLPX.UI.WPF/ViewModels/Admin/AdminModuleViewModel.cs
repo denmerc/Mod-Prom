@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ReactiveUI;
 using APLPX.UI.WPF.ViewModels.Events;
 using APLPX.Server.Data;
-using Domain;
+using Domain = APLPX.Client.Entity;
 using System.Windows;
 
 
@@ -14,7 +14,7 @@ namespace APLPX.UI.WPF.ViewModels
     {
         APLPX.UI.WPF.ViewModels.Reactive.EventAggregator EventManager = ((APLPX.UI.WPF.ViewModels.Reactive.EventAggregator)App.Current.Resources["EventManager"]);
 
-        private Dictionary<Domain.SectionType, ViewModelBase> SectionCache = new Dictionary<SectionType, ViewModelBase>();
+        private Dictionary<Domain.SectionType, ViewModelBase> SectionCache = new Dictionary<Domain.SectionType, ViewModelBase>();
         //private static Domain.Analytic SelectedAnalytic { get; set; }
         private MainViewModel _parent;
         private ISearchRepository _repo;
@@ -41,7 +41,7 @@ namespace APLPX.UI.WPF.ViewModels
                     var vm = ((FolderSettingsViewModel)(SelectedSectionViewModel));
                     try
                     {
-                        var folderSet = new FolderSet
+                        var folderSet = new Domain.FolderSet
                         {
                             SelectedAnalyticFolders = vm.AnalyticFolderSet,
                             SelectedEverydayFolders = vm.EverydayFolderSet,
@@ -107,24 +107,24 @@ namespace APLPX.UI.WPF.ViewModels
                 switch (section)
                 {
 
-                    case SectionType.AdministrationFolders:
+                    case Domain.SectionType.AdministrationFolders:
                         SelectedSectionViewModel = new FolderSettingsViewModel();
                         SelectedSectionIndex = 7;
                         break;
-                    case SectionType.AdministrationUserMaintenance:
+                    case Domain.SectionType.AdministrationUserMaintenance:
 
                         break;
-                    case SectionType.AdministrationPricelists:
+                    case Domain.SectionType.AdministrationPricelists:
                         break;
-                    case SectionType.AdministrationOptimization:
+                    case Domain.SectionType.AdministrationOptimization:
                         break;
-                    case SectionType.AdministrationMarkuprules:
+                    case Domain.SectionType.AdministrationMarkuprules:
                         break;
-                    case SectionType.AdministrationRoundingrules:
+                    case Domain.SectionType.AdministrationRoundingrules:
                         break;
-                    case SectionType.AdministrationRollback:
+                    case Domain.SectionType.AdministrationRollback:
                         break;
-                    case SectionType.AdministrationProcesses:
+                    case Domain.SectionType.AdministrationProcesses:
                         break;
                 }
                 SectionCache.Add(section, SelectedSectionViewModel);
@@ -134,24 +134,24 @@ namespace APLPX.UI.WPF.ViewModels
                 switch (section)
                 {
 
-                    case SectionType.AdministrationFolders:
+                    case Domain.SectionType.AdministrationFolders:
                         SelectedSectionViewModel = ((FolderSettingsViewModel)SectionCache[section]);
 
                         break;
-                    case SectionType.AdministrationUserMaintenance:
+                    case Domain.SectionType.AdministrationUserMaintenance:
 
                         break;
-                    case SectionType.AdministrationPricelists:
+                    case Domain.SectionType.AdministrationPricelists:
                         break;
-                    case SectionType.AdministrationOptimization:
+                    case Domain.SectionType.AdministrationOptimization:
                         break;
-                    case SectionType.AdministrationMarkuprules:
+                    case Domain.SectionType.AdministrationMarkuprules:
                         break;
-                    case SectionType.AdministrationRoundingrules:
+                    case Domain.SectionType.AdministrationRoundingrules:
                         break;
-                    case SectionType.AdministrationRollback:
+                    case Domain.SectionType.AdministrationRollback:
                         break;
-                    case SectionType.AdministrationProcesses:
+                    case Domain.SectionType.AdministrationProcesses:
                         break;
                 }
             }
