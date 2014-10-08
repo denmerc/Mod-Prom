@@ -11,7 +11,7 @@ using System.Configuration;
 using MongoDB.Driver.Builders;
 using Domain;
 
-namespace APLPX.UI.WPF.Data
+namespace APLPX.Server.Data
 {
     public class MockSearchRepository : ISearchRepository
     {

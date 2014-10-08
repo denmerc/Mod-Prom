@@ -7,6 +7,8 @@ using System.Reactive.Linq;
 using APLPX.UI.WPF.ViewModels.Events;
 using Domain;
 using System.Windows;
+using APLPX.Server.Data;
+
 
 namespace APLPX.UI.WPF.ViewModels
 {
@@ -19,7 +21,7 @@ namespace APLPX.UI.WPF.ViewModels
          * command that switches object type to search (analytics or price routines) & gets tags by submodule type
          * command that set detail to specfic object in searched list
          * */
-        public HomeSearchViewModel(Data.ISearchRepository repo, Domain.Session session, Reactive.EventAggregator eventManager)
+        public HomeSearchViewModel(ISearchRepository repo, Domain.Session session, Reactive.EventAggregator eventManager)
         {
 
             Session = session;
@@ -587,7 +589,7 @@ namespace APLPX.UI.WPF.ViewModels
 
 
 
-        public Data.ISearchRepository SearchRepository { get; set; }
+        public ISearchRepository SearchRepository { get; set; }
         public Domain.Session Session { get; set; }
 
         //public Navigator Navigator { get; set; } //TODO: needs to be handled globally on mainviewmodel but can be passed as ref

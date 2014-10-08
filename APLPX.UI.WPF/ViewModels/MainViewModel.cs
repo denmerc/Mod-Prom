@@ -9,7 +9,7 @@ using ReactiveUI;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using APLPX.UI.WPF.ViewModels.Events;
-using APLPX.UI.WPF.Data;
+using APLPX.Server.Data;
 using Domain;
 using System.Windows;
 
@@ -25,9 +25,9 @@ namespace APLPX.UI.WPF.ViewModels
         {
             //Seed();
             EventManager = ((Reactive.EventAggregator)App.Current.Resources["EventManager"]);
-            SearchRepo = new Data.MockSearchRepository();
-            AnalyticRepo = new Data.MockAnalyticRepository();
-            PricingRepo = new Data.MockPricingRepository();
+            SearchRepo = new MockSearchRepository();
+            AnalyticRepo = new MockAnalyticRepository();
+            PricingRepo = new MockPricingRepository();
 
             //initialize session --> login mock User.IsAuthenticated = true
             //load session module list and tags
@@ -206,9 +206,9 @@ namespace APLPX.UI.WPF.ViewModels
         //public ViewModels.Navigator Navigator { get; set; }
         public Reactive.EventAggregator EventManager { get; set; }
 
-        public static Data.ISearchRepository SearchRepo { get; set; }
-        public Data.IAnalyticRepository AnalyticRepo { get; set; }
-        public Data.IPricingRepository PricingRepo { get; set; }
+        public static ISearchRepository SearchRepo { get; set; }
+        public IAnalyticRepository AnalyticRepo { get; set; }
+        public IPricingRepository PricingRepo { get; set; }
 
         public Domain.Session Session { get; set; } //contains user history
         

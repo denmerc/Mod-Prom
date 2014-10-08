@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ReactiveUI;
 using APLPX.UI.WPF.ViewModels.Events;
-using APLPX.UI.WPF.Data;
+using APLPX.Server.Data;
 using Domain;
 using System.Windows;
 
