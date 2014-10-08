@@ -301,29 +301,6 @@
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Lib\MahApps.Metro.dll" />
-    <Resource Include="Lib\MahApps.Metro.xml" />
-    <Content Include="Lib\MongoDB.Bson.dll" />
-    <Resource Include="Lib\MongoDB.Bson.xml" />
-    <Content Include="Lib\MongoDB.Driver.dll" />
-    <Resource Include="Lib\MongoDB.Driver.xml" />
-    <Content Include="Lib\ReactiveUI.dll" />
-    <Resource Include="Lib\ReactiveUI.xml" />
-    <Content Include="Lib\System.Reactive.Core.dll" />
-    <Resource Include="Lib\System.Reactive.Core.xml" />
-    <Content Include="Lib\System.Reactive.Interfaces.dll" />
-    <Resource Include="Lib\System.Reactive.Interfaces.xml" />
-    <Content Include="Lib\System.Reactive.Linq.dll" />
-    <Resource Include="Lib\System.Reactive.Linq.xml" />
-    <Content Include="Lib\System.Reactive.PlatformServices.dll" />
-    <Resource Include="Lib\System.Reactive.PlatformServices.xml" />
-    <Content Include="Lib\System.Reactive.Windows.Threading.dll" />
-    <Resource Include="Lib\System.Reactive.Windows.Threading.xml" />
-    <Content Include="Lib\System.Windows.Interactivity.dll" />
-    <Content Include="Lib\Telerik.Windows.Controls.dll" />
-    <Content Include="Lib\Telerik.Windows.Controls.Input.dll" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
