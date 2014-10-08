@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APLPX.UI.WPF", "Layout\APLPX.UI.WPF.csproj", "{118CE728-FDCC-414E-9BE6-C29B21B7C962}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APLPX.UI.WPF", "APLPX.UI.WPF\APLPX.UI.WPF.csproj", "{118CE728-FDCC-414E-9BE6-C29B21B7C962}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
