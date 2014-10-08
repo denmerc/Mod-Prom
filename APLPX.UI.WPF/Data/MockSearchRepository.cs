@@ -177,6 +177,8 @@ namespace APLPX.Server.Data
             throw new NotImplementedException();
         }
 
+
+        //TODO: check if config exists and trap error
         private readonly string connectionString = ConfigurationManager.AppSettings["connectionString"].ToString();
         private const string databaseName = "promo";
 
